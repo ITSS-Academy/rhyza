@@ -1,0 +1,30 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav mode="side" opened class="sidenav">
+    <nav class="nav-bar">
+
+      <!-- Search Button (FAB) -->
+      <div class="search">
+        <button mat-fab class="search-btn">
+          <mat-icon class="material-symbols-rounded">search</mat-icon>
+        </button>
+      </div>
+
+
+      <!-- Menu Items -->
+
+      @for (item of menuItems; track $index) {
+        <div class="item-nav" (click)="navigate(item.route)">
+          <a
+
+            [ngClass]="{ 'active': item.route === activeLink }"
+            class="nav-item">
+            <mat-icon class="material-symbols-rounded">{{ item.icon }}</mat-icon>
+          </a>
+          <span>{{ item.label }}</span>
+        </div>
+
+      }
+
+    </nav>
+  </mat-sidenav>
+</mat-sidenav-container>
