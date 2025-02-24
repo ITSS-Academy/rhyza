@@ -1,9 +1,12 @@
 import { Component } from '@angular/core';
+import {MusicCardComponent} from '../../shared/components/music-card/music-card.component';
 
 @Component({
   selector: 'app-music',
   standalone: true,
-  imports: [],
+  imports: [
+    MusicCardComponent
+  ],
   templateUrl: './music.component.html',
   styleUrl: './music.component.scss'
 })
