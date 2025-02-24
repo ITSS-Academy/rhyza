@@ -1,9 +1,13 @@
 import { Component } from '@angular/core';
+import {MaterialModule} from '../../shared/material.module';
+
 
 @Component({
   selector: 'app-music',
   standalone: true,
-  imports: [],
+  imports: [
+ MaterialModule
+  ],
   templateUrl: './music.component.html',
   styleUrl: './music.component.scss'
 })
