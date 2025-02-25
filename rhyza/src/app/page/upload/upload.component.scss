@@ -1,6 +1,15 @@
 #upload-main{
   width: fit-content;
   height: fit-content;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  gap: 20px;
 
 }
 
@@ -9,7 +18,7 @@
   align-items: flex-start;
   display: flex;
   flex-direction: column;
-  margin: 40px 300px;
+  justify-items: center;
 
 }
 #upload-box{
@@ -18,14 +27,15 @@
   align-items: center;
   display: flex;
   flex-direction: column;
-  margin: 40px 300px;
+  justify-items: center;
   height: 300px;
+  width: 100%;
   border-radius: 25px;
 
   #upload-icon {
 
     .material-symbols-rounded {
-
+      justify-items: center;
       font-size: 90px;
       width: fit-content;
       height: fit-content;
@@ -34,26 +44,27 @@
 
 }
 
-#upload-image{
-  border: 2px dashed white;
-  height: 200px;
-  width: 200px;
-  border-radius: 25px;
-  justify-content: center;
-  align-items: center;
-  display: flex;
-  flex-direction: column;
-
-}
-
 #upload-option{
-  justify-content: flex-start;
+
   align-items: flex-start;
   display: flex;
   flex-direction: row;
-  margin: 40px 300px;
+  justify-items: center;
+  width: 100%;
+  justify-content: space-between;
+  #upload-image{
+    border: 2px dashed white;
+    height: 200px;
+    width: 200px;
+    border-radius: 25px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    align-self: flex-start;
+
+  }
   #upload-option-2{
-    margin: 0 0 0 40px;
 
     #upload-option-3{
       display: flex;
@@ -62,26 +73,19 @@
       .example-form-field{
         width: 250px;
       }
-
-
-
     }
   }
 
   #upload-song-name{
-    margin-right: auto;
+
     .example-form-field{
       width: 500px;
-
     }
 }
-
 }
 
-
-
 #upload-button{
-  margin: auto;
+  justify-items: center;
   justify-content: center;
   align-items: center;
   display: flex;
@@ -93,7 +97,6 @@
   font-weight: bold;
   cursor: pointer;
 }
-
 p{
   margin: 0;
 }
