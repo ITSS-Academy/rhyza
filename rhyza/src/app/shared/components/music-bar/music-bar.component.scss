@@ -66,39 +66,58 @@ button.mat-icon-button:hover {
 .progress-container {
   display: flex;
   align-items: center;
-  gap: 10px;
   width: 100%;
+  gap: 10px;
 
+  .time{
+    width: 40px;
+  }
 }
 
 .progress-bar {
-  width: 100%;
-  height: 4px;
+  -webkit-appearance: none;
   appearance: none;
-  background: #555;
+  width: 100%;
+  height: 6px;
   border-radius: 5px;
+  background: linear-gradient(to right, #A8D292 var(--progress), #3D4B36 var(--progress));
+  outline: none;
+  transition: background 0.15s ease-in-out;
+}
+
+.progress-bar::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 6px;
+  border-radius: 5px;
+  background: linear-gradient(to right, #A8D292 var(--progress),  #3D4B36 var(--progress));
 }
 
 .progress-bar::-webkit-slider-thumb {
+  -webkit-appearance: none;
   appearance: none;
-  width: 10px;
-  height: 10px;
-  background: #1db954;
+  width: 14px;
+  height: 14px;
   border-radius: 50%;
+  background: var(--primary);
   cursor: pointer;
-  position: relative;
-  z-index: 2;
+  margin-top: -4px; /* Điều chỉnh để dính sát hơn */
+  margin-left: -2px;
 }
 
-.progress-bar::-moz-range-thumb {
-  width: 10px;
-  height: 10px;
-  background: #1db954;
-  border-radius: 50%;
-  cursor: pointer;
-  position: relative;
-  z-index: 2;
+.progress-bar::-moz-range-progress {
+  background: var(--primary);
+  height: 6px;
+  border-radius: 5px;
 }
+
+.progress-bar::-moz-range-track {
+  background: var(--surfaceVariant);
+  height: 6px;
+  border-radius: 5px;
+}
+
+
+
 
 /* Volume & Playlist */
 .extra-controls {
@@ -114,7 +133,7 @@ button.mat-icon-button:hover {
   width: 70px;
   height: 4px;
   appearance: none;
-  background: #555;
+  background: #3D4B36;
   border-radius: 5px;
 }
 
@@ -122,7 +141,7 @@ button.mat-icon-button:hover {
   appearance: none;
   width: 10px;
   height: 10px;
-  background: #1db954;
+  background: var(--primary);
   border-radius: 50%;
   cursor: pointer;
 }

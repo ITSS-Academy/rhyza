@@ -1,4 +1,4 @@
-import {Component, ElementRef, ViewChild} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {SongModel} from '../../../models/song.model';
 import {SongService} from '../../../services/song/song.service';
 import {MaterialModule} from '../../material.module';
@@ -10,7 +10,7 @@ import Hls from 'hls.js';
   templateUrl: './music-bar.component.html',
   styleUrl: './music-bar.component.scss'
 })
-export class MusicBarComponent {
+export class MusicBarComponent implements OnInit{
   currentSong: SongModel | null = null;
   hlsUrl: string | null = null;
   isPlaying = false;
@@ -49,6 +49,7 @@ export class MusicBarComponent {
 
     // Cập nhật tiến trình
     audio.ontimeupdate = () => {
+      this.updateProgressBar();
       this.currentTime = audio.currentTime;
       this.duration = audio.duration || 100;
     };
@@ -96,4 +97,9 @@ export class MusicBarComponent {
       .padStart(2, '0');
     return `${minutes}:${seconds}`;
   }
+  updateProgressBar() {
+    const progress = (this.currentTime / this.duration) * 100;
+    document.documentElement.style.setProperty('--progress', `${progress}%`);
+  }
+
 }
