@@ -1,8 +1,13 @@
-<div class="container">
-  <div class="component">
-    <img src="" alt="">
-  </div>
-  <div class="detail">
-    dfaksjfasjdkf
+<div class="page-artist">
+<div class="artist"></div>
+  <div class="container">
+      <div class="item">
+        @for (cardArttist of cardarttists; track $index){
+          <app-artists
+            [cardarttist]="cardArttist"
+          >
+          </app-artists>
+        }
+      </div>
   </div>
 </div>
