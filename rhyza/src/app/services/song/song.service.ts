@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { SongModel } from '../../models/song.model';
 import { BehaviorSubject } from 'rxjs';
+import {environment} from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -11,12 +12,12 @@ export class SongService {
 
   getSongDetail(songId: string) {
     return this.http.get<SongModel>(
-      `http://localhost:3000/songs/${songId}/hls-url`,
+      `${environment.apiUrl}songs/${songId}/hls-url`,
     );
   }
 
   getSongList() {
-    return this.http.get<SongModel[]>('http://localhost:3000/songs');
+    return this.http.get<SongModel[]>(`${environment.apiUrl}songs`);
   }
 
   private currentSongSubject = new BehaviorSubject<SongModel | null>(null);

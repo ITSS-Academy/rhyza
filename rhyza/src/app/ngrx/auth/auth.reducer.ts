@@ -41,8 +41,11 @@ export const authReducer = createReducer(
   on(AuthActions.logout, (state,{type}) => {
     console.log(type);
     return <AuthState>{
-      ...state,
+      isLogging: false,
       authData: null,
+      error: null,
     }
   }),
+
+
 )
