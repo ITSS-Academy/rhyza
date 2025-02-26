@@ -5,6 +5,7 @@ import {MusicService} from '../../services/music.service';
 import {CategoryHomeComponent} from '../../shared/components/category-home/category-home.component';
 import {Component, ElementRef, ViewChild, AfterViewInit} from '@angular/core';
 import {MaterialModule} from '../../shared/material.module';
+import {ArtistComponent} from '../artist/artist.component';
 
 
 

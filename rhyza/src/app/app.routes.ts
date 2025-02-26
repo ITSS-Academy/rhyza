@@ -10,6 +10,10 @@ export const routes: Routes = [
     loadChildren: () => import('../app/page/category/category.routes').then(m => m.CATEGORY_ROUTES),
   },
   {
+    path: 'category-detail',
+    loadChildren: () => import('../app/page/category-detail/category-detail.routes').then(m => m.CATEGORY_DETAIL_ROUTES),
+  },
+  {
     path: 'artist',
     loadChildren: () => import('../app/page/artist/artist.routes').then(m => m.ARTIST_ROUTES),
   },
