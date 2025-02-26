@@ -1,16 +1,16 @@
-<div class="container-music-card">
+<div class="container-music-card" (click)="playSong()">
   <div class="container">
 
     <mat-card class="example-card">
       <div class="image-container">
-        <img mat-card-image src="{{ image }}" alt="Song Image">
+        <img mat-card-image src="{{ song.image_url }}" alt="Song Image">
         <button class="play-button">
           <i class="material-icons">play_arrow</i>
         </button>
       </div>
       <mat-card-content>
-        <mat-card-title class="title-music">{{ nameSong }}</mat-card-title>
-        <mat-card-subtitle class="title-artist">{{ nameArtist }}</mat-card-subtitle>
+        <mat-card-title class="title-music">{{ song.title }}</mat-card-title>
+        <mat-card-subtitle class="title-artist">{{ song.performer }}</mat-card-subtitle>
       </mat-card-content>
     </mat-card>
   </div>

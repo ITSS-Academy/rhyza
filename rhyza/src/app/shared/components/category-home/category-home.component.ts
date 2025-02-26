@@ -1,5 +1,4 @@
 import {Component, Input} from '@angular/core';
-import {MusicService} from '../../../services/music.service';
 
 @Component({
   selector: 'app-category-home',
@@ -12,7 +11,7 @@ export class CategoryHomeComponent {
   @Input() id: number = 0;
   @Input() title: string = "";
   @Input() image: string = "";
-  constructor(private musicService: MusicService) {
+  constructor() {
   }
 
 }

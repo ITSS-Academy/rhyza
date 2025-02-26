@@ -1,17 +1,9 @@
-// import { Component } from '@angular/core';
-import {
-  MatCard,
-  MatCardActions,
-  MatCardContent,
-  MatCardHeader,
-  MatCardSubtitle,
-  MatCardTitle
-} from '@angular/material/card';
-import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
-import {MatButtonModule} from '@angular/material/button';
-import {MatCardModule} from '@angular/material/card';
+
+import {ChangeDetectionStrategy, Component, Input, OnInit} from '@angular/core';
 import {MaterialModule} from '../../material.module';
-import {MusicService} from '../../../services/music.service';
+import {SongModel} from '../../../models/song.model';
+import {SongService} from '../../../services/song/song.service';
+
 
 @Component({
   selector: 'app-music-card',
@@ -23,11 +15,15 @@ import {MusicService} from '../../../services/music.service';
   styleUrl: './music-card.component.scss'
 })
 export class MusicCardComponent {
-  @Input() nameArtist="";
-  @Input() nameSong="";
-  @Input() image="";
-  @Input() id= 0;
-  constructor(private musicService: MusicService) {
+  @Input() song!: SongModel;
+  constructor(private songService: SongService) {
   }
+  playSong() {
+    console.log(this.song);
+
+    this.songService.setCurrentSong(this.song);
+
+  }
+
 
 }

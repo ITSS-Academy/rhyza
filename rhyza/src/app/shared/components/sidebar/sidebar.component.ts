@@ -2,7 +2,11 @@ import {Component, OnInit} from '@angular/core';
 import {MaterialModule} from '../../material.module';
 import {NavigationEnd, Router} from '@angular/router';
 import {NgClass, NgForOf} from '@angular/common';
-import {filter} from 'rxjs';
+import {filter, Observable, Subscription} from 'rxjs';
+import * as AuthActions from '../../../ngrx/auth/auth.actions';
+import {Store} from '@ngrx/store';
+import {AuthState} from '../../../ngrx/auth/auth.state';
+import {AuthModel} from '../../../models/auth.model';
 
 @Component({
   selector: 'app-sidebar',
@@ -15,12 +19,19 @@ export class SidebarComponent implements OnInit{
 
   activeLink = '';
 
-  constructor(private router: Router) {
+  authData$ !:Observable<AuthModel|null>;
+  subscription: Subscription[] = [];
+
+  constructor(private router: Router, private store: Store<{
+    auth:AuthState
+  }>
+  ) {
+    this.authData$ = store.select('auth','authData');
   }
   menuItems = [
       { label: 'Music', icon: 'graphic_eq', route: '/music' },
       { label: 'Category', icon: 'category', route: '/category' },
-      { label: 'Artist', icon: 'artist', route: '/artist' },
+      { label: 'Artist', icon: 'person', route: '/artist' },
       { label: 'Playlist', icon: 'queue_music', route: '/playlist' },
       { label: 'Upload', icon: 'cloud_upload', route: '/upload' }
     ];
@@ -39,6 +50,15 @@ export class SidebarComponent implements OnInit{
               console.log(this.router.url);
 
             });
+
+
+       this.subscription.push(
+          this.authData$.subscribe((authData) => {
+            if (authData) {
+              console.log(authData);
+            }
+          })
+       );
   }
 
    setActiveLink(): void {
@@ -57,5 +77,10 @@ export class SidebarComponent implements OnInit{
        this.activeLink = this.menuItems[0].route;
      }
     }
-   }
+
+    login(){
+      this.store.dispatch(AuthActions.login());
+    }
+
+}
 

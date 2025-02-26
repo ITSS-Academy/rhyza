@@ -29,14 +29,17 @@
 
   <div class="title-each-box">  <p>Propose</p><mat-icon>arrow_forward</mat-icon></div>
   <div class="box-music-card">
-    @for (songSS of this.songs; track $index) {
+    @for (song of songList$|async; track song.id ) {
       <app-music-card
-        [id]="songSS.id"
-        [image]="songSS.image"
-        [nameArtist]="songSS.nameArtist"
-        [nameSong]="songSS.nameSong">
-      </app-music-card>}
+        [song]="song"
+
+       >
+      </app-music-card>
+    }
   </div>
+
+
+
 </div>
 
 

@@ -1,14 +1,5 @@
 /* Container để căn giữa nội dung cả theo chiều dọc và chiều ngang */
-.container {
-  display: flex;
-  justify-content: center; /* Căn giữa theo chiều ngang */
-  align-items: center;     /* Căn giữa theo chiều dọc */
-  height: 160px;           /* Đặt chiều cao của container */
-  width: 160px;            /* Đặt chiều rộng của container để tạo thành hình vuông (có thể điều chỉnh nếu cần) */
-  margin: 20px;            /* Khoảng cách xung quanh container */
-  border-radius: 15px;     /* Viền bo tròn cho container */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Thêm bóng đổ nhẹ cho container */
-}
+
 
 /* Định dạng cho thẻ artist */
 .artist {
@@ -16,18 +7,21 @@
   flex-direction: column;   /* Sắp xếp các phần tử theo chiều dọc (hình ảnh trên, văn bản dưới) */
   align-items: center;      /* Căn giữa các phần tử theo chiều ngang */
   border-radius: 15px;      /* Viền bo tròn cho thẻ artist */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);  /* Bóng đổ nhẹ cho thẻ artist */
-  overflow: hidden;         /* Ẩn các phần tử ra ngoài khi container không đủ lớn */
   width: 160px;             /* Đảm bảo chiều rộng của thẻ artist luôn giống với container */
   height: auto;             /* Để chiều cao tự động điều chỉnh theo nội dung */
+  cursor: pointer;          /* Biến con trỏ thành hình bàn tay khi rê chuột vào thẻ artist */
+  padding: 8px;
+}
+
+
+.artist:hover {
+  background-color: var(--surface); /* Đổi màu nền khi hover vào thẻ artist */
 }
 
 /* Định dạng cho phần tử chứa ảnh */
 .image {
-  width: 120px;             /* Đặt chiều rộng cố định cho ảnh */
-  height: 120px;            /* Đặt chiều cao cố định cho ảnh */
-  border-radius: 50%;       /* Tạo hình tròn cho ảnh */
-  overflow: hidden;         /* Ẩn phần ảnh bị tràn ra ngoài vòng tròn */
+  width: 140px;             /* Đặt chiều rộng cố định cho ảnh */
+  height: 140px;            /* Đặt chiều cao cố định cho ảnh */
   margin-top: 10px;         /* Khoảng cách giữa ảnh và phần text */
 }
 
@@ -36,6 +30,7 @@
   width: 100%;              /* Làm cho ảnh chiếm hết chiều rộng của container */
   height: 100%;             /* Làm cho ảnh chiếm hết chiều cao của container */
   object-fit: cover;        /* Đảm bảo ảnh phủ đầy không gian của container mà không bị méo */
+  border-radius: 50%;       /* Tạo hình tròn cho ảnh */
 }
 
 /* Phần nội dung chứa văn bản */
@@ -46,15 +41,14 @@
 
 /* Tiêu đề chính ở phần trên */
 .text-top {
-  font-size: 18px;          /* Kích thước chữ lớn cho tiêu đề */
+  font-size: 16px;          /* Kích thước chữ lớn cho tiêu đề */
   font-weight: bold;        /* Làm chữ đậm cho tiêu đề */
-  color: white;              /* Màu chữ tối cho tiêu đề */
+  color: var(--onSurface);              /* Màu chữ tối cho tiêu đề */
   margin-top: 10px;         /* Thêm khoảng cách phía trên cho tiêu đề */
+  width: 100%;
+  white-space: nowrap;      /* Không cho phép xuống dòng */
+  overflow: hidden;         /* Ẩn phần văn bản tràn ra ngoài */
+  text-overflow: ellipsis;  /* Hiển thị dấu chấm 3 chấm khi văn bản tràn ra ngoài */
 }
 
-/* Tiêu đề phụ ở phần giữa */
-.text-mid {
-  font-size: 14px;          /* Kích thước chữ nhỏ hơn cho tiêu đề phụ */
-  color: white;              /* Màu chữ nhạt cho tiêu đề phụ */
-  margin-top: 5px;          /* Khoảng cách giữa tiêu đề chính và tiêu đề phụ */
-}
+
