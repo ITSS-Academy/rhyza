@@ -1,0 +1,54 @@
+/* Container để căn giữa nội dung cả theo chiều dọc và chiều ngang */
+
+
+/* Định dạng cho thẻ artist */
+.artist {
+  display: flex;
+  flex-direction: column;   /* Sắp xếp các phần tử theo chiều dọc (hình ảnh trên, văn bản dưới) */
+  align-items: center;      /* Căn giữa các phần tử theo chiều ngang */
+  border-radius: 15px;      /* Viền bo tròn cho thẻ artist */
+  width: 160px;             /* Đảm bảo chiều rộng của thẻ artist luôn giống với container */
+  height: auto;             /* Để chiều cao tự động điều chỉnh theo nội dung */
+  cursor: pointer;          /* Biến con trỏ thành hình bàn tay khi rê chuột vào thẻ artist */
+  padding: 8px;
+}
+
+
+.artist:hover {
+  background-color: var(--surface); /* Đổi màu nền khi hover vào thẻ artist */
+}
+
+/* Định dạng cho phần tử chứa ảnh */
+.image {
+  width: 140px;             /* Đặt chiều rộng cố định cho ảnh */
+  height: 140px;            /* Đặt chiều cao cố định cho ảnh */
+  margin-top: 10px;         /* Khoảng cách giữa ảnh và phần text */
+}
+
+/* Định dạng cho ảnh */
+.pic {
+  width: 100%;              /* Làm cho ảnh chiếm hết chiều rộng của container */
+  height: 100%;             /* Làm cho ảnh chiếm hết chiều cao của container */
+  object-fit: cover;        /* Đảm bảo ảnh phủ đầy không gian của container mà không bị méo */
+  border-radius: 50%;       /* Tạo hình tròn cho ảnh */
+}
+
+/* Phần nội dung chứa văn bản */
+.content {
+  padding: 10px;            /* Thêm padding xung quanh văn bản */
+  //text-align: center;       /* Căn giữa văn bản theo chiều ngang */
+}
+
+/* Tiêu đề chính ở phần trên */
+.text-top {
+  font-size: 16px;          /* Kích thước chữ lớn cho tiêu đề */
+  font-weight: bold;        /* Làm chữ đậm cho tiêu đề */
+  color: var(--onSurface);              /* Màu chữ tối cho tiêu đề */
+  margin-top: 10px;         /* Thêm khoảng cách phía trên cho tiêu đề */
+  width: 100%;
+  white-space: nowrap;      /* Không cho phép xuống dòng */
+  overflow: hidden;         /* Ẩn phần văn bản tràn ra ngoài */
+  text-overflow: ellipsis;  /* Hiển thị dấu chấm 3 chấm khi văn bản tràn ra ngoài */
+}
+
+
