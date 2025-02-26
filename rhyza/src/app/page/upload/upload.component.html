@@ -4,16 +4,20 @@
     <p>For best quality, use WAV, FLAC, AIFF, or ALAC. The maximum file size is 10GB uncompressed.</p>
   </div>
 
+
   <div id="upload-box">
     <div id="upload-icon">
+
       <mat-icon class="material-symbols-rounded">upload</mat-icon>
     </div>
     <b>Drag and drop audio files to get started.</b>
 
     <button mat-flat-button>
       <mat-icon class="material-symbols-rounded">attach_file</mat-icon>
-      <p>Choose files</p>
+      <input type="file" accept="audio/*" multiple hidden id="audioUpload" />
+      <p onclick="document.getElementById('audioUpload').click()">Choose files</p>
     </button>
+
   </div>
 
   <div id="upload-option">
@@ -22,8 +26,13 @@
       <mat-icon class="material-symbols-rounded">image</mat-icon>
       <button mat-flat-button>
         <mat-icon class="material-symbols-rounded">attach_file</mat-icon>
-        <p>Choose files</p>
+        <input type="file" accept="image/*" multiple hidden id="imageUpload" />
+        <p onclick="document.getElementById('imageUpload').click()">Choose files</p>
       </button>
+
+
+
+
     </div>
 
 
