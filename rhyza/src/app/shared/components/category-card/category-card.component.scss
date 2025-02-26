@@ -1,0 +1,26 @@
+.picture-text{
+  background-color: black;
+  width: 10%;
+  max-width: 150px;
+  min-width: 120px;
+  height: 35%;
+  display: flex;
+  flex-direction: column;
+  border-radius: 20px;
+}
+.picture{
+  object-fit: cover;
+  height: 100%;
+  width: 100%;
+  max-width: 150px;
+  min-width: 120px;
+}
+.text span{
+  color: var(--onSurface);
+}
+.text p{
+  font-size: 14px;
+  color: var(--onSurfaceVariant);
+  margin-top: 5px;
+}
+

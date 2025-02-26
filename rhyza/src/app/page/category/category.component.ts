@@ -1,6 +1,7 @@
 import {Component, Input} from '@angular/core';
 import {MatIcon} from "@angular/material/icon";
 import {MatCard, MatCardSmImage, MatCardTitleGroup} from '@angular/material/card';
+import {CategoryCardComponent} from '../../shared/components/category-card/category-card.component';
 
 @Component({
   selector: 'app-category',
@@ -9,7 +10,8 @@ import {MatCard, MatCardSmImage, MatCardTitleGroup} from '@angular/material/card
     MatIcon,
     MatCardTitleGroup,
     MatCardSmImage,
-    MatCard
+    MatCard,
+    CategoryCardComponent
   ],
   templateUrl: './category.component.html',
   styleUrl: './category.component.scss'

@@ -1,3 +1,4 @@
+
 <div class="container">
   <div class="header">
     <h4>Category</h4>
@@ -8,15 +9,11 @@
     </div>
   </div>
   <div class="main">
-<!--    <mat-card class="picture-text">-->
-<!--      <div class="picture">-->
-<!--        <img mat-card-sm-image src="" height="100%" width="100%">-->
-<!--      </div>-->
-<!--      <div class="text">-->
-<!--        <span></span>-->
-<!--        <p></p>-->
-<!--      </div>-->
-<!--      </mat-card>-->
+    @for (item of products; track $index) {
+      <app-category-card
+        [item] = "item"
+      ></app-category-card>
+    }
   </div>
   <div class="bottom"></div>
 </div>
