@@ -8,10 +8,10 @@
   width: 150px;
   border: none;
   background-color: var(onSecondary);
-  position: relative; /* Để định vị phần tử con */
+  position: relative;
 }
 .image-container {
-  position: relative; /* Định vị để nút play bám vào ảnh */
+  position: relative;
   width: 90%;
   display: flex;
   justify-content: center;
