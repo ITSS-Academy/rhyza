@@ -1,0 +1,67 @@
+.container{
+    height: 100vh;
+    width: 100%;
+}
+*{
+    margin: 0;
+    padding: 0;
+}
+.header{
+  height: 20%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.h4 {
+  color: var(--onSurface);
+}
+.rectangle{
+  background-color: black;
+  color: var(--onSurfaceVariant);
+  border: 1px solid var(--onSurfaceVariant);
+  height: 100%;
+  width: fit-content;
+  display: flex;
+  justify-content: center;
+  padding: 15px;
+  font-size: 16px;
+  border-radius: 5px;
+}
+.material-symbols-rounded{
+  margin-left: 15px;
+}
+.main{
+  height: 70%;
+  display: flex;
+  justify-content: flex-start;
+}
+.picture-text{
+  background-color: black;
+  width: 10%;
+  max-width: 150px;
+  min-width: 120px;
+  height: 35%;
+  display: flex;
+  flex-direction: column;
+  border-radius: 20px;
+}
+.picture{
+  object-fit: cover;
+  height: 100%;
+  width: 100%;
+  max-width: 150px;
+  min-width: 120px;
+}
+.text span{
+  color: var(--onSurface);
+}
+.text p{
+  font-size: 14px;
+  color: var(--onSurfaceVariant);
+  margin-top: 5px;
+}
+
+.bottom{
+  background-color: green;
+  height: 10%;
+}
