@@ -1,1 +1,44 @@
-<app-music-card></app-music-card>
+<div class="container-home">
+<!--<div class="title-each-box">  <p>Artist recent</p><mat-icon>arrow_forward</mat-icon></div>-->
+<!--  <div class="box-artists">-->
+<!--    @for (songSS of this.songs; track $index) {-->
+<!--      <app-artist-home-->
+<!--        [id]="songSS.id"-->
+<!--        [image]="songSS.image"-->
+<!--        [nameArtist]="songSS.nameArtist"-->
+<!--        [nameSong]="songSS.nameSong">-->
+<!--      </app-artist-home>-->
+<!--    }-->
+<!--  </div>-->
+
+
+<!--  <div class="title-each-box">  <p>Category</p><mat-icon>arrow_forward</mat-icon></div>-->
+<!--  <div class="box-category">-->
+<!--    @for (category of this.categories; track $index) {-->
+<!--      <app-category-home-->
+<!--        [id]="category.id"-->
+<!--        [image]="category.image"-->
+<!--        [title]="category.title">-->
+<!--      </app-category-home>-->
+
+<!--    }-->
+<!--  </div>-->
+  <div class="title-each-box">  <p>Trending</p><mat-icon>arrow_forward</mat-icon></div>
+  <div class="box-carousel"><app-carousel-home></app-carousel-home></div>
+  <div class="box-empty"></div>
+
+  <div class="title-each-box">  <p>Propose</p><mat-icon>arrow_forward</mat-icon></div>
+  <div class="box-music-card">
+    @for (songSS of this.songs; track $index) {
+      <app-music-card
+        [id]="songSS.id"
+        [image]="songSS.image"
+        [nameArtist]="songSS.nameArtist"
+        [nameSong]="songSS.nameSong">
+      </app-music-card>}
+  </div>
+</div>
+
+
+
+

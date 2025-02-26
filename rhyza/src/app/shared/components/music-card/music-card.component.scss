@@ -1,14 +1,60 @@
-.example-card {
-  max-width: 132px;
-  height: 180px;
-  img{
-    width: 90%;
-    margin: 5px auto;
-    border-radius: 8px;
-  }
-
+.container-music-card {
+  max-width: 1720px;
 }
-.example-header-image {
-  background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
-  background-size: cover;
+.container {
+  width: 100%;
+}
+.example-card {
+  width: 150px;
+  border: none;
+  background-color: var(onSecondary);
+  position: relative; /* Để định vị phần tử con */
+}
+.image-container {
+  position: relative; /* Định vị để nút play bám vào ảnh */
+  width: 90%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 5px auto;
+}
+.image-container img {
+  width: 100%;
+  border-radius: 8px;
+  display: block;
+}
+.play-button {
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+  width: 35px;
+  height: 35px;
+  background-color: var(--inversePrimary);
+  border: none;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out, transform 0.2s ease-in-out;
+  cursor: pointer;
+}
+.play-button i {
+  color: white;
+  font-size: 22px;
+}
+.example-card:hover .play-button {
+  opacity: 1;
+}
+.play-button:hover {
+  background-color: var(--primaryContainer);
+  transform: scale(1.1);
+}
+
+.title-music {
+  font-size: 14px;
+}
+
+.title-artist {
+  font-size: 12px;
 }
