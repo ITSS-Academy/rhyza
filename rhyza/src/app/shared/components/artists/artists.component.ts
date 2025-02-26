@@ -1,18 +1,18 @@
-import { Component } from '@angular/core';
-import {ArtistsComponent} from '../../shared/components/artists/artists.component';
-import { SongService } from '../../services/song/song.service';
+import {Component, Input} from '@angular/core';
+import {ArtistModel} from '../../../models/artist.model';
 
 @Component({
-  selector: 'app-artist',
+  selector: 'app-artists',
   standalone: true,
-  imports: [
-    ArtistsComponent
-  ],
-  templateUrl: './artist.component.html',
-  styleUrl: './artist.component.scss'
+  imports: [],
+  templateUrl: './artists.component.html',
+  styleUrl: './artists.component.scss'
 })
-export class ArtistComponent {
+export class ArtistsComponent {
+  @Input() cardarttist?: ArtistModel;
+
   constructor() {
+
   }
   cardarttists=[
     {

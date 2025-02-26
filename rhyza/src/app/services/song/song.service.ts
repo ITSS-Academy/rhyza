@@ -1,9 +1,8 @@
-import { Injectable } from '@angular/core';
+import {Injectable, Input} from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SongService {
-
   constructor() { }
 }

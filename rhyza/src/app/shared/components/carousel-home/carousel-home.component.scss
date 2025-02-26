@@ -1,0 +1,63 @@
+.carousel-container{
+  max-width: 100%;
+  width: 100%;
+
+  overflow: hidden;
+
+  .carousel{
+    display: flex;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    gap: 1.2rem;
+  }
+  .carousel::-webkit-scrollbar {
+    display: none;
+  }
+  .carousel-item{
+    flex: 0 0 calc(100% / 3 - 1.2rem);
+    min-width: 300px;
+
+    p{
+      margin: 8px 0 0 0;
+    }
+
+
+    .card{
+      scroll-snap-align: start;
+      border-radius: 30px;
+      min-height: 200px;
+      min-width: 550px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: var(--onSecondaryFixed);
+
+      img{
+        width: 100%;
+        height: auto;
+        border-radius: 30px;
+        object-fit: cover;
+
+      }
+
+    }
+
+
+  }
+
+}
+
+@media (max-width: 1024px) {
+  .carousel-item {
+    flex: 0 0 calc(100% / 2 - 1rem); /* 2 item trên màn nhỏ */
+  }
+}
+
+@media (max-width: 768px) {
+  .carousel-item {
+    flex: 0 0 100%; /* Chỉ hiển thị 1 item trên màn điện thoại */
+  }
+}
+
+
