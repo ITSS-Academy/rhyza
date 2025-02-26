@@ -1,13 +1,13 @@
-<div class="page-artist">
-<div class="artist"></div>
-  <div class="container">
-      <div class="item">
+<div class="container">
+<div class="artist-header">
+  <h3>Artists</h3>
+</div>
+  <div class="body">
         @for (cardArttist of cardarttists; track $index){
           <app-artists
             [cardarttist]="cardArttist"
           >
           </app-artists>
         }
-      </div>
   </div>
 </div>

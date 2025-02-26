@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import {ArtistsComponent} from '../../shared/components/artists/artists.component';
-import { SongService } from '../../services/song/song.service';
 
 @Component({
   selector: 'app-artist',

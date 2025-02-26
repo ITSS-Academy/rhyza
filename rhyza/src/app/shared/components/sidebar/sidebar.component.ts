@@ -20,7 +20,7 @@ export class SidebarComponent implements OnInit{
   menuItems = [
       { label: 'Music', icon: 'graphic_eq', route: '/music' },
       { label: 'Category', icon: 'category', route: '/category' },
-      { label: 'Artist', icon: 'artist', route: '/artist' },
+      { label: 'Artist', icon: 'person', route: '/artist' },
       { label: 'Playlist', icon: 'queue_music', route: '/playlist' },
       { label: 'Upload', icon: 'cloud_upload', route: '/upload' }
     ];
