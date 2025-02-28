@@ -9,7 +9,6 @@ export class AuthService {
 
   constructor(private auth: Auth) { }
 
-  currentUser:any
 
    loginWithGoogle(){
     return from(signInWithPopup(this.auth, new GoogleAuthProvider())).pipe(

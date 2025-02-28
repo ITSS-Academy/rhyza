@@ -26,4 +26,11 @@ export class SongService {
   setCurrentSong(song: SongModel) {
     this.currentSongSubject.next(song);
   }
+
+  private playStateSubject = new BehaviorSubject<boolean>(false);
+  playState$ = this.playStateSubject.asObservable();
+
+  setPlayState(isPlaying: boolean) {
+    this.playStateSubject.next(isPlaying);
+  }
 }

@@ -47,5 +47,22 @@ export const authReducer = createReducer(
     }
   }),
 
+  on(AuthActions.logoutSuccess, (state,{type}) => {
+    console.log(type);
+    return <AuthState>{
+      isLogging: false,
+      authData: null,
+      error: null,
+    }
+  }),
+
+  on(AuthActions.logoutFailure, (state, { error , type}) => {
+    console.log(type);
+    return <AuthState>{
+      ...state,
+      error: error,
+    }
+  }),
+
 
 )
