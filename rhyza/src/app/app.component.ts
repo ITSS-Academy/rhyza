@@ -27,6 +27,8 @@ export class AppComponent {
     onAuthStateChanged(this.auth, async (user) => {
       if(user){
         const token = await user?.getIdToken();
+        this.store.dispatch(AuthActions.getAuth({ idToken: token }));
+
         console.log(token);
         const authData:AuthModel = {
           idToken: token,

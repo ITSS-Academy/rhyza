@@ -17,7 +17,7 @@ export class SongService {
   }
 
   getSongList() {
-    return this.http.get<SongModel[]>(`${environment.apiUrl}songs`);
+    return this.http.get<SongModel[]>(`${environment.apiUrl}songs/all`);
   }
 
   private currentSongSubject = new BehaviorSubject<SongModel | null>(null);
@@ -26,11 +26,5 @@ export class SongService {
   setCurrentSong(song: SongModel) {
     this.currentSongSubject.next(song);
   }
-
-  private playStateSubject = new BehaviorSubject<boolean>(false);
-  playState$ = this.playStateSubject.asObservable();
-
-  setPlayState(isPlaying: boolean) {
-    this.playStateSubject.next(isPlaying);
-  }
+  
 }

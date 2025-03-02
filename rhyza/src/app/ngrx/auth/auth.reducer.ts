@@ -6,6 +6,7 @@ export const initialState: AuthState = {
   authData: null,
   isLogging: false,
   error: null,
+  auth: null,
 }
 
 export const authReducer = createReducer(
