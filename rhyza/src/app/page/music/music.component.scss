@@ -14,17 +14,27 @@
   gap: 10px;
 }
 
+.carousel-container {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+}
+
 .box-carousel {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  display: flex;
   gap: 10px;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
-
-
+  scroll-behavior: smooth;
+  padding: 10px;
+  width: 100%;
 }
 
-
+.box-carousel::-webkit-scrollbar {
+  display: none;
+}
 
 .box-music-card {
   display: flex;
@@ -33,6 +43,8 @@
   scroll-snap-type: x mandatory;
   white-space: nowrap;
   padding-bottom: 10px;
+  scroll-behavior: smooth;
+  width: 100%;
 }
 
 .box-music-card::-webkit-scrollbar {
@@ -44,70 +56,41 @@
   flex: 0 0 auto;
 }
 
-.box-carousel::-webkit-scrollbar,
-.box-music-card::-webkit-scrollbar {
-  display: none;
-}
-
 p {
   margin: 0;
 }
 
-
-.scroll-container {
+.scroll-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.6);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
   display: flex;
   align-items: center;
-  position: relative;
-  width: 100%;
-
-  .box-carousel,
-  .box-music-card {
-    flex-grow: 1;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    display: flex;
-    gap: 10px;
-    padding: 10px;
-    transition: all 0.3s ease-in-out;
-  }
-
-  .scroll-btn {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background: rgba(0, 0, 0, 0.6);
-    color: white;
-    border: none;
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: all 0.3s ease-in-out;
-    opacity: 0;
-    z-index: 10;
-  }
-
-  .scroll-btn.left {
-    left: 0;
-  }
-
-  .scroll-btn.right {
-    right: 0;
-  }
-
-  .scroll-btn:hover {
-    background: rgba(0, 0, 0, 0.8);
-  }
-
-  &:hover .scroll-btn {
-    opacity: 1;
-  }
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  z-index: 10;
+  opacity: 0;
 }
 
-.box-empty{
-  width: 100px;
-  height: 100px;
+.scroll-btn.left {
+  left: 10px;
+}
+
+.scroll-btn.right {
+  right: 10px;
+}
+
+.scroll-btn:hover {
+  background: rgba(0, 0, 0, 0.8);
+}
+
+.carousel-container:hover .scroll-btn {
+  opacity: 1;
 }
