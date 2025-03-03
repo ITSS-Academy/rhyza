@@ -5,13 +5,13 @@ import {ReactiveFormsModule} from '@angular/forms';
 
 @Component({
   selector: 'app-upload',
+  templateUrl: './upload.component.html',
   standalone: true,
   imports: [
     MaterialModule,
     ReactiveFormsModule
   ],
-  templateUrl: './upload.component.html',
-  styleUrl: './upload.component.scss'
+  styleUrls: ['./upload.component.scss']
 })
 export class UploadComponent {
 

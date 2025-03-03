@@ -1,63 +1,77 @@
-.carousel-container{
-  max-width: 100%;
-  width: 100%;
+.carousel{
+  width: 500px;
+  height:270px;
+  //background-color: red;
 
-  overflow: hidden;
-
-  .carousel{
-    display: flex;
-    overflow-x: auto;
-    overflow-y: hidden;
-    scroll-snap-type: x mandatory;
-    gap: 1.2rem;
-  }
-  .carousel::-webkit-scrollbar {
-    display: none;
-  }
   .carousel-item{
-    flex: 0 0 calc(100% / 3 - 1.2rem);
-    min-width: 300px;
+    width: 100%;
+    height: 100%;
+    //background-color: blue;
+  }
+
+  .card{
+    width: 100%;
+    height: 80%;
+    //background-color: green;
+
+    img{
+      width: 100%;
+      height: 100%;
+      border-radius: 8px;
+      display: block;
+      object-fit: cover;
+      border: none;
+    }
+  }
+  .carousel-title-container{
+    width: 100%;
+    height: 20%;
+    //background-color: yellow;
+    display: flex;
+
+  }
+  .carousel-title{
+    width: 50%;
+    height: 100%;
+    //background-color: pink;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
 
     p{
-      margin: 8px 0 0 0;
+      margin: 5px 0 0 0;
     }
+  }
 
 
-    .card{
-      scroll-snap-align: start;
-      border-radius: 30px;
-      min-height: 200px;
-      min-width: 550px;
+  .carousel-play-button{
+    width: 50%;
+    height: 100%;
+    //background-color: orange;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+
+    .play-button{
+      width: 40px;
+      height: 40px;
+      background-color: var(--inversePrimary);
+      color: var(--onSurface);
+      border-radius: 50%;
       display: flex;
       justify-content: center;
       align-items: center;
-      background-color: var(--onSecondaryFixed);
-
-      img{
-        width: 100%;
-        height: auto;
-        border-radius: 30px;
-        object-fit: cover;
-
-      }
-
+      border: none;
+      margin: 5px 0 0 0;
     }
 
-
+    .play-button:hover{
+      background-color: var(--primaryContainer);
+      color: var(--surface);
+      transform: scale(1.1);
+    }
   }
 
+
 }
-
-@media (max-width: 1024px) {
-  .carousel-item {
-    flex: 0 0 calc(100% / 2 - 1rem); /* 2 item trên màn nhỏ */
-  }
-}
-
-@media (max-width: 768px) {
-  .carousel-item {
-    flex: 0 0 100%; /* Chỉ hiển thị 1 item trên màn điện thoại */
-  }
-}
-
-

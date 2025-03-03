@@ -1,38 +1,20 @@
-<div class="carousel-container">
+
   <div class="carousel">
     <div class="carousel-item">
       <article class="card">
-        <img src="https://images2.thanhnien.vn/528068263637045248/2024/3/6/photo-1709722385492-17097223861731562871527.png" alt="">
+        <img src="{{carousel.image_url}}" alt="">
       </article>
-      <p>nameSong </p>
-      <p>Artist</p>
+      <div class="carousel-title-container">
+        <div class="carousel-title">
+          <p>{{carousel.title}}</p>
+          <p>{{carousel.performer}}</p>
+        </div>
+        <div class="carousel-play-button">
+          <button class="play-button">
+            <i class="material-icons" (click)="playSong()">play_arrow</i>
+          </button>
+        </div>
+      </div>
     </div>
-    <div class="carousel-item">
-      <article class="card">
-        <img src="https://images2.thanhnien.vn/528068263637045248/2024/3/6/photo-1709722385492-17097223861731562871527.png" alt="">
-      </article>
-      <button class="play-button">
-        <i class="material-icons">play_arrow</i>
-      </button>
-      <p>nameSong </p>
-      <p>Artist</p>
-    </div>
-    <div class="carousel-item">
-      <article class="card">
-        <img src="https://images2.thanhnien.vn/528068263637045248/2024/3/6/photo-1709722385492-17097223861731562871527.png" alt="">
-      </article>
-      <p>nameSong </p>
-      <p>Artist</p>
-    </div>
-    <div class="carousel-item">
-      <article class="card">
-        <img src="https://images2.thanhnien.vn/528068263637045248/2024/3/6/photo-1709722385492-17097223861731562871527.png" alt="">
-      </article>
-      <p>nameSong </p>
-      <p>Artist</p>
-    </div>
-
-
-
-  </div>
 </div>
+

@@ -1,4 +1,4 @@
-<div class="container-home">
+
 <!--<div class="title-each-box">  <p>Artist recent</p><mat-icon>arrow_forward</mat-icon></div>-->
 <!--  <div class="box-artists">-->
 <!--    @for (songSS of this.songs; track $index) {-->
@@ -23,23 +23,36 @@
 
 <!--    }-->
 <!--  </div>-->
+  <div class="container-home">
   <div class="title-each-box">  <p>Trending</p><mat-icon>arrow_forward</mat-icon></div>
-  <div class="box-carousel"><app-carousel-home></app-carousel-home></div>
+
+    <div class="carousel-container">
+      <button class="scroll-btn left" (click)="scrollTrendingLeft()">
+        <i class="material-icons">chevron_left</i>
+      </button>
+
+      <div class="box-carousel">
+        @for (carousel of carousel; track $index) {
+          <app-carousel-home [carousel]="carousel"></app-carousel-home>
+        }
+      </div>
+      <button class="scroll-btn right" (click)="scrollTrendingRight()">
+        <i class="material-icons">chevron_right</i>
+      </button>
+    </div>
+
   <div class="box-empty"></div>
-
   <div class="title-each-box">  <p>Propose</p><mat-icon>arrow_forward</mat-icon></div>
-  <div class="box-music-card">
-    @for (song of songList$|async; track song.id ) {
-      <app-music-card
-        [song]="song"
+  <div class="carousel-container">
+    <button class="scroll-btn left" (click)="scrollMusicLeft()">&#8249;</button>
 
-       >
-      </app-music-card>
-    }
+    <div class="box-music-card" #musicCarousel>
+      @for (song of song; track $index ) {
+        <app-music-card [song]="song"></app-music-card>
+      }
+    </div>
+    <button class="scroll-btn right" (click)="scrollMusicRight()">&#8250;</button>
   </div>
-
-
-
 </div>
 
 
