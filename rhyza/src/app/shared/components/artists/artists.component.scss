@@ -1,60 +1,109 @@
-/* Container để căn giữa nội dung cả theo chiều dọc và chiều ngang */
-.container {
+/* Container chứa danh sách nghệ sĩ */
+.artists-container {
   display: flex;
-  justify-content: center; /* Căn giữa theo chiều ngang */
-  align-items: center;     /* Căn giữa theo chiều dọc */
-  height: 160px;           /* Đặt chiều cao của container */
-  width: 160px;            /* Đặt chiều rộng của container để tạo thành hình vuông (có thể điều chỉnh nếu cần) */
-  margin: 20px;            /* Khoảng cách xung quanh container */
-  border-radius: 15px;     /* Viền bo tròn cho container */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Thêm bóng đổ nhẹ cho container */
+  flex-wrap: wrap; /* Cho phép các phần tử xuống dòng khi không đủ chỗ */
+  justify-content: center; /* Căn giữa nội dung */
+  gap: 20px; /* Khoảng cách giữa các phần tử */
+  padding: 20px;
 }
 
 /* Định dạng cho thẻ artist */
 .artist {
   display: flex;
-  flex-direction: column;   /* Sắp xếp các phần tử theo chiều dọc (hình ảnh trên, văn bản dưới) */
-  align-items: center;      /* Căn giữa các phần tử theo chiều ngang */
-  border-radius: 15px;      /* Viền bo tròn cho thẻ artist */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);  /* Bóng đổ nhẹ cho thẻ artist */
-  overflow: hidden;         /* Ẩn các phần tử ra ngoài khi container không đủ lớn */
-  width: 160px;             /* Đảm bảo chiều rộng của thẻ artist luôn giống với container */
-  height: auto;             /* Để chiều cao tự động điều chỉnh theo nội dung */
+  flex-direction: column;
+  align-items: center;
+  width: 160px; /* Kích thước mặc định */
+  cursor: pointer;
+  padding: 12px;
+  text-align: center;
+  transition: transform 0.3s ease, background-color 0.3s ease;
+  border-radius: 10px;
+}
+
+/* Hover: Phóng to nhẹ và thay đổi màu nền */
+.artist:hover {
+  transform: scale(1.1); /* Phóng to 10% */
+  background-color: rgba(255, 255, 255, 0.1); /* Màu nền nhạt khi hover */
+  border-radius: 15px;
 }
 
 /* Định dạng cho phần tử chứa ảnh */
 .image {
-  width: 120px;             /* Đặt chiều rộng cố định cho ảnh */
-  height: 120px;            /* Đặt chiều cao cố định cho ảnh */
-  border-radius: 50%;       /* Tạo hình tròn cho ảnh */
-  overflow: hidden;         /* Ẩn phần ảnh bị tràn ra ngoài vòng tròn */
-  margin-top: 10px;         /* Khoảng cách giữa ảnh và phần text */
+  width: 130px; /* Kích thước ảnh mặc định */
+  height: 130px;
+  border-radius: 50%;
+  overflow: hidden;
+  transition: transform 0.3s ease;
 }
 
 /* Định dạng cho ảnh */
 .pic {
-  width: 100%;              /* Làm cho ảnh chiếm hết chiều rộng của container */
-  height: 100%;             /* Làm cho ảnh chiếm hết chiều cao của container */
-  object-fit: cover;        /* Đảm bảo ảnh phủ đầy không gian của container mà không bị méo */
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+/* Hover: Làm ảnh to hơn một chút */
+.artist:hover .image {
+  transform: scale(1.05);
 }
 
 /* Phần nội dung chứa văn bản */
 .content {
-  padding: 10px;            /* Thêm padding xung quanh văn bản */
-  //text-align: center;       /* Căn giữa văn bản theo chiều ngang */
+  padding: 8px;
+  text-align: center;
 }
 
-/* Tiêu đề chính ở phần trên */
+/* Tiêu đề chính (tên nghệ sĩ) */
 .text-top {
-  font-size: 18px;          /* Kích thước chữ lớn cho tiêu đề */
-  font-weight: bold;        /* Làm chữ đậm cho tiêu đề */
-  color: white;              /* Màu chữ tối cho tiêu đề */
-  margin-top: 10px;         /* Thêm khoảng cách phía trên cho tiêu đề */
+  font-size: 16px; /* Kích thước chữ mặc định */
+  font-weight: bold;
+  color: white;
+  margin-top: 8px;
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-/* Tiêu đề phụ ở phần giữa */
-.text-mid {
-  font-size: 14px;          /* Kích thước chữ nhỏ hơn cho tiêu đề phụ */
-  color: white;              /* Màu chữ nhạt cho tiêu đề phụ */
-  margin-top: 5px;          /* Khoảng cách giữa tiêu đề chính và tiêu đề phụ */
+/* 📌 Responsive */
+/* Màn hình nhỏ (Tablet) */
+@media (max-width: 1024px) {
+  .artist {
+    width: 140px;
+  }
+
+  .image {
+    width: 110px;
+    height: 110px;
+  }
+
+  .text-top {
+    font-size: 14px;
+  }
+}
+
+/* Màn hình rất nhỏ (Mobile) */
+@media (max-width: 768px) {
+  .artists-container {
+    justify-content: center; /* Căn giữa trên mobile */
+  }
+
+  .artist {
+    width: 120px;
+  }
+
+  .image {
+    width: 100px;
+    height: 100px;
+  }
+
+  .text-top {
+    font-size: 13px;
+  }
+
+  .updated-time {
+    font-size: 12px;
+  }
 }
