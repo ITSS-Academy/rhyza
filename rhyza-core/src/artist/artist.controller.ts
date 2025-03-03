@@ -24,7 +24,7 @@ export class ArtistController {
     }
   }
 
-  @Get('artist')
+  @Get()
   async getArtistById(@Request() req: any) {
     const { id } = req.query;
     try {

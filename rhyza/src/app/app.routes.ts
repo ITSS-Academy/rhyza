@@ -27,6 +27,11 @@ export const routes: Routes = [
     loadChildren: () => import('../app/page/playlist/playlist.routes').then(m => m.PLAYLIST_ROUTES),
   },
   {
+    path: 'search',
+    loadChildren: () =>
+      import('../app/page/search/search.routes').then((m) => m.SEARCH_ROUTES),
+  },
+  {
     path: 'upload',
     loadChildren: () => import('../app/page/upload/upload.routes').then(m => m.UPLOAD_ROUTES),
   },

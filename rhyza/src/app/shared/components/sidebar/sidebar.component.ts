@@ -83,6 +83,10 @@ export class SidebarComponent implements OnInit{
       this.store.dispatch(AuthActions.login());
     }
 
+    navigateToSearch(){
+      this.router.navigate(['/search']);
+    }
+
   onImageError(event: Event) {
     const imgElement = event.target as HTMLImageElement;
     imgElement.src =
