@@ -1,31 +1,25 @@
 <div id="upload-main">
-  <div id="upload-title">
+  <div id="upload-title" >
     <h1>Upload your audio files.</h1>
     <p>For best quality, use WAV, FLAC, AIFF, or ALAC. The maximum file size is 10GB uncompressed.</p>
+    <input #fileInput type="file" (change)="onFileSelected($event)" accept=".mp3,.wav,.flac,.aiff,.alac" hidden />
   </div>
 
 
-  <div id="upload-box">
+  <div  id="upload-box" (click)="openFilePicker()"  >
+    <input type="file" accept="audio/*" multiple hidden id="audioUpload" />
+    <p onclick="document.getElementById('audioUpload').click()"></p>
     <div id="upload-icon">
-
       <mat-icon class="material-symbols-rounded">upload</mat-icon>
     </div>
     <b>Drag and drop audio files to get started.</b>
-    <button mat-flat-button>
-      <mat-icon class="material-symbols-rounded">attach_file</mat-icon>
-      <input type="file" accept="audio/*" multiple hidden id="audioUpload" />
-      <p onclick="document.getElementById('audioUpload').click()">Choose files</p>
-    </button>
 
   </div>
   <div id="upload-option">
-    <div id="upload-image">
+    <div id="upload-image" (click)="openImagePicker()">
       <mat-icon class="material-symbols-rounded">image</mat-icon>
-      <button mat-flat-button>
-        <mat-icon class="material-symbols-rounded">attach_file</mat-icon>
-        <input type="file" accept="image/*" multiple hidden id="imageUpload" />
-        <p onclick="document.getElementById('imageUpload').click()">Choose files</p>
-      </button>
+      <input #imageInput type="file" (change)="onImageSelected($event)" accept=".jpg,.jpeg,.png" hidden />
+
 
 
 

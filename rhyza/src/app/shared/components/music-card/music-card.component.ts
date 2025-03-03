@@ -25,6 +25,10 @@ export class MusicCardComponent implements OnInit {
 
   play$ !: Observable<boolean>;
 
+
+
+
+
   constructor(
     private songService: SongService,
     private store: Store<{
