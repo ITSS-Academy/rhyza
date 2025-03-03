@@ -21,6 +21,7 @@ export class SidebarComponent implements OnInit{
 
   authData$ !:Observable<AuthModel|null>;
   subscription: Subscription[] = [];
+  authData!: AuthModel |  null;
 
   constructor(private router: Router, private store: Store<{
     auth:AuthState
@@ -54,8 +55,8 @@ export class SidebarComponent implements OnInit{
 
        this.subscription.push(
           this.authData$.subscribe((authData) => {
-            if (authData) {
-              console.log(authData);
+            if (authData?.idToken) {
+              this.authData = authData;
             }
           })
        );
@@ -81,6 +82,12 @@ export class SidebarComponent implements OnInit{
     login(){
       this.store.dispatch(AuthActions.login());
     }
+
+  onImageError(event: Event) {
+    const imgElement = event.target as HTMLImageElement;
+    imgElement.src =
+      'https://img.freepik.com/free-psd/3d-illustration-person-with-sunglasses_23-2149436188.jpg';
+  }
 
 }
 

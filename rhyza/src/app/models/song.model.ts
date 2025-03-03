@@ -13,7 +13,9 @@ export interface SongModel {
 
   category_id: string;
 
-  createdAt: Date;
+  createdAt: string;
 
   uuid: string;
+
+  views: number;
 }
