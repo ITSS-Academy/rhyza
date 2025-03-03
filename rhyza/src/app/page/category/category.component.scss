@@ -27,13 +27,22 @@
   font-size: 16px;
   border-radius: 5px;
 }
+.rectangle:hover{
+  background-color: rgba(128, 128, 128, 0.38);
+  cursor: pointer;
+}
 .material-symbols-rounded{
   margin-left: 15px;
+}
+.rectangle span{
+  margin-top: 3px;
 }
 .main{
   height: 70%;
   display: flex;
-  justify-content: flex-start;
+  flex-wrap: wrap;
+  gap: 5px;
+
 }
 .bottom{
   background-color: green;

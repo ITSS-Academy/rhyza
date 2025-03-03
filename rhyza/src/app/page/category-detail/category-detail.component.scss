@@ -2,6 +2,11 @@
   width: 100%;
   height: fit-content;
 }
+.back mat-icon:hover{
+  cursor: pointer;
+  background-color: rgba(255, 255, 255, 0.53);
+  border-radius: 50%;
+}
 .container{
   width: 100%;
   height: 100vh;
@@ -37,9 +42,14 @@
 .featured span{
   color: var(--onSurface);
 }
+.featured span:hover{
+  cursor: pointer;
+  color: rgb(205, 205, 205);
+}
 .featured mat-icon{
   align-items: center;
   margin-left: 10px;
+  cursor: pointer;
 }
 
 .music-list{
@@ -75,14 +85,27 @@
   text-decoration-line: none;
   color: var(--onSurface);
 }
+.text span:hover{
+  cursor: pointer;
+  color: rgba(255, 255, 255, 0.56);
+}
 .text p{
   color: var(--onSurfaceVariant);
+}
+.text p:hover{
+  cursor: pointer;
+  color: rgba(255, 255, 255, 0.56);
 }
 .right-side{
   margin-left: 950px;
   width: 10%;
   display: flex;
   justify-content: space-around;
+}
+.right-side mat-icon:hover{
+  cursor: pointer;
+  border-radius: 50%;
+  background-color: rgba(205, 205, 205, 0.27);
 }
 .bottom{
   background-color: green;

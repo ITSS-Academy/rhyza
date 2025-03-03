@@ -1,5 +1,5 @@
-export interface CategoryModel {
-  productName: string;
-  productImage: string;
-  productStat: string;
+export interface CategoryModel{
+  id: string
+  title: string
+  image: string
 }
