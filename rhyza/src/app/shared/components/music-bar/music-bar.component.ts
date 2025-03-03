@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {SongModel} from '../../../models/song.model';
 import {SongService} from '../../../services/song/song.service';
 import {MaterialModule} from '../../material.module';
@@ -14,7 +14,7 @@ import * as PlayActions from '../../../ngrx/play/play.actions';
   templateUrl: './music-bar.component.html',
   styleUrl: './music-bar.component.scss'
 })
-export class MusicBarComponent implements OnInit{
+export class MusicBarComponent implements OnInit, OnDestroy{
   currentSong: SongModel | null = null;
   hlsUrl: string | null = null;
   isPlaying = false;
@@ -38,6 +38,16 @@ export class MusicBarComponent implements OnInit{
   }
 
   ngOnInit() {
+    const savedSong = localStorage.getItem('currentSong');
+    if (savedSong) {
+      this.currentSong = JSON.parse(savedSong);
+      if(this.currentSong) {
+        this.songService.setCurrentSong(this.currentSong);
+      }
+      // Optionally, start playing the song if it was playing before reload
+
+    }
+
    this.subscriptions.push(
      this.songService.currentSong$.subscribe((song) => {
        this.currentSong = song;
@@ -53,6 +63,9 @@ export class MusicBarComponent implements OnInit{
      })
 
    )
+  }
+
+  ngOnDestroy() {
   }
 
   setupHls(): void {

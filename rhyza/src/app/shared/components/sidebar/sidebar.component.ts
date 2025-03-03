@@ -74,13 +74,17 @@ export class SidebarComponent implements OnInit{
         this.activeLink = this.menuItems[3].route;
      }else if(this.router.url.includes('/upload')) {
        this.activeLink = this.menuItems[4].route;
-     }else if (this.router.url.includes('/')) {
-       this.activeLink = this.menuItems[0].route;
+     }else if (this.router.url.includes('/search')) {
+       this.activeLink = '';
      }
     }
 
     login(){
       this.store.dispatch(AuthActions.login());
+    }
+
+    navigateToSearch(){
+      this.router.navigate(['/search']);
     }
 
   onImageError(event: Event) {
