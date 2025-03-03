@@ -1,6 +1,8 @@
 export interface CategoryModel{
-  id: number
-  title: string
-  image: string
+  id: string
+  name: string
+  image_url: string
+  description: string
+
 
 }

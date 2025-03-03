@@ -5,7 +5,7 @@ export class Song {
 
   composer: string;
 
-  performer: string;
+  performer_ref: string;
 
   file_path: string;
 
@@ -16,4 +16,6 @@ export class Song {
   createdAt: Date;
 
   uuid: string;
+
+  views: number;
 }

@@ -28,12 +28,26 @@
 
     </nav>
 
-    <div class="account-btn" (click)="login()">
-      <button mat-icon-button >
-        <mat-icon class="material-symbols-rounded">account_circle</mat-icon>
-      </button>
-      <span class="user-text">User</span>
-    </div>
+    @if(authData){
+      <div class="account-btn"  aria-label="Example icon-button with share icon">
+        <img src="{{ authData.photoURL }}" class="user-profile" (error)="onImageError($event)"  [matMenuTriggerFor]="menu"/>
+      </div>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item >
+          <mat-icon>logout</mat-icon>
+          <span>Log out</span>
+        </button>
+
+      </mat-menu>
+    } @else {
+      <div class="account-btn" (click)="login()">
+        <button mat-icon-button >
+          <mat-icon class="material-symbols-rounded">account_circle</mat-icon>
+        </button>
+        <span class="user-text">User</span>
+      </div>
+    }
+
 
 
 
