@@ -6,6 +6,7 @@ import * as SongActions from './song.actions';
 export const initialSongState: SongState = {
   songDetail: <SongModel>{},
   songList: <SongModel[]>[],
+  songHistory: <SongModel[]>[],
   isLoading: false,
   error: null,
 };
@@ -63,4 +64,117 @@ export const songReducer = createReducer(
       isLoading: false,
     };
   }),
+
+
+
+  on(SongActions.createSong, (state, { type }) => {
+    console.log(type);
+    return {
+      ...state,
+      isLoading: true,
+    };
+  }),
+
+  on(SongActions.createSongSuccess, (state, { song, type }) => {
+    console.log(type);
+    return <SongState>{
+      ...state,
+      songDetail: song,
+      isLoading: false,
+    };
+  }),
+
+  on(SongActions.createSongFailure, (state, { error, type }) => {
+    console.log(type);
+    console.log(error);
+    console.log(error.message);
+    return {
+      ...state,
+      error: error,
+      isLoading: false,
+    };
+  }),
+
+  //update views
+  on(SongActions.updateSongViews, (state, { type }) => {
+    console.log(type);
+    return {
+      ...state,
+    };
+  }),
+
+  on(SongActions.updateSongViewsSuccess, (state, { type }) => {
+    console.log(type);
+    return {
+      ...state,
+    };
+  }),
+
+  on(SongActions.updateSongViewsFailure, (state, { error, type }) => {
+    console.log(type);
+    return {
+      ...state,
+      error: error,
+    };
+  }),
+
+
+  //get song history
+
+  on(SongActions.getSongHistory, (state, { type }) => {
+    console.log(type);
+    return {
+      ...state,
+      isLoading: true,
+    };
+  }),
+
+  on(SongActions.getSongHistorySuccess, (state, { songHistory, type }) => {
+    console.log(type);
+    return <SongState>{
+      ...state,
+      songHistory: songHistory,
+      isLoading: false,
+    };
+  }),
+
+
+  on(SongActions.getSongHistoryFailure, (state, { error, type }) => {
+    console.log(type);
+    return {
+      ...state,
+      error: error,
+      isLoading: false,
+    };
+  }),
+
+
+
+  //create song history
+
+  on(SongActions.createSongHistory, (state, { type }) => {
+    console.log(type);
+    return {
+      ...state,
+      isLoading: true,
+    };
+  }),
+
+  on(SongActions.createSongHistorySuccess, (state, { type }) => {
+    console.log(type);
+    return {
+      ...state,
+      isLoading: false,
+    };
+  }),
+
+  on(SongActions.createSongHistoryFailure, (state, { error, type }) => {
+    console.log(type);
+    return {
+      ...state,
+      error: error,
+      isLoading: false,
+    };
+  }),
+
 );

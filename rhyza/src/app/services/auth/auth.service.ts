@@ -8,7 +8,7 @@ import {HttpClient} from '@angular/common/http';
 })
 export class AuthService {
 
-  constructor(private auth: Auth, private http: HttpClient,) { }
+  constructor(private auth: Auth, private http: HttpClient) { }
 
 
    loginWithGoogle(){
