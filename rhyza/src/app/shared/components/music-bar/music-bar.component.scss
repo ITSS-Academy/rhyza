@@ -18,11 +18,16 @@
   border-bottom-right-radius: 30px;
 }
 
+
+
 /* Song Info */
 .song-info {
   display: flex;
   align-items: center;
-  flex: 1; /* Chiếm 20% chiều rộng */
+  width: 20%;
+
+
+
 }
 
 .song-thumbnail {
@@ -34,12 +39,15 @@
 }
 
 .song-title {
-  font-size: 15px;
   font-weight: bold;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   max-width: 150px;
+  color: #fff;
+  font-size: 16px;
+  margin: 0;
+
 }
 
 /* Controls + Progress Bar */

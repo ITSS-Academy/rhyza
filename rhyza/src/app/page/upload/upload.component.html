@@ -1,31 +1,32 @@
 <div id="upload-main">
   <div id="upload-title">
-    <h1>Upload your audio files.</h1>
+    <h2>Upload your audio files.</h2>
     <p>For best quality, use WAV, FLAC, AIFF, or ALAC. The maximum file size is 10GB uncompressed.</p>
   </div>
 
+
   <div id="upload-box">
     <div id="upload-icon">
+
       <mat-icon class="material-symbols-rounded">upload</mat-icon>
     </div>
     <b>Drag and drop audio files to get started.</b>
-
     <button mat-flat-button>
       <mat-icon class="material-symbols-rounded">attach_file</mat-icon>
-      <p>Choose files</p>
+      <input type="file" accept="audio/*" multiple hidden id="audioUpload" />
+      <p onclick="document.getElementById('audioUpload').click()">Choose files</p>
     </button>
+
   </div>
-
   <div id="upload-option">
-
     <div id="upload-image">
       <mat-icon class="material-symbols-rounded">image</mat-icon>
       <button mat-flat-button>
         <mat-icon class="material-symbols-rounded">attach_file</mat-icon>
-        <p>Choose files</p>
+        <input type="file" accept="image/*" multiple hidden id="imageUpload" />
+        <p onclick="document.getElementById('imageUpload').click()">Choose files</p>
       </button>
     </div>
-
 
 
     <div id="upload-option-2">
@@ -42,7 +43,6 @@
             <input matInput type="text" >
           </mat-form-field>
         </div>
-
         <div id="upload-select">
           <mat-form-field class="genre-select">
             <mat-label>Select-genre</mat-label>
@@ -52,24 +52,21 @@
               <mat-option value="three">jazz</mat-option>
               <mat-option value="four">blues</mat-option>
               <mat-option value="five">hip hop</mat-option>
-
             </mat-select>
           </mat-form-field>
         </div>
       </div>
-
       <div id="upload-lyric">
         <mat-form-field appearance="outline" class="example-form-field">
           <mat-label>Composer</mat-label>
           <input matInput type="text" >
         </mat-form-field>
       </div>
-
     </div>
-
-
   </div>
   <button mat-flat-button id="upload-button">Upload</button>
-
-
 </div>
+
+
+
+

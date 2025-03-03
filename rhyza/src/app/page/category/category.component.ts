@@ -1,25 +1,28 @@
 import {Component, Input} from '@angular/core';
-import {MatIcon} from "@angular/material/icon";
-import {MatCard, MatCardSmImage, MatCardTitleGroup} from '@angular/material/card';
+import {MaterialModule} from '../../shared/material.module';
+
 
 @Component({
   selector: 'app-category',
   standalone: true,
   imports: [
-    MatIcon,
-    MatCardTitleGroup,
-    MatCardSmImage,
-    MatCard
+   MaterialModule
+
+
+
   ],
   templateUrl: './category.component.html',
   styleUrl: './category.component.scss'
 })
 export class CategoryComponent {
 
+
+
+
   products = [
     {
       productName: "EDM",
-      productImage: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQFW7idl5ZJkWr2s2x5qOczXZOdq1EL_ED4iQ&s",
+      productImage: "https://th.bing.com/th/id/OIP.MwViLOvPjSX4AB3EbXfKggHaEK?rs=1&pid=ImgDetMain",
       productStat: "Update today"
     },
 

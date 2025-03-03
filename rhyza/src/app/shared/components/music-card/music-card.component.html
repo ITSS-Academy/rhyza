@@ -1,10 +1,11 @@
 <div class="container-music-card" (click)="playSong()">
   <div class="container">
+
     <mat-card class="example-card">
       <div class="image-container">
         <img mat-card-image src="{{ song.image_url }}" alt="Song Image">
-        <button class="play-button">
-          <i class="material-icons">play_arrow</i>
+        <button mat-icon-button class="play-btn" (click)="togglePlayPause()">
+          <mat-icon class="material-symbols-rounded">{{ isPlaying ? 'pause' : 'play_arrow' }}</mat-icon>
         </button>
       </div>
       <mat-card-content>

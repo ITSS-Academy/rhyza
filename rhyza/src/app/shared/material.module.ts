@@ -40,6 +40,9 @@ import {MatTreeModule} from '@angular/material/tree';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatSnackBarContainer} from '@angular/material/snack-bar';
 import {MatStepperModule} from '@angular/material/stepper';
+import { ReactiveFormsModule} from '@angular/forms';
+
+
 
 
 
@@ -85,6 +88,10 @@ const materialModules = [
   MatSnackBarModule,
   MatSnackBarContainer,
   MatStepperModule,
+  ReactiveFormsModule,
+
+
+
 
 
 
@@ -95,7 +102,7 @@ const materialModules = [
 @NgModule({
   declarations: [],
   imports: [CommonModule, ...materialModules],
-  exports: [...materialModules],
+  exports: [...materialModules,ReactiveFormsModule],
 })
 
 

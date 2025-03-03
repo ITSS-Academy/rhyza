@@ -1,6 +1,5 @@
 import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
 import { provideRouter } from '@angular/router';
-
 import { routes } from './app.routes';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
@@ -13,6 +12,7 @@ import {provideHttpClient} from '@angular/common/http';
 import {authReducer} from './ngrx/auth/auth.reducer';
 import * as AuthEffects from './ngrx/auth/auth.effect';
 import {environment} from '../environments/environment';
+import {playReducer} from './ngrx/play/play.reducer';
 
 export const appConfig: ApplicationConfig = {
   providers: [provideZoneChangeDetection({ eventCoalescing: true }),
@@ -25,7 +25,8 @@ export const appConfig: ApplicationConfig = {
     provideAuth(() => getAuth()),
     provideStore({
       song: songReducer,
-      auth: authReducer
+      auth: authReducer,
+      play: playReducer
     }),
     provideEffects(SongEffects, AuthEffects)
   ]

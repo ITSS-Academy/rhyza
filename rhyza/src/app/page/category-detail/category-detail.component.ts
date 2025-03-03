@@ -8,18 +8,13 @@ import {
   MatCardTitle,
   MatCardTitleGroup
 } from '@angular/material/card';
+import {MaterialModule} from '../../shared/material.module';
 
 @Component({
   selector: 'app-category-detail',
   standalone: true,
   imports: [
-    MatIcon,
-    MatCardTitle,
-    MatCardSubtitle,
-    MatCardHeader,
-    MatCardTitleGroup,
-    MatCard,
-    MatCardSmImage
+  MaterialModule
   ],
   templateUrl: './category-detail.component.html',
   styleUrl: './category-detail.component.scss'
