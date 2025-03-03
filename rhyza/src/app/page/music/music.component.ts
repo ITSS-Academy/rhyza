@@ -16,7 +16,6 @@ import { MusicCardComponent } from '../../shared/components/music-card/music-car
   imports: [
     CarouselHomeComponent,
     MaterialModule,
-    AsyncPipe,
     MusicCardComponent
   ],
   templateUrl: './music.component.html',

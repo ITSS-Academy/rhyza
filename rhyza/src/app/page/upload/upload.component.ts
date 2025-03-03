@@ -15,8 +15,7 @@ import {ReactiveFormsModule} from '@angular/forms';
 })
 export class UploadComponent {
   @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
-  protected readonly input = input;
-  protected readonly open = open;
+  audioFiles: { name: string; url: string; type: string }[] = [];
 
   openFilePicker() {
     this.fileInput.nativeElement.click(); // Mở hộp thoại chọn file
@@ -25,7 +24,11 @@ export class UploadComponent {
   onFileSelected(event: Event) {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length > 0) {
-      console.log('File selected:', input.files[0]); // Xử lý file
+      this.audioFiles = Array.from(input.files).map(file => ({
+        name: file.name,
+        url: URL.createObjectURL(file),
+        type: file.type
+      }));
     }
   }
 
@@ -33,9 +36,18 @@ export class UploadComponent {
   imagePreview: string | ArrayBuffer | null = null;
 
   openImagePicker() {
-    this.imageInput.nativeElement.click(); // Kích hoạt hộp thoại chọn file
+    this.imageInput.nativeElement.click(); // Mở hộp thoại chọn file
   }
-
+  onImageUpload(event: Event) {
+    const file = (event.target as HTMLInputElement).files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.imagePreview = reader.result as string;
+      };
+      reader.readAsDataURL(file);
+    }
+  }
   onImageSelected(event: Event) {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files[0]) {
@@ -43,10 +55,12 @@ export class UploadComponent {
       const reader = new FileReader();
 
       reader.onload = () => {
-        this.imagePreview = reader.result; // Hiển thị ảnh đã chọn
+        this.imagePreview = reader.result; // Hiển thị ảnh đã chọn trong ô
       };
 
       reader.readAsDataURL(file);
     }
   }
+
+
 }
