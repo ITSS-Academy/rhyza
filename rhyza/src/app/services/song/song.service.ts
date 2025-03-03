@@ -26,5 +26,5 @@ export class SongService {
   setCurrentSong(song: SongModel) {
     this.currentSongSubject.next(song);
   }
-  
+
 }
