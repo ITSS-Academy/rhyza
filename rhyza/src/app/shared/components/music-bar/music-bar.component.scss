@@ -8,17 +8,22 @@
   border-radius: 10px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
   color: white;
-  position: absolute;
+  position: fixed;
   bottom: 0;
   z-index: 1;
   box-sizing: border-box;
 }
+
+
 
 /* Song Info */
 .song-info {
   display: flex;
   align-items: center;
   width: 20%;
+
+
+
 }
 
 .song-thumbnail {
@@ -33,6 +38,7 @@
   color: #fff;
   font-size: 16px;
   margin: 0;
+
 }
 
 /* Controls */
@@ -154,5 +160,6 @@ button.mat-icon-button:hover {
   justify-content: center;
   align-items: center;
 }
+
 
 

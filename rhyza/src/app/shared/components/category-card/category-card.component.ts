@@ -8,7 +8,6 @@ import {MaterialModule} from '../../material.module';
   standalone: true,
   imports: [
    MaterialModule,
-    NgOptimizedImage
   ],
   templateUrl: './category-card.component.html',
   styleUrl: './category-card.component.scss'
