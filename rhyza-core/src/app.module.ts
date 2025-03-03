@@ -9,6 +9,7 @@ import { CategoryModule } from './category/category.module';
 import { SongModule } from './song/song.module';
 import { PlaylistsModule } from './playlists/playlists.module';
 import { HistoryModule } from './history/history.module';
+import { ArtistModule } from './artist/artist.module';
 
 @Module({
   imports: [
@@ -21,6 +22,7 @@ import { HistoryModule } from './history/history.module';
     SongModule,
     PlaylistsModule,
     HistoryModule,
+    ArtistModule,
   ],
   controllers: [AppController],
   providers: [AppService],
