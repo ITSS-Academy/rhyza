@@ -5,7 +5,7 @@ export interface SongModel {
 
   composer: string;
 
-  performer: string;
+  performer_ref: string;
 
   file_path: string;
 
