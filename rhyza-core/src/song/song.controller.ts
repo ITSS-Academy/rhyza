@@ -146,7 +146,7 @@ export class SongController {
         id: songId,
         title: body.title,
         composer: body.composer,
-        performer: body.performer,
+        performer_ref: body.performer,
         category_id: body.category_id,
         uuid: body.uuid,
         image_url: imageUrl,
