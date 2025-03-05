@@ -27,41 +27,25 @@
   font-size: 16px;
   border-radius: 5px;
 }
+.rectangle:hover{
+  background-color: rgba(128, 128, 128, 0.38);
+  cursor: pointer;
+}
 .material-symbols-rounded{
   margin-left: 15px;
+}
+.rectangle span{
+  margin-top: 3px;
 }
 .main{
   height: 70%;
   display: flex;
-  justify-content: flex-start;
-}
-.picture-text{
-  background-color: black;
-  width: 10%;
-  max-width: 150px;
-  min-width: 120px;
-  height: 35%;
-  display: flex;
-  flex-direction: column;
-  border-radius: 20px;
-}
-.picture{
-  object-fit: cover;
-  height: 100%;
-  width: 100%;
-  max-width: 150px;
-  min-width: 120px;
-}
-.text span{
-  color: var(--onSurface);
-}
-.text p{
-  font-size: 14px;
-  color: var(--onSurfaceVariant);
-  margin-top: 5px;
-}
+  flex-wrap: wrap;
+  gap: 5px;
 
+}
 .bottom{
   background-color: green;
   height: 10%;
 }
+

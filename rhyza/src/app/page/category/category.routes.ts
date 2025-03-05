@@ -4,8 +4,10 @@ import {CategoryComponent} from './category.component';
 
 export const CATEGORY_ROUTES: Routes = [
   {
-    path: '',
+    path: "",
     component: CategoryComponent
-  }
+
+  },
 ];
+
 

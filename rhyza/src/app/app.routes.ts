@@ -11,7 +11,7 @@ export const routes: Routes = [
     loadChildren: () => import('../app/page/category/category.routes').then(m => m.CATEGORY_ROUTES),
   },
   {
-    path: 'category-detail',
+    path: 'category-detail/:id',
     loadChildren: () => import('../app/page/category-detail/category-detail.routes').then(m => m.CATEGORY_DETAIL_ROUTES),
   },
   {
