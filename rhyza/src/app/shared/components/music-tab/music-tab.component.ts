@@ -1,7 +1,8 @@
 import {Component, Input} from '@angular/core';
 import {MatCard} from "@angular/material/card";
 import {MatIcon} from "@angular/material/icon";
-import {MusicTabModel} from '../../../models/artist.model';
+import {SongModel} from '../../../models/song.model';
+
 
 
 @Component({
@@ -15,6 +16,6 @@ import {MusicTabModel} from '../../../models/artist.model';
   styleUrl: './music-tab.component.scss'
 })
 export class MusicTabComponent {
-  @Input() cardmusictab?: MusicTabModel;
+  @Input() cardmusictab?: SongModel;
 
 }

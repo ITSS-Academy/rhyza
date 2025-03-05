@@ -1,13 +1,9 @@
 export interface ArtistModel
 {
-  imageArtists: string;
-  textTopArtists: string;
-  textMidArtists: string;
+  id: string;
+  name: string;
+  date_of_birth: string;
+  bio: string;
+  image_url: string;
 }
-export interface MusicTabModel
-{
-  imageMusicTabs: string;
-  textTopMusicTabs: string;
-  textBottomMusicTabs: string;
-  timeMusicTabs: number;
-}
+
