@@ -10,6 +10,7 @@ import { SongModule } from './song/song.module';
 import { PlaylistsModule } from './playlists/playlists.module';
 import { HistoryModule } from './history/history.module';
 import { ArtistModule } from './artist/artist.module';
+import { QueueModule } from './queue/queue.module';
 
 @Module({
   imports: [
@@ -23,6 +24,7 @@ import { ArtistModule } from './artist/artist.module';
     PlaylistsModule,
     HistoryModule,
     ArtistModule,
+    QueueModule,
   ],
   controllers: [AppController],
   providers: [AppService],

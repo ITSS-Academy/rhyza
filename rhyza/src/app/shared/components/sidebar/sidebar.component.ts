@@ -76,6 +76,8 @@ export class SidebarComponent implements OnInit{
        this.activeLink = this.menuItems[4].route;
      }else if (this.router.url.includes('/search')) {
        this.activeLink = '';
+     } else if (this.router.url.includes('/')) {
+       this.activeLink = this.menuItems[0].route;
      }
     }
 

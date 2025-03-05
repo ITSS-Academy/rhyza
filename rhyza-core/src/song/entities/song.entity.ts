@@ -13,9 +13,11 @@ export class Song {
 
   category_id: string;
 
-  createdAt: Date;
+  created_at: string;
 
   uuid: string;
 
   views: number;
+
+  duration: number;
 }
