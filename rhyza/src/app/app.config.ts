@@ -15,6 +15,8 @@ import {environment} from '../environments/environment';
 import {playReducer} from './ngrx/play/play.reducer';
 import {categoryReducer} from './ngrx/category/category.reducer';
 import * as CategoryEffects from './ngrx/category/category.effect';
+import {artistReducer} from './ngrx/artist/artist.reducer';
+import * as ArtistEffects from './ngrx/artist/artist.effect';
 
 export const appConfig: ApplicationConfig = {
   providers: [provideZoneChangeDetection({ eventCoalescing: true }),
@@ -29,8 +31,9 @@ export const appConfig: ApplicationConfig = {
       song: songReducer,
       auth: authReducer,
       play: playReducer,
+      artist: artistReducer,
       category: categoryReducer
     }),
-    provideEffects(SongEffects, AuthEffects, CategoryEffects)
+    provideEffects(SongEffects, AuthEffects, ArtistEffects, CategoryEffects)
   ]
 };

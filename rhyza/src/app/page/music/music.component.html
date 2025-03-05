@@ -1,28 +1,4 @@
 
-<!--<div class="title-each-box">  <p>Artist recent</p><mat-icon>arrow_forward</mat-icon></div>-->
-<!--  <div class="box-artists">-->
-<!--    @for (songSS of this.songs; track $index) {-->
-<!--      <app-artist-home-->
-<!--        [id]="songSS.id"-->
-<!--        [image]="songSS.image"-->
-<!--        [nameArtist]="songSS.nameArtist"-->
-<!--        [nameSong]="songSS.nameSong">-->
-<!--      </app-artist-home>-->
-<!--    }-->
-<!--  </div>-->
-
-
-<!--  <div class="title-each-box">  <p>Category</p><mat-icon>arrow_forward</mat-icon></div>-->
-<!--  <div class="box-category">-->
-<!--    @for (category of this.categories; track $index) {-->
-<!--      <app-category-home-->
-<!--        [id]="category.id"-->
-<!--        [image]="category.image"-->
-<!--        [title]="category.title">-->
-<!--      </app-category-home>-->
-
-<!--    }-->
-<!--  </div>-->
   <div class="container-home">
   <div class="title-each-box">  <p>Trending</p><mat-icon>arrow_forward</mat-icon></div>
 
@@ -32,7 +8,7 @@
       </button>
 
       <div class="box-carousel">
-        @for (carousel of carousel; track $index) {
+        @for (carousel of songTrending; track $index) {
           <app-carousel-home [carousel]="carousel"></app-carousel-home>
         }
       </div>

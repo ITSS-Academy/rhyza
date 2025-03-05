@@ -1,4 +1,4 @@
-<div id="upload-main">
+  <div id="upload-main">
   <div id="upload-title">
     <h2>Upload your audio files.</h2>
     <p>For best quality, use WAV, FLAC, AIFF, or ALAC. The maximum file size is 10GB uncompressed.</p>
@@ -67,35 +67,35 @@
             </mat-form-field>
           </div>
           <div id="upload-select">
-<!--            <mat-form-field class="genre-select">-->
-<!--              <mat-label>Select genre</mat-label>-->
-<!--              <mat-select formControlName="category_id">-->
-<!--                  <mat-option value="pop">Pop</mat-option>-->
-<!--                  <mat-option value="rock">Rock</mat-option>-->
-<!--                  <mat-option value="jazz">Jazz</mat-option>-->
-<!--                  <mat-option value="blues">Blues</mat-option>-->
-<!--                  <mat-option value="hiphop">Hip Hop</mat-option>-->
-<!--              </mat-select>-->
-<!--            </mat-form-field>-->
+            <mat-form-field class="genre-select">
+              <mat-label>Select genre</mat-label>
+              <mat-select formControlName="category_id">
+                  <mat-option value="pop">Pop</mat-option>
+                  <mat-option value="rock">Rock</mat-option>
+                  <mat-option value="jazz">Jazz</mat-option>
+                  <mat-option value="blues">Blues</mat-option>
+                  <mat-option value="hiphop">Hip Hop</mat-option>
+              </mat-select>
+            </mat-form-field>
 
 
-              <mat-form-field>
-                <mat-label>States Group</mat-label>
-                <input type="Genre"
-                       matInput
-                       formControlName="stateGroup"
-                       required
-                       [matAutocomplete]="autoGroup">
-                <mat-autocomplete #autoGroup="matAutocomplete">
-                  @for (group of categoryList$ | async; track $index) {
-                    <mat-optgroup [label]="group.name">
-                      @for (name of categoryList$.; track $index) {
-                        <mat-option [value]="name">{{name}}</mat-option>
-                      }
-                    </mat-optgroup>
-                  }
-                </mat-autocomplete>
-              </mat-form-field>
+<!--              <mat-form-field>-->
+<!--                <mat-label>States Group</mat-label>-->
+<!--                <input type="Genre"-->
+<!--                       matInput-->
+<!--                       formControlName="stateGroup"-->
+<!--                       required-->
+<!--                       [matAutocomplete]="autoGroup">-->
+<!--                <mat-autocomplete #autoGroup="matAutocomplete">-->
+<!--                  @for (group of categoryList$ | async; track $index) {-->
+<!--                    <mat-optgroup [label]="group.name">-->
+<!--                      @for (name of categoryList$.; track $index) {-->
+<!--                        <mat-option [value]="name">{{name}}</mat-option>-->
+<!--                      }-->
+<!--                    </mat-optgroup>-->
+<!--                  }-->
+<!--                </mat-autocomplete>-->
+<!--              </mat-form-field>-->
 
 
           </div>

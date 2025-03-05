@@ -10,6 +10,7 @@ import {AuthState} from './ngrx/auth/auth.state';
 import {AuthModel} from './models/auth.model';
 import * as AuthActions from './ngrx/auth/auth.actions';
 import * as CategoryActions from './ngrx/category/category.action';
+import * as ArtistActions from './ngrx/artist/artist.actions';
 
 @Component({
   selector: 'app-root',
@@ -24,9 +25,11 @@ export class AppComponent {
   constructor(
     private auth:Auth,
     private store: Store<{ auth: AuthState }>
+
   ) {
     this.store.dispatch(CategoryActions.getCategories())
 
+    this.store.dispatch(ArtistActions.getArtistList());
     onAuthStateChanged(this.auth, async (user) => {
       if(user){
         const token = await user?.getIdToken();

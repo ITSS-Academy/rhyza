@@ -15,7 +15,7 @@ import { ArtistService } from './artist.service';
 export class ArtistController {
   constructor(private readonly artistService: ArtistService) {}
 
-  @Get()
+  @Get('all')
   async findAll() {
     try {
       return this.artistService.getArtistAll();
