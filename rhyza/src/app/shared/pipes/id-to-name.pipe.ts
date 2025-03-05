@@ -1,21 +1,21 @@
-// import { Pipe, PipeTransform } from '@angular/core';
-// import { ProfileService } from '../../services/profile/profile.services';
-// import { Observable } from 'rxjs';
-// import { ProfileModel } from '../../models/profile.model';
-// import { map } from 'rxjs/operators';
-//
-// @Pipe({
-//   name: 'idToName',
-//   standalone: true,
-// })
-// export class IdToNamePipe implements PipeTransform {
-//   constructor(private profileService: ProfileService) {}
-//
-//   transform(uid: string): Observable<string> {
-//     return this.profileService.getById(uid).pipe(
-//       map((profile: ProfileModel) => {
-//         return profile.userName;
-//       }),
-//     );
-//   }
-// }
+import { Pipe, PipeTransform } from '@angular/core';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import {ArtistModel} from '../../models/artist.model';
+import {ArtistService} from '../../services/artist/artist.service';
+
+@Pipe({
+  name: 'idToName',
+  standalone: true,
+})
+export class IdToNamePipe implements PipeTransform {
+  constructor(private artistService: ArtistService) {}
+
+  transform(id: string): Observable<string> {
+    return this.artistService.getArtistById(id).pipe(
+      map((artist: ArtistModel) => {
+        return artist.textMidArtists;
+      }),
+    );
+  }
+}

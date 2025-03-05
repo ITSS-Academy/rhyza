@@ -7,6 +7,7 @@ import {Observable, Subscription} from 'rxjs';
 import {Store} from '@ngrx/store';
 import {PlayState} from '../../../ngrx/play/play.state';
 import * as PlayActions from '../../../ngrx/play/play.actions';
+import * as SongActions from '../../../ngrx/song/song.actions';
 @Component({
   selector: 'app-music-bar',
   standalone: true,
@@ -22,6 +23,7 @@ export class MusicBarComponent implements OnInit, OnDestroy{
   duration = 0;
   volume = 50;
   subscriptions: Subscription[] = [];
+  hasUpdatedViews = false;
 
 
   @ViewChild('audioPlayer', { static: true })
@@ -89,12 +91,28 @@ export class MusicBarComponent implements OnInit, OnDestroy{
       this.updateProgressBar();
       this.currentTime = audio.currentTime;
       this.duration = audio.duration || 100;
+
+      if (this.currentTime >= 10 && !this.hasUpdatedViews) {
+        this.hasUpdatedViews = true;
+        this.updateViews();
+      }
     };
 
     // Cập nhật trạng thái play/pause
     audio.onplay = () => (  this.store.dispatch(PlayActions.play()));
     audio.onpause = () => (  this.store.dispatch(PlayActions.pause()));
   }
+
+
+  updateViews() {
+    if (this.currentSong) {
+      console.log('Updating views for song:', this.currentSong.id);
+      this.store.dispatch(
+        SongActions.updateSongViews({ id: this.currentSong.id }),
+      );
+    }
+  }
+
 
   togglePlayPause() {
     const audio = this.audioPlayer.nativeElement;

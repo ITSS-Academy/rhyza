@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {SongModel} from '../../models/song.model';
+import {ArtistModel} from '../../models/artist.model';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,7 @@ export class ArtistService {
   }
 
   getArtistById(id: string){
-    return this.http.get(`http://localhost:3000/artist?id=${id}`);
+    return this.http.get<ArtistModel>(`http://localhost:3000/artist?id=${id}`);
   }
 
   getArtistBySongId(songId: string){

@@ -85,6 +85,12 @@ export class SidebarComponent implements OnInit{
       this.store.dispatch(AuthActions.login());
     }
 
+    logOut(){
+      this.store.dispatch(AuthActions.clearState());
+      this.store.dispatch(AuthActions.logout());
+
+    }
+
     navigateToSearch(){
       this.router.navigate(['/search']);
     }
