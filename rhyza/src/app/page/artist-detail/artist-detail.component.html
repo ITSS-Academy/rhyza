@@ -1,13 +1,13 @@
-<!--<div class="container">-->
-<!--  <div class="artist-header">-->
-<!--    <h3>Artists</h3>-->
-<!--  </div>-->
-<!--  <div class="body">-->
-<!--    @for (cardMusicTab of cardmusictabs; track $index){-->
-<!--      <app-artist-detail-->
-<!--        [cardmusictab]="cardMusicTab"-->
-<!--      >-->
-<!--      </app-artist-detail>-->
-<!--    }-->
-<!--  </div>-->
-<!--</div>-->
+<div class="container">
+  <div class="music-tab-header">
+    <h3>Artists</h3>
+  </div>
+  <div class="body">
+    @for (cardMusicTab of cardmusictabs; track $index){
+      <app-music-tab
+        [cardmusictab]="cardMusicTab"
+      >
+      </app-music-tab>
+    }
+  </div>
+</div>

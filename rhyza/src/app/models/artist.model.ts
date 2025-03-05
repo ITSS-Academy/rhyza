@@ -10,4 +10,4 @@ export interface MusicTabModel
   textTopMusicTabs: string;
   textBottomMusicTabs: string;
   timeMusicTabs: number;
-}``
+}
