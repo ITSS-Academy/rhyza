@@ -9,6 +9,7 @@ import {Store} from '@ngrx/store';
 import {AuthState} from './ngrx/auth/auth.state';
 import {AuthModel} from './models/auth.model';
 import * as AuthActions from './ngrx/auth/auth.actions';
+import * as ArtistActions from './ngrx/artist/artist.actions';
 
 @Component({
   selector: 'app-root',
@@ -23,7 +24,9 @@ export class AppComponent {
   constructor(
     private auth:Auth,
     private store: Store<{ auth: AuthState }>
+
   ) {
+    this.store.dispatch(ArtistActions.getArtistList());
     onAuthStateChanged(this.auth, async (user) => {
       if(user){
         const token = await user?.getIdToken();
