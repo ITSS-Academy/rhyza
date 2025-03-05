@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import {Auth, signInWithPopup, GoogleAuthProvider} from '@angular/fire/auth';
-import {catchError, from, of} from 'rxjs';
+import { Auth, signInWithPopup, GoogleAuthProvider, user, User } from '@angular/fire/auth';
+import {catchError, from, of, Observable} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
+
 
 @Injectable({
   providedIn: 'root'
@@ -31,4 +32,8 @@ export class AuthService {
       },
     });
   }
+  getCurrentUser(): Observable< User | null> {
+    return user(this.auth); // Trả về Observable chứa thông tin người dùng
+  }
 }
+

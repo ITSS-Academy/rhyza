@@ -2,90 +2,115 @@
   <div id="upload-title">
     <h2>Upload your audio files.</h2>
     <p>For best quality, use WAV, FLAC, AIFF, or ALAC. The maximum file size is 10GB uncompressed.</p>
-    <input #fileInput type="file" (change)="onFileSelected($event)" accept=".mp3,.wav,.flac,.aiff,.alac" hidden />
   </div>
 
+  <form [formGroup]="uploadForm" >
+    <div id="upload-box" (click)="audioInput.click()"
+          (dragover)="onDragOver($event)"
+          (dragleave)="onDragLeave($event)"
+          (drop)="onDrop($event)">
 
-  <div id="upload-box" (click)="openFilePicker()">
-    <input #audioInput type="file" accept="audio/*" multiple (change)="onFileSelected($event)" hidden />
+          <input #audioInput type="file" accept="audio/*" multiple (change)="onAudioSelected($event)" hidden />
 
-    <p onclick="document.getElementById('audioUpload').click()"></p>
+         <!-- Chỉ hiển thị icon và text khi chưa chọn file -->
+            <ng-container *ngIf="!uploadForm.get('file_path')?.value">
+              <div id="upload-icon">
+                <mat-icon class="material-symbols-rounded">upload</mat-icon>
+              </div>
+              <b>Drag and drop audio files to get started.</b>
+            </ng-container>
 
-    <!-- Chỉ hiển thị icon và text khi chưa chọn file -->
-    @if (audioFiles.length === 0) {
-      <div id="upload-icon">
-        <mat-icon class="material-symbols-rounded">upload</mat-icon>
-      </div>
-      <b>Drag and drop audio files to get started.</b>
-    }
-
-    <!-- Hiển thị danh sách file đã upload -->
-    @if (audioFiles.length > 0) {
-      <div id="audio-preview">
-        <ul>
-          @for (file of audioFiles; track file.name) {
-            <li>
-              <audio controls>
-                <source [src]="file.url" type="{{ file.type }}">
-                Your browser does not support the audio element.
-              </audio>
-              <span>{{ file.name }}</span>
-            </li>
-          }
-        </ul>
-      </div>
-    }
-  </div>
-
-  <div id="upload-option">
-    <div id="upload-image" (click)="openImagePicker()">
-      @if (imagePreview) {
-        <img [src]="imagePreview" alt="Uploaded Image">
-      } @else {
-        <mat-icon class="material-symbols-rounded">image</mat-icon>
-      }
-      <input #imageInput type="file" (change)="onImageSelected($event)" accept=".jpg,.jpeg,.png" hidden />
-    </div>
-
-
-    <div id="upload-option-2">
-      <div id="upload-song-name">
-        <mat-form-field appearance="outline" class="example-form-field">
-          <mat-label>Song name</mat-label>
-          <input matInput type="text" >
-        </mat-form-field>
-      </div>
-      <div id="upload-option-3">
-        <div id="upload-artist-name">
-          <mat-form-field appearance="outline" class="example-form-field">
-            <mat-label>Artist name</mat-label>
-            <input matInput type="text" >
-          </mat-form-field>
-        </div>
-        <div id="upload-select">
-          <mat-form-field class="genre-select">
-            <mat-label>Select-genre</mat-label>
-            <mat-select>
-              <mat-option value="one">pop</mat-option>
-              <mat-option value="two"> rock</mat-option>
-              <mat-option value="three">jazz</mat-option>
-              <mat-option value="four">blues</mat-option>
-              <mat-option value="five">hip hop</mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
-      </div>
-      <div id="upload-lyric">
-        <mat-form-field appearance="outline" class="example-form-field">
-          <mat-label>Composer</mat-label>
-          <input matInput type="text" >
-        </mat-form-field>
-      </div>
-    </div>
-  </div>
-  <button mat-flat-button id="upload-button">Upload</button>
+            <!-- Hiển thị danh sách file đã upload với icon -->
+            <div id="audio-preview" *ngIf="uploadForm.get('file_path')?.value">
+              <ul>
+                <li *ngFor="let file of (uploadForm.get('file_path')?.value ? [uploadForm.get('file_path')?.value] : [])">
+                  <img src="https://cdn-icons-png.flaticon.com/512/11037/11037518.png"
+                       alt="Audio File Icon" class="audio-icon">
+                  <span>{{ file?.name }}</span>
+                </li>
+              </ul>
+            </div>
 </div>
+    <div id="upload-option">
 
 
+      <div id="upload-image" [ngClass]="{ 'hide-border': imagePreview }"
+           (dragover)="onImageDragOver($event)"
+           (dragleave)="onImageDragLeave($event)"
+           (drop)="onImageDrop($event)" >
+
+        <input type="file" (change)="onImageSelected($event)" accept="image/*" hidden id="imageInput">
+        <label for="imageInput">
+          <ng-container *ngIf="imagePreview; else uploadImagePlaceholder">
+            <img [src]="imagePreview" alt="Uploaded Image">
+          </ng-container>
+          <ng-template #uploadImagePlaceholder>
+            <mat-icon class="material-symbols-rounded">image</mat-icon>
+            <p>Click to upload</p>
+          </ng-template>
+        </label>
+      </div>
+
+      <div id="upload-option-2">
+        <div id="upload-song-name">
+          <mat-form-field appearance="outline" class="example-form-field">
+            <mat-label>Song name</mat-label>
+            <input matInput type="text" formControlName="title">
+          </mat-form-field>
+        </div>
+
+        <div id="upload-option-3">
+          <div id="upload-artist-name">
+            <mat-form-field appearance="outline" class="example-form-field">
+              <mat-label>Artist name</mat-label>
+              <input matInput type="text" formControlName="performer_ref">
+            </mat-form-field>
+          </div>
+          <div id="upload-select">
+<!--            <mat-form-field class="genre-select">-->
+<!--              <mat-label>Select genre</mat-label>-->
+<!--              <mat-select formControlName="category_id">-->
+<!--                  <mat-option value="pop">Pop</mat-option>-->
+<!--                  <mat-option value="rock">Rock</mat-option>-->
+<!--                  <mat-option value="jazz">Jazz</mat-option>-->
+<!--                  <mat-option value="blues">Blues</mat-option>-->
+<!--                  <mat-option value="hiphop">Hip Hop</mat-option>-->
+<!--              </mat-select>-->
+<!--            </mat-form-field>-->
 
 
+              <mat-form-field>
+                <mat-label>States Group</mat-label>
+                <input type="Genre"
+                       matInput
+                       formControlName="stateGroup"
+                       required
+                       [matAutocomplete]="autoGroup">
+                <mat-autocomplete #autoGroup="matAutocomplete">
+                  @for (group of categoryList$ | async; track $index) {
+                    <mat-optgroup [label]="group.name">
+                      @for (name of categoryList$.; track $index) {
+                        <mat-option [value]="name">{{name}}</mat-option>
+                      }
+                    </mat-optgroup>
+                  }
+                </mat-autocomplete>
+              </mat-form-field>
+
+
+          </div>
+        </div>
+
+        <div id="upload-lyric">
+          <mat-form-field appearance="outline" class="example-form-field">
+            <mat-label>Composer</mat-label>
+            <input matInput type="text" formControlName="composer">
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+
+    <button mat-flat-button id="upload-button" type="submit" [disabled]="uploadForm.invalid"  (click)="confirmForm()">Upload</button>
+  </form>
+
+</div>
