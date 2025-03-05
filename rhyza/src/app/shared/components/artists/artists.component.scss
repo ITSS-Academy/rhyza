@@ -51,7 +51,6 @@
 
 /* Phần nội dung chứa văn bản */
 .content {
-  padding: 8px;
   text-align: center;
 }
 
@@ -59,9 +58,10 @@
 .text-top {
   font-size: 16px; /* Kích thước chữ mặc định */
   font-weight: bold;
-  color: white;
-  margin-top: 8px;
+  color: var(--onSurface);
+  margin-top: 16px;
   width: 100%;
+  max-width: 120px; /* Giới hạn chiều rộng tối đa */
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;

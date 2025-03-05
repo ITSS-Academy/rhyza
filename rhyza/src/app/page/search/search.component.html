@@ -1,0 +1,14 @@
+<div class="container">
+  <div class="header">
+    <mat-chip-listbox class="mat-mdc-chip-set-stacked" aria-label="Cutest dog breeds">
+      @for (page of search; track page) {
+        <mat-chip-option (click)="navigate(page.route)"
+                         [selected]="this.activeLink === page.route"
+                         (selectionChange)="onSelectionChange($event, page.route)">{{page.name}}</mat-chip-option>
+      }
+    </mat-chip-listbox>
+  </div>
+  <div class="main">
+    <router-outlet></router-outlet>
+  </div>
+</div>

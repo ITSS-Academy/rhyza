@@ -57,7 +57,9 @@ export class MusicCardComponent implements OnInit {
 
   playSong() {
     console.log(this.song);
-
+    if (this.song) {
+      localStorage.setItem('currentSong', JSON.stringify(this.song));
+    }
     this.songService.setCurrentSong(this.song);
 
   }
