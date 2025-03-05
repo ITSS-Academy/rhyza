@@ -13,6 +13,8 @@ import {authReducer} from './ngrx/auth/auth.reducer';
 import * as AuthEffects from './ngrx/auth/auth.effect';
 import {environment} from '../environments/environment';
 import {playReducer} from './ngrx/play/play.reducer';
+import {categoryReducer} from './ngrx/category/category.reducer';
+import * as CategoryEffects from './ngrx/category/category.effect';
 import {artistReducer} from './ngrx/artist/artist.reducer';
 import * as ArtistEffects from './ngrx/artist/artist.effect';
 
@@ -29,8 +31,9 @@ export const appConfig: ApplicationConfig = {
       song: songReducer,
       auth: authReducer,
       play: playReducer,
-      artist: artistReducer
+      artist: artistReducer,
+      category: categoryReducer
     }),
-    provideEffects(SongEffects, AuthEffects, ArtistEffects)
+    provideEffects(SongEffects, AuthEffects, ArtistEffects, CategoryEffects)
   ]
 };

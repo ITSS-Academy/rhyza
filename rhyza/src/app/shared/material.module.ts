@@ -89,7 +89,7 @@ const materialModules = [
   MatSnackBarContainer,
   MatStepperModule,
   ReactiveFormsModule,
-
+  CommonModule
 
 
 

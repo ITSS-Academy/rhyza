@@ -1,26 +1,32 @@
 .container-music-card {
   max-width: 1720px;
 }
+
 .container {
   width: 100%;
 }
+
 .example-card {
   width: 150px;
   min-width: 150px;
   height: 210px;
   min-height: 210px;
   border: none;
-  background-color: var(onSecondary);
+  //background-color: var(--onSecondary);
   position: relative;
+  overflow: hidden;
 }
+
 .image-container {
   position: relative;
   width: 90%;
+  height: 65%;
+  margin: 5px auto;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 5px auto;
 }
+
 .image-container img {
   width: 100%;
   height: 100%;
@@ -28,13 +34,16 @@
   display: block;
   object-fit: cover;
 }
-.play-button {
+
+/* Hiệu ứng nút Play */
+.play-btn {
   position: absolute;
-  bottom: 5px;
-  right: 5px;
+  bottom: 8px;
+  right: 8px;
   width: 35px;
   height: 35px;
   background-color: var(--inversePrimary);
+  color: var(--onSurface);
   border: none;
   border-radius: 50%;
   display: flex;
@@ -43,32 +52,38 @@
   opacity: 0;
   transition: opacity 0.3s ease-in-out, transform 0.2s ease-in-out;
   cursor: pointer;
-  color: var(--onSurface);
-}
-.play-button i {
-  font-size: 22px;
-}
-.example-card:hover .play-button {
-  opacity: 1;
-}
-.play-button:hover {
-  background-color: var(--primaryContainer);
-  color: var(--surface);
-  transform: scale(1.1);
 }
 
+.play-btn mat-icon {
+  font-size: 22px;
+}
+
+.example-card:hover .play-btn {
+  opacity: 1;
+}
+
+.play-btn:hover {
+  background-color: var(--primaryContainer); /* Màu hover sáng hơn */
+  transform: scale(1.1);
+  color: var(var(--surface));
+}
+
+/* Tiêu đề bài hát */
 .title-music {
   font-size: 14px;
   width: 100%;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  font-weight: bold;
 }
 
+/* Tên nghệ sĩ */
 .title-artist {
   font-size: 12px;
   width: 100%;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  color: #b3b3b3;
 }

@@ -33,13 +33,13 @@ export class MusicComponent implements OnInit{
   // Scroll Trending Section
   scrollTrendingLeft(): void {
     if (this.carouselContainer) {
-      this.carouselContainer.nativeElement.scrollBy({ left: -300, behavior: 'smooth' });
+      this.carouselContainer.nativeElement.scrollBy({ left: -600, behavior: 'smooth' });
     }
   }
 
   scrollTrendingRight(): void {
     if (this.carouselContainer) {
-      this.carouselContainer.nativeElement.scrollBy({ left: 300, behavior: 'smooth' });
+      this.carouselContainer.nativeElement.scrollBy({ left: 600, behavior: 'smooth' });
     }
   }
 

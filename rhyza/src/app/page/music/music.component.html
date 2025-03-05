@@ -20,15 +20,14 @@
   <div class="box-empty"></div>
   <div class="title-each-box">  <p>Propose</p><mat-icon>arrow_forward</mat-icon></div>
   <div class="carousel-container">
-    <button class="scroll-btn left" (click)="scrollMusicLeft()">&#8249;</button>
+    <button class="scroll-btn left" (click)="scrollMusicLeft()"><i class="material-icons">chevron_left</i></button>
 
     <div class="box-music-card" #musicCarousel>
       @for (song of song; track $index ) {
         <app-music-card [song]="song"></app-music-card>
       }
     </div>
-
-    <button class="scroll-btn right" (click)="scrollMusicRight()">&#8250;</button>
+    <button class="scroll-btn right" (click)="scrollMusicRight()"><i class="material-icons">chevron_right</i></button>
   </div>
 
 </div>
