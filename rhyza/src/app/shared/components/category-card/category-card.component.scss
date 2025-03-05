@@ -17,6 +17,10 @@
 .picture img{
   border-radius: 10%;
 }
+.picture img:hover{
+  cursor: pointer;
+  opacity: 0.8;
+}
 .text span{
   font-size: 14px;
   color: var(--onSurface);

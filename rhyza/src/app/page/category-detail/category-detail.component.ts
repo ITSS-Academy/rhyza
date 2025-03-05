@@ -9,6 +9,8 @@ import {
   MatCardTitleGroup
 } from '@angular/material/card';
 import {MaterialModule} from '../../shared/material.module';
+import {ActivatedRoute} from '@angular/router';
+import {CategoryModel} from '../../models/category.model';
 
 @Component({
   selector: 'app-category-detail',
@@ -20,5 +22,4 @@ import {MaterialModule} from '../../shared/material.module';
   styleUrl: './category-detail.component.scss'
 })
 export class CategoryDetailComponent {
-
 }

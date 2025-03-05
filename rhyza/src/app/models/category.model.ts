@@ -4,5 +4,6 @@ export interface CategoryModel{
   image_url: string
   description: string
 
-
 }
+
+

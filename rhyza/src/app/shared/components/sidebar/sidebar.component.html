@@ -1,7 +1,6 @@
 <mat-sidenav-container class="sidenav-container">
   <mat-sidenav mode="side" opened class="sidenav">
     <nav class="nav-bar">
-
       <!-- Search Button (FAB) -->
       <div class="search">
         <button mat-fab class="search-btn">
@@ -9,47 +8,41 @@
         </button>
       </div>
 
-
       <!-- Menu Items -->
 
       @for (item of menuItems; track $index) {
-        <div class="item-nav" (click)="navigate(item.route)">
-          <a
-
-            [ngClass]="{ 'active': item.route === activeLink }"
-            class="nav-item">
-            <mat-icon class="material-symbols-rounded">{{ item.icon }}</mat-icon>
-
-          </a>
-          <span>{{ item.label }}</span>
-        </div>
+      <div class="item-nav" (click)="navigate(item.route)">
+        <a [ngClass]="{ active: item.route === activeLink }" class="nav-item">
+          <mat-icon class="material-symbols-rounded">{{ item.icon }}</mat-icon>
+        </a>
+        <span>{{ item.label }}</span>
+      </div>
 
       }
-
     </nav>
 
     @if(authData){
-      <div class="account-btn"  aria-label="Example icon-button with share icon">
-        <img src="{{ authData.photoURL }}" class="user-profile" (error)="onImageError($event)"  [matMenuTriggerFor]="menu"/>
-      </div>
-      <mat-menu #menu="matMenu">
-        <button mat-menu-item >
-          <mat-icon>logout</mat-icon>
-          <span>Log out</span>
-        </button>
-
-      </mat-menu>
+    <div class="account-btn" aria-label="Example icon-button with share icon">
+      <img
+        src="{{ authData.photoURL }}"
+        class="user-profile"
+        (error)="onImageError($event)"
+        [matMenuTriggerFor]="menu"
+      />
+    </div>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item>
+        <mat-icon>logout</mat-icon>
+        <span>Log out</span>
+      </button>
+    </mat-menu>
     } @else {
-      <div class="account-btn" (click)="login()">
-        <button mat-icon-button >
-          <mat-icon class="material-symbols-rounded">account_circle</mat-icon>
-        </button>
-        <span class="user-text">User</span>
-      </div>
+    <div class="account-btn" (click)="login()">
+      <button mat-icon-button>
+        <mat-icon class="material-symbols-rounded">account_circle</mat-icon>
+      </button>
+      <span class="user-text">User</span>
+    </div>
     }
-
-
-
-
   </mat-sidenav>
 </mat-sidenav-container>
