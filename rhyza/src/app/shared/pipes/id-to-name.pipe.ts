@@ -15,8 +15,7 @@ export class IdToNamePipe implements PipeTransform {
     console.log(id);
     return this.artistService.getArtistById(id).pipe(
       map((artist: ArtistModel) => {
-        let name = artist.name
-        return name;
+        return artist.name;
       }),
     );
   }

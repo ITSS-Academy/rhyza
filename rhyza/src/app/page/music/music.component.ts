@@ -82,14 +82,10 @@ export class MusicComponent implements OnInit{
     this.subscriptions.push(
       this.songList$.subscribe((songList) => {
         console.log('songList:', songList);
-        if (songList.length >0){
-          this.song= songList;
-          this.song.forEach((song) => {
-            if(song.views>= 1){
-              this.songTrending.push(song);
-              console.log(song);
-            }
-          });
+        if (songList.length > 0) {
+          this.song = songList;
+          this.songTrending = this.song.filter(song => song.views >= 1);
+          console.log('trendingggg', this.songTrending);
         }
       })
     );
