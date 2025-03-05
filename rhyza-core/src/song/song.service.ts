@@ -78,10 +78,14 @@ export class SongService {
       );
       fs.writeFileSync(tempFilePath, buffer);
 
-      const command = `"${ffmpegStatic}" -i "${tempFilePath}" 2>&1 | findstr "Duration"`;
+      // Kiểm tra hệ điều hành để dùng lệnh phù hợp
+      const isWindows = process.platform === 'win32';
+      const command = isWindows
+        ? `"${ffmpegStatic}" -i "${tempFilePath}" 2>&1 | findstr "Duration"`
+        : `"${ffmpegStatic}" -i "${tempFilePath}" 2>&1 | grep "Duration"`;
 
       exec(command, (error, stdout) => {
-        fs.unlinkSync(tempFilePath); // Xóa file sau khi xử lý
+        fs.unlinkSync(tempFilePath); // Xóa file tạm sau khi xử lý
 
         if (error) {
           console.error('Lỗi khi lấy duration:', error);

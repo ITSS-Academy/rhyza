@@ -1,8 +1,11 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {MaterialModule} from '../../shared/material.module';
 import { CategoryModel } from '../../models/category.model';
 import {CategoryCardComponent} from '../../shared/components/category-card/category-card.component';
 import {Router, RouterOutlet} from '@angular/router';
+import {Store} from '@ngrx/store';
+import {CategoryState} from '../../ngrx/category/category.state';
+import {Observable, Subscription} from 'rxjs';
 
 
 @Component({
@@ -17,8 +20,28 @@ import {Router, RouterOutlet} from '@angular/router';
   templateUrl: './category.component.html',
   styleUrl: './category.component.scss'
 })
-export class CategoryComponent {
-  constructor() {}
+export class CategoryComponent implements OnInit {
+  categoryList$ !: Observable<CategoryModel[]>;
+  subscription : Subscription[] = [];
+
+
+  constructor(private store:Store<{
+    category: CategoryState
+  }>) {
+
+    this.categoryList$ = this.store.select('category','categoryList')
+
+  }
+
+  ngOnInit() {
+    this.subscription.push(
+      this.categoryList$.subscribe((category) =>{
+        if (category.length > 0) {
+          console.log('category', category)
+        }
+      })
+    )
+  }
 
   getCategoryDetail(id: number) {
     const category = this.products.find((e) => e.id == id.toString());
