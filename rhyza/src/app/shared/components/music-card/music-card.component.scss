@@ -1,16 +1,14 @@
-.container-music-card {
-  max-width: 1720px;
-}
+
 
 .container {
   width: 100%;
+  cursor: pointer;
 }
 
 .example-card {
-  width: 150px;
-  min-width: 150px;
-  height: 210px;
-  min-height: 210px;
+  width: 170px;
+  min-width: 170px;
+  height: fit-content;
   border: none;
   //background-color: var(--onSecondary);
   position: relative;
@@ -19,8 +17,8 @@
 
 .image-container {
   position: relative;
-  width: 90%;
-  height: 65%;
+  width: 150px;
+  height: 150px;
   margin: 5px auto;
   display: flex;
   justify-content: center;
@@ -87,3 +85,5 @@
   text-overflow: ellipsis;
   color: #b3b3b3;
 }
+
+

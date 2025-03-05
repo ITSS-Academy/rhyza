@@ -3,7 +3,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: calc(100% - 150px); /* Trừ đi chiều rộng navbar */
+  width: calc(100% - 120px); /* Trừ đi chiều rộng navbar */
   max-width: 100%; /* Đảm bảo không bị tràn */
   background-color: #111; /* Màu nền giống ảnh 2 */
   padding: 15px 25px;
@@ -14,8 +14,7 @@
   z-index: 1000;
   //box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.5);
   //border-radius: 10px 0 0 0; /* Làm tròn góc bên trái */
-  border-bottom-left-radius: 30px;
-  border-bottom-right-radius: 30px;
+ border-radius: 16px;
 }
 
 

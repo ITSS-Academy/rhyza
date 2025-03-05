@@ -23,6 +23,9 @@ export class ArtistComponent implements OnInit {
   }>) {
     this.artistList$ = this.store.select('artist', 'artistList');
   }
+
+
+
   ngOnInit() {
     this.subscription.push(
       this.artistList$.subscribe((artistList) => {
