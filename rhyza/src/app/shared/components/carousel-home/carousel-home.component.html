@@ -7,7 +7,7 @@
       <div class="carousel-title-container">
         <div class="carousel-title">
           <p>{{carousel.title}}</p>
-          <p>{{carousel.performer_ref}}</p>
+          <p>{{carousel.performer_ref | idToName |async}}</p>
         </div>
         <div class="carousel-play-button">
           <button class="play-button">
