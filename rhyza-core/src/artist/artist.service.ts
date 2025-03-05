@@ -43,6 +43,6 @@ export class ArtistService {
       throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
     }
 
-    return data;
+    return data[0];
   }
 }

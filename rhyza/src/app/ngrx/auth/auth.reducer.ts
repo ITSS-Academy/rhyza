@@ -65,5 +65,15 @@ export const authReducer = createReducer(
     }
   }),
 
+  on(AuthActions.clearState, (state, {type}) => {
+    console.log(type);
+    return <AuthState>{
+      authData: null,
+      isLogging: false,
+      error: null,
+      auth: null
+    }
+  })
+
 
 )

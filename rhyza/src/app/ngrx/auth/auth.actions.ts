@@ -31,3 +31,6 @@ export const getAuthFailure = createAction(
   '[Auth] Get Auth Failure',
   props<{ error: any }>(),
 );
+
+
+export const clearState = createAction('[Auth] Clear State');
