@@ -1,7 +1,10 @@
 
 <mat-card class="picture-text">
   <div class="picture">
-    <img src="{{item?.image_url}}" height="100%" width="100%" alt="ảnh lỗi" [routerLink]="['/category-detail/1']">
+    <img src="{{item?.image_url}}" height="100%" width="100%" alt="ảnh lỗi"
+         (click)="navigateToCategoryDetail(item?.id!)"
+         routerLinkActive="item.?image_url">
+
   </div>
   <div class="text">
     <span>{{item?.name}}</span>
