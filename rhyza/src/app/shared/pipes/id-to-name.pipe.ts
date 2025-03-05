@@ -12,9 +12,11 @@ export class IdToNamePipe implements PipeTransform {
   constructor(private artistService: ArtistService) {}
 
   transform(id: string): Observable<string> {
+    console.log(id);
     return this.artistService.getArtistById(id).pipe(
       map((artist: ArtistModel) => {
-        return artist.textMidArtists;
+        let name = artist.name
+        return name;
       }),
     );
   }
