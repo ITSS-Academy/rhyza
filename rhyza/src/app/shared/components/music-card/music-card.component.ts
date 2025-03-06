@@ -7,13 +7,15 @@ import {Store} from '@ngrx/store';
 import {PlayState} from '../../../ngrx/play/play.state';
 import * as PlayActions from '../../../ngrx/play/play.actions';
 import {Observable, Subscription} from 'rxjs';
+import {IdToNamePipe} from '../../pipes/id-to-name.pipe';
 
 
 @Component({
   selector: 'app-music-card',
   standalone: true,
   imports: [
-    MaterialModule
+    MaterialModule,
+    IdToNamePipe
   ],
   templateUrl: './music-card.component.html',
   styleUrl: './music-card.component.scss'

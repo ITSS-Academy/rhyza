@@ -1,5 +1,5 @@
 .container{
-    height: 100vh;
+    height: 100%;
     width: 100%;
 }
 *{
@@ -7,7 +7,7 @@
     padding: 0;
 }
 .header{
-  height: 20%;
+  height: fit-content;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -27,25 +27,28 @@
   font-size: 16px;
   border-radius: 5px;
 }
-.rectangle:hover{
-  background-color: rgba(128, 128, 128, 0.38);
-  cursor: pointer;
-}
-.material-symbols-rounded{
-  margin-left: 15px;
-}
-.rectangle span{
-  margin-top: 3px;
-}
-.main{
-  height: 70%;
+
+.main {
   display: flex;
   flex-wrap: wrap;
-  gap: 5px;
+  gap: 20px;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
 
+/* Thêm phần tử ảo để lấp khoảng trống */
+.main::after {
+  content: '';
+  flex: 1 1 150px;
 }
-.bottom{
-  background-color: green;
-  height: 10%;
+
+
+
+.loading{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }
+
 
