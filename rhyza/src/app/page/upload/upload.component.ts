@@ -5,11 +5,14 @@ import {ReactiveFormsModule} from '@angular/forms';
 import {SongModel} from '../../models/song.model';
 import {Store} from '@ngrx/store';
 import {AuthState} from '../../ngrx/auth/auth.state';
-import {async, Observable, Subscription} from 'rxjs';
+import {async, Observable, startWith, Subscription} from 'rxjs';
 import {AuthModel} from '../../models/auth.model';
 import * as SongActions from '../../ngrx/song/song.actions';
 import {CategoryState} from '../../ngrx/category/category.state';
 import {CategoryModel} from '../../models/category.model';
+import {CategoryService} from '../../services/category/category.service';
+import {map} from 'rxjs/operators';
+import {MatAutocompleteTrigger} from '@angular/material/autocomplete';
 @Component({
   selector: 'app-upload',
   templateUrl: './upload.component.html',
@@ -34,10 +37,19 @@ uploadForm = new FormGroup({
   views: new FormControl(0),
 });
 
+// getNameOfCategoryList(name: CategoryState){
+//   return this.categoryList$..map((category:CategoryService) => category.name);
+//
+// }
+
 auth$ !: Observable<AuthModel| null>;
 categoryList$ !: Observable<CategoryModel[]>;
   authData: AuthModel | null = null;
   subcription: Subscription[] = [];
+  categoryList: CategoryModel[] = [];
+  filteredCategories!: Observable<CategoryModel[]>;
+
+
   constructor(private store: Store<{
     auth:AuthState,
     category:CategoryState
@@ -45,6 +57,8 @@ categoryList$ !: Observable<CategoryModel[]>;
     this.auth$ = this.store.select('auth', 'authData');
     this.categoryList$ = this.store.select('category', 'categoryList');
   }
+  @ViewChild(MatAutocompleteTrigger) autocomplete!: MatAutocompleteTrigger;
+  @ViewChild('genreInput') genreInput!: ElementRef<HTMLInputElement>;
 
   ngOnInit() {
     this.subcription.push(
@@ -56,12 +70,48 @@ categoryList$ !: Observable<CategoryModel[]>;
       }),
       this.categoryList$.subscribe((categoryList) => {
         if (categoryList.length>0) {
-          console.log('categoryList', categoryList);
+         this.categoryList = categoryList;
+          // console.log('categoryList', this.categoryList);
         }
       })
     );
-
+  this.filteredCategories = this.genreForm.get('category_id')!.valueChanges.pipe(
+        startWith(''),
+        map(value => (typeof value === 'string' ? value : (value as unknown as CategoryModel)?.name || '')),
+        map(name => (name ? this._filter(name) : this.categoryList.slice()))
+      );
   }
+
+
+  genreForm = new FormGroup({
+    category_id: new FormControl('', Validators.required),
+  });
+
+  get selectedGenre() {
+    return this.genreForm.get('category_id')?.value;
+  }
+
+
+  private _filter(name: string): CategoryModel[] {
+    const filterValue = name.toLowerCase();
+    return this.categoryList.filter(category => category.name.toLowerCase().includes(filterValue));
+  }
+
+  displayFn(category?: CategoryModel): string {
+    return category ? category.name : '';
+  }
+
+  highlightFirstOption() {
+    setTimeout(() => {
+      if (this.autocomplete && this.autocomplete.panelOpen) {
+        const firstOption = document.querySelector('.mat-autocomplete-panel mat-option') as HTMLElement;
+        if (firstOption) {
+          firstOption.classList.add('mat-mdc-option-active');
+        }
+      }
+    }, 100);
+  }
+
 
   formData: SongModel={} as SongModel;
   confirmForm() {
@@ -90,6 +140,8 @@ categoryList$ !: Observable<CategoryModel[]>;
   uploadedAudio: any = null;
   audioURL: string | null = null;
 
+
+
   onAudioSelected(event: Event): void {
     const fileInput = event.target as HTMLInputElement;
     if (fileInput.files && fileInput.files.length > 0) {
@@ -108,7 +160,6 @@ categoryList$ !: Observable<CategoryModel[]>;
 
   openFilePicker() {
     document.getElementById('audioInput')?.click();
-
   }
 
  onFileSelected(event: Event) {
@@ -162,13 +213,7 @@ categoryList$ !: Observable<CategoryModel[]>;
     }
   }
 
-  onSubmit(): void {
-    if (this.uploadForm.valid) {
-      console.log('Song Submit Successed', this.uploadForm.value);
-    } else {
-      alert('Vui lòng điền đầy đủ thông tin!');
-    }
-  }
+
   onDragOver(event: DragEvent) {
     event.preventDefault();
     event.stopPropagation();
@@ -251,5 +296,8 @@ categoryList$ !: Observable<CategoryModel[]>;
     }
   }
 
+
   protected readonly async = async;
+
+
 }

@@ -18,4 +18,5 @@ export interface SongModel {
   uuid: string;
 
   views: number;
+
 }

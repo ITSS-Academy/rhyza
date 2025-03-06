@@ -58,59 +58,46 @@
             <input matInput type="text" formControlName="title">
           </mat-form-field>
         </div>
-
         <div id="upload-option-3">
-          <div id="upload-artist-name">
+          <div class="artist-genre-container">
+            <div id="upload-artist-name">
+              <mat-form-field appearance="outline" class="example-form-field">
+                <mat-label>Artist name</mat-label>
+                <input matInput type="text" formControlName="performer_ref">
+              </mat-form-field>
+            </div>
+            <div id="upload-select">
+              <form [formGroup]="genreForm">
+                <mat-form-field appearance="outline">
+                  <mat-label>Genre</mat-label>
+                  <input
+                    #genreInput
+                    type="text"
+                    matInput
+                    [formControlName]="'category_id'"
+                    [matAutocomplete]="auto"
+                    (keyup)="highlightFirstOption()">
+                  <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+                    <mat-option *ngFor="let category of filteredCategories | async" [value]="category">
+                      {{ category.name }}
+                    </mat-option>
+                  </mat-autocomplete>
+                  <mat-error *ngIf="genreForm.get('category_id')?.hasError('required')">
+                    Please select a genre.
+                  </mat-error>
+                </mat-form-field>
+              </form>
+            </div>
+          </div>
+          <div id="upload-lyric">
             <mat-form-field appearance="outline" class="example-form-field">
-              <mat-label>Artist name</mat-label>
-              <input matInput type="text" formControlName="performer_ref">
+              <mat-label>Composer</mat-label>
+              <input matInput type="text" formControlName="composer">
             </mat-form-field>
           </div>
-          <div id="upload-select">
-            <mat-form-field class="genre-select">
-              <mat-label>Select genre</mat-label>
-              <mat-select formControlName="category_id">
-                  <mat-option value="pop">Pop</mat-option>
-                  <mat-option value="rock">Rock</mat-option>
-                  <mat-option value="jazz">Jazz</mat-option>
-                  <mat-option value="blues">Blues</mat-option>
-                  <mat-option value="hiphop">Hip Hop</mat-option>
-              </mat-select>
-            </mat-form-field>
-
-
-<!--              <mat-form-field>-->
-<!--                <mat-label>States Group</mat-label>-->
-<!--                <input type="Genre"-->
-<!--                       matInput-->
-<!--                       formControlName="stateGroup"-->
-<!--                       required-->
-<!--                       [matAutocomplete]="autoGroup">-->
-<!--                <mat-autocomplete #autoGroup="matAutocomplete">-->
-<!--                  @for (group of categoryList$ | async; track $index) {-->
-<!--                    <mat-optgroup [label]="group.name">-->
-<!--                      @for (name of categoryList$.; track $index) {-->
-<!--                        <mat-option [value]="name">{{name}}</mat-option>-->
-<!--                      }-->
-<!--                    </mat-optgroup>-->
-<!--                  }-->
-<!--                </mat-autocomplete>-->
-<!--              </mat-form-field>-->
-
-
-          </div>
-        </div>
-
-        <div id="upload-lyric">
-          <mat-form-field appearance="outline" class="example-form-field">
-            <mat-label>Composer</mat-label>
-            <input matInput type="text" formControlName="composer">
-          </mat-form-field>
-        </div>
       </div>
     </div>
-
+    </div>
     <button mat-flat-button id="upload-button" type="submit" [disabled]="uploadForm.invalid"  (click)="confirmForm()">Upload</button>
   </form>
-
-</div>
+  </div>
