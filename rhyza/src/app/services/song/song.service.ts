@@ -30,12 +30,12 @@ export class SongService {
     const formData = new FormData();
     formData.append('title', song.title);
     formData.append('composer', song.composer);
-    formData.append('performer', 'eabdd474-f08d-4ba9-9b8b-7a39a02baa1a');
+    formData.append('performer_ref', '1873450c-b348-4f4e-8586-a070220e6878');
     formData.append('files', song.file_path);
     formData.append('files', song.image_url);
     formData.append('uuid', song.uuid);
     formData.append('views', song.views.toString());
-    formData.append('category_id', 'b86a086b-3610-40de-99f3-e08c4fe7f631');
+    formData.append('category_id', '01f44bca-93da-4b41-8cec-d70707a6d878');
     return this.http.post<SongModel>('http://localhost:3000/songs', formData, {
       headers,
     });

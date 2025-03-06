@@ -1,8 +1,14 @@
-<div class="container-category-home">
-  <div class="container-category">
-    <img src="{{ image}}" alt="">
-    <p>{{title}}</p>
+
+<div class="carousel">
+  <div class="carousel-item">
+    <div class="card">
+      <img src="{{category?.image_url}}" alt="">
+    </div>
+    <div class="carousel-title-container">
+      <div class="carousel-title">
+        <p>{{category?.name}}</p>
+      </div>
+    </div>
   </div>
-
-
 </div>
+
