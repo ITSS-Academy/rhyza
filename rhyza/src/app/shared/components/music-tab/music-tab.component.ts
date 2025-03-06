@@ -17,5 +17,7 @@ import {SongModel} from '../../../models/song.model';
 })
 export class MusicTabComponent {
   @Input() cardmusictab?: SongModel;
+  constructor() {
+  }
 
 }
