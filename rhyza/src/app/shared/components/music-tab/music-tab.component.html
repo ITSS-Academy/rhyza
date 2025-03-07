@@ -1,22 +1,22 @@
 <div class="music-card">
-  <div class="left-side">
+  <div class="left-side" (click)="playSong()">
     <div class="image">
-      <img src="{{cardmusictab?.image_url}}" alt="MusicAlbums">
+      <img src="{{cardmusictab.image_url}}" alt="MusicAlbums">
     </div>
 
     <div class="content">
       <div class="text-top">
-        <span class="title">{{cardmusictab?.title}}</span>
+        <span class="title">{{cardmusictab.title}}</span>
       </div>
       <div class="text-bottom">
-        <span class="name">{{cardmusictab?.views}}</span>
+        <span class="name">{{cardmusictab.performer_ref | idToName | async }}</span>
       </div>
     </div>
   </div>
 
 
   <div class="right-side">
-    <div class="time">{{cardmusictab?.duration}}</div>
+    <div class="time">{{cardmusictab.duration}}</div>
     <button mat-icon-button aria-label="Example icon button with a vertical three dot icon">
       <mat-icon class="material-symbols-rounded">playlist_add</mat-icon>
     </button>

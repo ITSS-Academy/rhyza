@@ -205,12 +205,12 @@ button.mat-icon-button:hover {
 #next-song-section {
   display: none;
   padding: 30px 30px;
-  width: 70vh;
-  height: 50%;
+  width: 40vw;
+  height: 50vh;
   background-color: var(--surface);
   position: absolute;
-  bottom: 14%;
-  right: 25px;
+  bottom: 100px;
+  right: 0;
   z-index: 100;
   border-radius: 24px;
   border: 2px var(--surfaceContainer) solid;

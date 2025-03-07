@@ -30,12 +30,12 @@ export class SongService {
     const formData = new FormData();
     formData.append('title', song.title);
     formData.append('composer', song.composer);
-    formData.append('performer_ref', '1873450c-b348-4f4e-8586-a070220e6878');
+    formData.append('performer_ref', song.performer_ref);
     formData.append('files', song.file_path);
     formData.append('files', song.image_url);
     formData.append('uuid', song.uuid);
     formData.append('views', song.views.toString());
-    formData.append('category_id', '01f44bca-93da-4b41-8cec-d70707a6d878');
+    formData.append('category_id', song.category_id);
     return this.http.post<SongModel>('http://localhost:3000/songs', formData, {
       headers,
     });
@@ -61,6 +61,10 @@ export class SongService {
   getSongCategoryId(categoryId: string){
     return this.http.get<SongModel[]>(`${environment.apiUrl}songs/category-song?id=${categoryId}`);
 
+  }
+
+  getArtistBySongId(songId: string){
+    return this.http.get<SongModel[]>(`http://localhost:3000/artist/artist-song?song_id=${songId}`);
   }
 
   private currentSongSubject = new BehaviorSubject<SongModel | null>(null);

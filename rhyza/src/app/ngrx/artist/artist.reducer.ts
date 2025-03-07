@@ -22,7 +22,7 @@ export const artistReducer = createReducer(
   }),
 
   on(ArtistActions.getArtistListSuccess, (state, {artistList, type}) => {
-    console.log(artistList, type);
+    console.log( type);
     return <ArtistState>{
       ...state,
       artistList: artistList,

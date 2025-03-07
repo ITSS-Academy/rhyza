@@ -11,7 +11,7 @@ import {SongState} from '../../ngrx/song/song.state';
 import {ArtistModel} from '../../models/artist.model';
 import {ArtistState} from '../../ngrx/artist/artist.state';
 import * as ArtistActions from '../../ngrx/artist/artist.actions';
-
+import * as SongActions from '../../ngrx/song/song.actions';
 
 @Component({
   selector: 'app-artist-detail',
@@ -32,6 +32,7 @@ export class ArtistDetailComponent implements OnInit, OnDestroy {
   artistDetail!: ArtistModel;
   subscriptions: Subscription[] = [];
   isLoadingArtistDetail$!: Observable<boolean>;
+  isLoadingSongListArtist$!: Observable<boolean>;
 
   constructor(
     private location: Location,
@@ -43,6 +44,8 @@ export class ArtistDetailComponent implements OnInit, OnDestroy {
   ) {
     this.artistDetail$ = this.store.select('artist', 'artistDetail');
     this.isLoadingArtistDetail$ = this.store.select('artist', 'isLoading');
+    this.songListArtist$ = this.store.select('song', 'songArtist');
+    this.isLoadingSongListArtist$ = this.store.select('song', 'isLoadingArtist');
   }
 
   goBack() {
@@ -57,6 +60,10 @@ export class ArtistDetailComponent implements OnInit, OnDestroy {
           console.log('Artist ID:', id);
 
           this.store.dispatch(ArtistActions.getArtistById({id:id}));
+          this.store.dispatch(SongActions.getSongByArtist({
+            artistId: id
+          }));
+
 
 
         }

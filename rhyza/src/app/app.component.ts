@@ -28,7 +28,6 @@ export class AppComponent {
 
   ) {
     this.store.dispatch(CategoryActions.getCategories())
-
     this.store.dispatch(ArtistActions.getArtistList());
     onAuthStateChanged(this.auth, async (user) => {
       if(user){

@@ -18,8 +18,6 @@ export class ArtistService {
     return this.http.get<ArtistModel>(`http://localhost:3000/artist?id=${id}`);
   }
 
-  getArtistBySongId(songId: string){
-    return this.http.get<SongModel[]>(`http://localhost:3000/artist/artist-song?song_id=${songId}`);
-  }
+
 }
 
