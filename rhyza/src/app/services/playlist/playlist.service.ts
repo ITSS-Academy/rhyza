@@ -64,4 +64,12 @@ export class PlaylistService {
 
     return this.http.get<PlaylistModel[]>(`http://localhost:3000/playlists/user?uid=${uid}`, {headers});
   }
+
+  getPlaylistDetail(id: string, idToken: string){
+    const headers = {
+      Authorization: idToken,
+    }
+
+    return this.http.get<PlaylistModel>(`http://localhost:3000/playlists/user/playlist?id=${id}`, {headers});
+  }
 }

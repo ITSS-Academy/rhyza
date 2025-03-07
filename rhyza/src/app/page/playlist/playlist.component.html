@@ -6,7 +6,7 @@
     </button>
   </div>
   <div class="main">
-    @for (item of playlists; track $index) {
+    @for (item of playlistList; track $index) {
       <app-playlist-card
         [item] = "item"
       ></app-playlist-card>
