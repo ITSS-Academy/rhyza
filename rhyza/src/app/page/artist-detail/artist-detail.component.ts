@@ -1,7 +1,16 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {MusicTabComponent} from '../../shared/components/music-tab/music-tab.component';
 import {MatIcon} from '@angular/material/icon';
-import {Location} from '@angular/common';
+import {AsyncPipe, Location} from '@angular/common';
+import {MatProgressSpinner} from '@angular/material/progress-spinner';
+import {SongModel} from '../../models/song.model';
+import {Observable, Subscription} from 'rxjs';
+import {ActivatedRoute} from '@angular/router';
+import {Store} from '@ngrx/store';
+import {SongState} from '../../ngrx/song/song.state';
+import {ArtistModel} from '../../models/artist.model';
+import {ArtistState} from '../../ngrx/artist/artist.state';
+import * as ArtistActions from '../../ngrx/artist/artist.actions';
 
 
 @Component({
@@ -9,15 +18,67 @@ import {Location} from '@angular/common';
   standalone: true,
   imports: [
     MusicTabComponent,
-    MatIcon
+    MatIcon,
+    AsyncPipe,
+    MatProgressSpinner
   ],
   templateUrl: './artist-detail.component.html',
   styleUrl: './artist-detail.component.scss'
 })
-export class ArtistDetailComponent {
-  constructor(private location: Location) {}
+export class ArtistDetailComponent implements OnInit, OnDestroy {
+  songListArtist: SongModel[] = [];
+  songListArtist$!: Observable<SongModel[]>;
+  artistDetail$!: Observable<ArtistModel>;
+  artistDetail!: ArtistModel;
+  subscriptions: Subscription[] = [];
+  isLoadingArtistDetail$!: Observable<boolean>;
+
+  constructor(
+    private location: Location,
+    private activatedRoute: ActivatedRoute,
+    private store: Store<{
+      song: SongState;
+      artist: ArtistState;
+    }>
+  ) {
+    this.artistDetail$ = this.store.select('artist', 'artistDetail');
+    this.isLoadingArtistDetail$ = this.store.select('artist', 'isLoading');
+  }
 
   goBack() {
     this.location.back();
+  }
+
+  ngOnInit() {
+    this.subscriptions.push(
+      this.activatedRoute.params.subscribe((params) => {
+        const id = params['id'];
+        if (id) {
+          console.log('Artist ID:', id);
+
+          this.store.dispatch(ArtistActions.getArtistById({id:id}));
+
+
+        }
+      }),
+
+      // this.songListArtist$.subscribe((songList) => {
+      //   if (songList.length > 0) {
+      //     this.songListArtist = songList;
+      //     console.log('Song list:', songList);
+      //   }
+      // }),
+      //
+      this.artistDetail$.subscribe((artistDetail) => {
+        if (artistDetail) {
+          this.artistDetail = artistDetail;
+          console.log('Artist Detail:', artistDetail);
+        }
+      })
+    );
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.forEach(sub => sub.unsubscribe());
   }
 }

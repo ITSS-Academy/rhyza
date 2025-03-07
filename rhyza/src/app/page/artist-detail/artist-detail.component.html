@@ -1,17 +1,29 @@
-<div class="container">
-  <div class="left-arrow">
-    <mat-icon class="material-symbols-rounded" (click)="goBack()" style="cursor: pointer;">arrow_back</mat-icon>
+@if ((isLoadingArtistDetail$ | async)) {
+  <div class="loading">
+    <mat-spinner></mat-spinner>
   </div>
-  <div class="featured">
-    <span>Featured</span>
-    <mat-icon class="material-symbols-rounded"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF"><path d="M647-440H160v-80h487L423-744l57-56 320 320-320 320-57-56 224-224Z"/></svg></mat-icon>
+} @else {
+
+  <div class="container">
+    <div class="left-arrow">
+      <mat-icon class="material-symbols-rounded" (click)="goBack()" style="cursor: pointer;">arrow_back</mat-icon>
+    </div>
+
+    <div class="bolero">
+      <img [src]="artistDetail?.image_url" height="90%" alt="Artist Image">
+      <h1>{{ artistDetail?.name }}</h1>
+    </div>
+    <div class="featured">
+      <span>Songs</span>
+    </div>
+    <div class="music-list">
+      @for (song of songListArtist; track song.id) {
+        <app-music-tab
+          [cardmusictab]="song"
+        ></app-music-tab>
+      }
+    </div>
+
   </div>
-  <div class="body">
-<!--    @for (cardMusicTab of cardmusictab; track $index){-->
-<!--      <app-music-tab-->
-<!--        [cardmusictab]="cardMusicTab"-->
-<!--      >-->
-<!--      </app-music-tab>-->
-<!--    }-->
-  </div>
-</div>
+
+}
