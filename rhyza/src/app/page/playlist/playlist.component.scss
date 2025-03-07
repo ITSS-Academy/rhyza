@@ -1,5 +1,5 @@
 .container {
-  height: 100vh;
+  height: 100%;
   width: 100%;
 }
 *{
@@ -16,12 +16,11 @@
   align-items: center;
 }
 h5{
-  color: var(on-surface);
+  color: var(--on-surface);
 }
 .main {
   display: flex;
-  height: 60%;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: 15px;
 }
 

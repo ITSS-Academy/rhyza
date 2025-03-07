@@ -1,10 +1,12 @@
 <div class="container">
   <div class="top">
     <h5>My playlist</h5>
-    <div class="button"><button mat-button (click)="openDialog()"><span class="material-symbols-outlined" style="color: white;">add</span></button></div>
+    <button mat-icon-button aria-label="Example icon button with a vertical three dot icon" (click)="openDialog()">
+      <mat-icon class="material-symbols-outlined">add</mat-icon>
+    </button>
   </div>
   <div class="main">
-    @for (item of playlists; track $index) {
+    @for (item of playlistList; track $index) {
       <app-playlist-card
         [item] = "item"
       ></app-playlist-card>

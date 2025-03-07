@@ -19,6 +19,8 @@ import {artistReducer} from './ngrx/artist/artist.reducer';
 import * as ArtistEffects from './ngrx/artist/artist.effect';
 import {queueReducer} from './ngrx/queue/queue.reducers';
 import  * as QueueEffects from './ngrx/queue/queue.effects'
+import {playlistReducer} from './ngrx/playlist/playlist.reducer';
+import  * as PlaylistEffect from './ngrx/playlist/playlist.effects'
 
 export const appConfig: ApplicationConfig = {
   providers: [provideZoneChangeDetection({ eventCoalescing: true }),
@@ -35,8 +37,9 @@ export const appConfig: ApplicationConfig = {
       play: playReducer,
       artist: artistReducer,
       category: categoryReducer,
-      queue: queueReducer
+      queue: queueReducer,
+      playlist: playlistReducer
     }),
-    provideEffects(SongEffects, AuthEffects, ArtistEffects, CategoryEffects,QueueEffects )
+    provideEffects(SongEffects, AuthEffects, ArtistEffects, CategoryEffects,QueueEffects, PlaylistEffect )
   ]
 };

@@ -3,26 +3,31 @@
   height: fit-content;
   display: flex;
   flex-direction: column;
-  background-color: black;
-  padding: 0 0 8px 0;
+  background-color: var(--scrim);
+  padding: 12px;
   cursor: pointer;
   border-radius:16px;
+  transition: transform 0.3s ease, background-color 0.3s ease;
 
 }
+
+
+
 .picture{
-  width: 170px;
-  height: 170px;
+  width: 150px;
+  height: 150px;
 
 }
 .picture img{
   height: 100%;
   width: 100%;
-  border-radius: 16px 16px 0 0;
+  border-radius: 16px;
   object-fit: cover;
 
 }
 .picture-text:hover {
-  background-color: var(--surface);
+    transform: scale(1.1); /* Phóng to 10% */
+    background-color: rgba(255, 255, 255, 0.1); /* Màu nền nhạt khi hover */
   border-radius:16px;
 
 }

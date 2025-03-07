@@ -27,6 +27,10 @@ export const routes: Routes = [
     loadChildren: () => import('../app/page/playlist/playlist.routes').then(m => m.PLAYLIST_ROUTES),
   },
   {
+    path:'playlist-detail/:id',
+    loadChildren: () => import('../app/page/playlist-detail/playlist-detail.routes').then(m => m.PLAYLIST_DETAIL_ROUTES),
+  },
+  {
     path: 'search',
     loadChildren: () =>
       import('../app/page/search/search.routes').then((m) => m.SEARCH_ROUTES),

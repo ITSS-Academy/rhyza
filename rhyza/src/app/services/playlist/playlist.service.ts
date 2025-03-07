@@ -21,7 +21,7 @@ export class PlaylistService {
    if(playlist.image_url != '' || playlist.image_url != null){
      formData.append('uid', playlist.uid);
      formData.append('name', playlist.name);
-    formData.append('image_url', playlist.image_url as File);
+    formData.append('file', playlist.image_url as File);
      formData.append('songs_id', JSON.stringify(playlist.songs_id));
     formData.append('description', playlist.description);
    }else {
@@ -62,6 +62,14 @@ export class PlaylistService {
       Authorization: idToken,
     }
 
-    return this.http.get<PlaylistModel[]>(`http://localhost:3000/playlists?uid=${uid}`, {headers});
+    return this.http.get<PlaylistModel[]>(`http://localhost:3000/playlists/user?uid=${uid}`, {headers});
+  }
+
+  getPlaylistDetail(id: string, idToken: string){
+    const headers = {
+      Authorization: idToken,
+    }
+
+    return this.http.get<PlaylistModel>(`http://localhost:3000/playlists/user/playlist?id=${id}`, {headers});
   }
 }
