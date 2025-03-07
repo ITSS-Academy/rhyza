@@ -1,13 +1,13 @@
 
   <div class="container-home">
-  <div class="title-each-box">  <p>Trending</p><mat-icon>arrow_forward</mat-icon></div>
+  <div class="title-each-box"><p>Trending</p></div>
 
-    <div class="carousel-container">
+    <div class="carousel-container" >
       <button class="scroll-btn left" (click)="scrollTrendingLeft()">
         <i class="material-icons">chevron_left</i>
       </button>
 
-      <div class="box-carousel">
+      <div class="box-carousel" #carouselContainer>
         @for (carousel of songTrending; track $index) {
           <app-carousel-home [carousel]="carousel"></app-carousel-home>
         }
@@ -18,18 +18,45 @@
     </div>
 
   <div class="box-empty"></div>
-  <div class="title-each-box">  <p>Propose</p><mat-icon>arrow_forward</mat-icon></div>
+  <div class="title-each-box"><p>Propose</p></div>
   <div class="carousel-container">
-    <button class="scroll-btn left" (click)="scrollMusicLeft()">&#8249;</button>
+    <button class="scroll-btn left" (click)="scrollMusicLeft()"><i class="material-icons">chevron_left</i></button>
 
     <div class="box-music-card" #musicCarousel>
       @for (song of song; track $index ) {
         <app-music-card [song]="song"></app-music-card>
       }
     </div>
-
-    <button class="scroll-btn right" (click)="scrollMusicRight()">&#8250;</button>
+    <button class="scroll-btn right" (click)="scrollMusicRight()"><i class="material-icons">chevron_right</i></button>
   </div>
+
+
+    <div class="box-empty"></div>
+    <div class="title-each-box"><p>Artist</p></div>
+    <div class="carousel-container">
+      <button class="scroll-btn left" (click)="scrollArtistLeft()"><i class="material-icons">chevron_left</i></button>
+
+      <div class="box-music-card" #artistCarousel>
+        @for (artist of this.artistList; track $index ) {
+          <app-artists [cardarttist]="artist"></app-artists>
+        }
+      </div>
+      <button class="scroll-btn right" (click)="scrollArtistRight()"><i class="material-icons">chevron_right</i></button>
+    </div>
+
+
+    <div class="box-empty"></div>
+    <div class="title-each-box"><p>Category</p></div>
+    <div class="carousel-container">
+      <button class="scroll-btn left" (click)="scrollCategoryLeft()"><i class="material-icons">chevron_left</i></button>
+
+      <div class="box-music-card" #categoryCarousel>
+        @for (category of this.categoryList; track $index ) {
+          <app-category-card [item]="category"></app-category-card>
+        }
+      </div>
+      <button class="scroll-btn right" (click)="scrollCategoryRight()"><i class="material-icons">chevron_right</i></button>
+    </div>
 
 </div>
 

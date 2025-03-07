@@ -13,8 +13,12 @@ import {authReducer} from './ngrx/auth/auth.reducer';
 import * as AuthEffects from './ngrx/auth/auth.effect';
 import {environment} from '../environments/environment';
 import {playReducer} from './ngrx/play/play.reducer';
+import {categoryReducer} from './ngrx/category/category.reducer';
+import * as CategoryEffects from './ngrx/category/category.effect';
 import {artistReducer} from './ngrx/artist/artist.reducer';
 import * as ArtistEffects from './ngrx/artist/artist.effect';
+import {queueReducer} from './ngrx/queue/queue.reducers';
+import  * as QueueEffects from './ngrx/queue/queue.effects'
 
 export const appConfig: ApplicationConfig = {
   providers: [provideZoneChangeDetection({ eventCoalescing: true }),
@@ -29,8 +33,10 @@ export const appConfig: ApplicationConfig = {
       song: songReducer,
       auth: authReducer,
       play: playReducer,
-      artist: artistReducer
+      artist: artistReducer,
+      category: categoryReducer,
+      queue: queueReducer
     }),
-    provideEffects(SongEffects, AuthEffects, ArtistEffects)
+    provideEffects(SongEffects, AuthEffects, ArtistEffects, CategoryEffects,QueueEffects )
   ]
 };

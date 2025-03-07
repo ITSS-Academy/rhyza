@@ -1,17 +1,21 @@
-
-<div class="container">
-  <router-outlet></router-outlet>
-  <div class="header">
-    <h4>Category</h4>
-    <div class="right-side">
+@if(this.is_loading$ | async){
+  <div class="loading">
+    <mat-spinner></mat-spinner>
+    
+  </div>
+} @else {
+  <div class="container">
+    <div class="header">
+      <h4>Category</h4>
+    </div>
+    <div class="main">
+      @for (item of categoryList; track $index) {
+        <app-category-card
+          [item] = "item"
+        ></app-category-card>
+      }
     </div>
   </div>
-  <div class="main">
-    @for (item of products; track $index) {
-      <app-category-card
-        [item] = "item"
-      ></app-category-card>
-    }
-  </div>
-</div>
 
+
+}

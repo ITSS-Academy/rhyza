@@ -11,6 +11,8 @@ import { PlaylistsModule } from './playlists/playlists.module';
 import { HistoryModule } from './history/history.module';
 import { ArtistModule } from './artist/artist.module';
 import { QueueModule } from './queue/queue.module';
+import { LikeModule } from './like/like.module';
+import { SearchModule } from './search/search.module';
 
 @Module({
   imports: [
@@ -25,6 +27,8 @@ import { QueueModule } from './queue/queue.module';
     HistoryModule,
     ArtistModule,
     QueueModule,
+    LikeModule,
+    SearchModule,
   ],
   controllers: [AppController],
   providers: [AppService],
