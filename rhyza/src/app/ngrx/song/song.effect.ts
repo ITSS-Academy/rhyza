@@ -81,3 +81,23 @@ export const getSongQueue = createEffect(
   },
   { functional: true },
 )
+
+
+export const getSongByCategory = createEffect(
+  (actions$ = inject(Actions), songService = inject(SongService)) => {
+    return actions$.pipe(
+      ofType(SongActions.getSongCategory),
+      exhaustMap((action) => {
+        return songService.getSongCategoryId(action.categoryId).pipe(
+          map((songCategory) =>
+            SongActions.getSongCategorySuccess({ songCategory: songCategory }),
+          ),
+          catchError((error) =>
+            of(SongActions.getSongCategoryFailure({ error })),
+          ),
+        );
+      }),
+    );
+  },
+  { functional: true },
+);

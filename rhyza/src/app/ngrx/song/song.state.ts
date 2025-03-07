@@ -4,6 +4,7 @@ export interface SongState {
   songList: SongModel[];
   songHistory: SongModel[];
   songQueue: SongModel[];
+  songCategory: SongModel[];
   isLoading: boolean;
   error: any;
 }

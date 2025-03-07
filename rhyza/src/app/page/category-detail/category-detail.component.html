@@ -1,23 +1,28 @@
-
-<div class="container">
-  <div class="left-arrow">
-    <mat-icon class="material-symbols-rounded" (click)="goBack()" style="cursor: pointer;">arrow_back</mat-icon>
+@if ((isLoadingCategoryDetail$ |async) ){
+  <div class="loading">
+    <mat-spinner></mat-spinner>
   </div>
-  <div class="bolero">
-    <img src="https://i1.sndcdn.com/avatars-000289495193-9xhjdi-t240x240.jpg" height="90%">
-    <h1>Bolero</h1>
-  </div>
-  <div class="featured">
-    <span>Songs</span>
-  </div>
-  <div class="music-list">
-    @for(song of this.musicCategoryList; track song.id){
-      <app-music-tab
-      [cardmusictab]="song"
-      ></app-music-tab>
-    }
+} @else {
 
+  <div class="container">
+    <div class="left-arrow">
+      <mat-icon class="material-symbols-rounded" (click)="goBack()" style="cursor: pointer;">arrow_back</mat-icon>
+    </div>
+    <div class="bolero">
+      <img src="{{this.categoryDetail.image_url}}" height="90%">
+      <h1>{{this.categoryDetail.name}}</h1>
+    </div>
+    <div class="featured">
+      <span>Songs</span>
+    </div>
+    <div class="music-list">
+      @for(song of this.songListCategory; track song.id){
+        <app-music-tab
+          [cardmusictab]="song"
+        ></app-music-tab>
+      }
+    </div>
 
   </div>
 
-</div>
+}

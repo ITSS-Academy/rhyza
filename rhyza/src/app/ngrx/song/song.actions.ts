@@ -88,3 +88,9 @@ export const getSongHistoryFailure = createAction('[Song] Get Song History Failu
 export const getSongQueue = createAction('[Song] Get Song Queue', props<{uid:string, idToken: string }>());
 export const getSongQueueSuccess = createAction('[Song] Get Song Queue Success', props<{songQueue: SongModel[]}>());
 export const getSongQueueFailure = createAction('[Song] Get Song Queue Failure', props<{error: any}>());
+
+
+// get song category
+export const getSongCategory = createAction('[Song] Get Song Category', props<{categoryId: string}>());
+export const getSongCategorySuccess = createAction('[Song] Get Song Category Success', props<{songCategory: SongModel[]}>());
+export const getSongCategoryFailure = createAction('[Song] Get Song Category Failure', props<{error: any}>());

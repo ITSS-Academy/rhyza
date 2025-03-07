@@ -58,6 +58,11 @@ export class SongService {
     );
   }
 
+  getSongCategoryId(categoryId: string){
+    return this.http.get<SongModel[]>(`${environment.apiUrl}songs/category-song?id=${categoryId}`);
+
+  }
+
   private currentSongSubject = new BehaviorSubject<SongModel | null>(null);
   currentSong$ = this.currentSongSubject.asObservable();
 
