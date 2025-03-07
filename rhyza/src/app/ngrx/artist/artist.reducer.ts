@@ -22,7 +22,7 @@ export const artistReducer = createReducer(
   }),
 
   on(ArtistActions.getArtistListSuccess, (state, {artistList, type}) => {
-    console.log(type);
+    console.log(artistList, type);
     return <ArtistState>{
       ...state,
       artistList: artistList,
@@ -32,10 +32,40 @@ export const artistReducer = createReducer(
 
   on(ArtistActions.getArtistListFailure, (state, {error, type}) => {
     console.log(type);
+    console.log(error);
     return {
       ...state,
       error: error,
       isLoading: false,
     };
-  })
+  }),
+
+
+  //get artist by id
+  on(ArtistActions.getArtistById, (state, {type}) => {
+    console.log(type);
+    return {
+      ...state,
+      isLoading: true,
+    };
+  }),
+
+  on(ArtistActions.getArtistByIdSuccess, (state, {artistDetail, type}) => {
+    console.log(artistDetail, type);
+    return <ArtistState>{
+      ...state,
+      artistDetail: artistDetail,
+      isLoading: false,
+    };
+  }),
+
+  on(ArtistActions.getArtistByIdFailure, (state, {error, type}) => {
+    console.log(type);
+    console.log(error);
+    return {
+      ...state,
+      error: error,
+      isLoading: false,
+    };
+  }),
 )

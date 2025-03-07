@@ -19,12 +19,16 @@ export const routes: Routes = [
     loadChildren: () => import('../app/page/artist/artist.routes').then(m => m.ARTIST_ROUTES),
   },
   {
-    path: 'artist-detail',
+    path: 'artist-detail/:id',
     loadChildren: () => import('../app/page/artist-detail/artist-detail.routes').then(m => m.ARTIST_DETAIL_ROUTES),
   },
   {
     path: 'playlist',
     loadChildren: () => import('../app/page/playlist/playlist.routes').then(m => m.PLAYLIST_ROUTES),
+  },
+  {
+    path:'playlist-detail/:id',
+    loadChildren: () => import('../app/page/playlist-detail/playlist-detail.routes').then(m => m.PLAYLIST_DETAIL_ROUTES),
   },
   {
     path: 'search',

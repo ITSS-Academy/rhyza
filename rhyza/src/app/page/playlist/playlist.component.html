@@ -1,1 +1,15 @@
-<p>playlist works!</p>
+<div class="container">
+  <div class="top">
+    <h5>My playlist</h5>
+    <button mat-icon-button aria-label="Example icon button with a vertical three dot icon" (click)="openDialog()">
+      <mat-icon class="material-symbols-outlined">add</mat-icon>
+    </button>
+  </div>
+  <div class="main">
+    @for (item of playlistList; track $index) {
+      <app-playlist-card
+        [item] = "item"
+      ></app-playlist-card>
+    }
+  </div>
+</div>

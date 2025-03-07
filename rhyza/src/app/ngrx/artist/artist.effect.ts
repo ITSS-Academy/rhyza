@@ -18,3 +18,19 @@ export const getListArtists = createEffect(
   },
   { functional: true },
 );
+
+
+export const getArtistById = createEffect(
+  (actions$ = inject(Actions), artistService = inject(ArtistService)) => {
+    return actions$.pipe(
+      ofType(ArtistActions.getArtistById),
+      exhaustMap(({ id }) =>
+        artistService.getArtistById(id).pipe(
+          map((artistDetail) => ArtistActions.getArtistByIdSuccess({ artistDetail })),
+          catchError((error) => of(ArtistActions.getArtistByIdFailure({ error }))),
+        ),
+      ),
+    );
+  },
+  { functional: true },
+);

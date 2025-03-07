@@ -22,3 +22,4 @@ export class ArtistService {
     return this.http.get<SongModel[]>(`http://localhost:3000/artist/artist-song?song_id=${songId}`);
   }
 }
+
