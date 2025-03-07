@@ -13,6 +13,8 @@ import {CategoryModel} from '../../models/category.model';
 import {CategoryService} from '../../services/category/category.service';
 import {map} from 'rxjs/operators';
 import {MatAutocompleteTrigger} from '@angular/material/autocomplete';
+import {ArtistModel} from '../../models/artist.model';
+import {ArtistState} from '../../ngrx/artist/artist.state';
 @Component({
   selector: 'app-upload',
   templateUrl: './upload.component.html',
@@ -47,15 +49,19 @@ categoryList$ !: Observable<CategoryModel[]>;
   authData: AuthModel | null = null;
   subcription: Subscription[] = [];
   categoryList: CategoryModel[] = [];
-  filteredCategories!: Observable<CategoryModel[]>;
-
+  filteredCategories: Observable<{ id: string; name: string; }[]> | undefined;
+  artist$ !: Observable<ArtistModel[]>;
+  artistList: ArtistModel[] = [];
+  selectedCategoryName: string = '';
 
   constructor(private store: Store<{
     auth:AuthState,
-    category:CategoryState
+    category:CategoryState,
+    artist:ArtistState
   }>) {
     this.auth$ = this.store.select('auth', 'authData');
     this.categoryList$ = this.store.select('category', 'categoryList');
+    this.artist$ = this.store.select('artist', 'artistList');
   }
   @ViewChild(MatAutocompleteTrigger) autocomplete!: MatAutocompleteTrigger;
   @ViewChild('genreInput') genreInput!: ElementRef<HTMLInputElement>;
@@ -71,17 +77,24 @@ categoryList$ !: Observable<CategoryModel[]>;
       this.categoryList$.subscribe((categoryList) => {
         if (categoryList.length>0) {
          this.categoryList = categoryList;
-          // console.log('categoryList', this.categoryList);
+          console.log('categoryList', this.categoryList);
         }
-      })
+      }),
+
+      this.artist$.subscribe((artistList) => {
+        if (artistList.length>0) {
+          this.artistList = artistList;
+          console.log('artistList', this.artistList);
+        }
+      }),
     );
-  this.filteredCategories = this.genreForm.get('category_id')!.valueChanges.pipe(
-        startWith(''),
-        map(value => (typeof value === 'string' ? value : (value as unknown as CategoryModel)?.name || '')),
-        map(name => (name ? this._filter(name) : this.categoryList.slice()))
-      );
   }
 
+
+  private _filterCategories(value: string): { id: string, name: string }[] {
+    const filterValue = value.toLowerCase();
+    return this.categoryList.filter(category => category.name.toLowerCase().includes(filterValue));
+  }
 
   genreForm = new FormGroup({
     category_id: new FormControl('', Validators.required),
@@ -92,15 +105,14 @@ categoryList$ !: Observable<CategoryModel[]>;
   }
 
 
-  private _filter(name: string): CategoryModel[] {
-    const filterValue = name.toLowerCase();
-    return this.categoryList.filter(category => category.name.toLowerCase().includes(filterValue));
-  }
 
-  displayFn(category?: CategoryModel): string {
+
+
+
+  displayFn(id: string): string {
+    const category = this.categoryList.find(cat => cat.id === id);
     return category ? category.name : '';
   }
-
   highlightFirstOption() {
     setTimeout(() => {
       if (this.autocomplete && this.autocomplete.panelOpen) {
@@ -111,6 +123,8 @@ categoryList$ !: Observable<CategoryModel[]>;
       }
     }, 100);
   }
+
+
 
 
   formData: SongModel={} as SongModel;
@@ -296,8 +310,25 @@ categoryList$ !: Observable<CategoryModel[]>;
     }
   }
 
-
   protected readonly async = async;
 
+  onInput(value: string) {
+    const matchedCategory = this.categoryList.find(cat => cat.name.toLowerCase() === value.toLowerCase());
+    if (matchedCategory) {
+      this.onSelectCategory(matchedCategory.id);
+    } else {
+      this.genreForm.controls['category_id'].setValue('');
+      this.selectedCategoryName = value;
+    }
+  }
 
+  onSelectCategory(categoryId: string) {
+    this.genreForm.controls['category_id'].setValue(categoryId);
+    const selectedCategory = this.categoryList.find(cat => cat.id === categoryId);
+    this.selectedCategoryName = selectedCategory ? selectedCategory.name : '';
+  }
+  resetInput() {
+    const selectedCategory = this.categoryList.find(cat => cat.id === this.genreForm.controls['category_id'].value);
+    this.selectedCategoryName = selectedCategory ? selectedCategory.name : '';
+  }
 }

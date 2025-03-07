@@ -74,19 +74,26 @@
                     #genreInput
                     type="text"
                     matInput
-                    [formControlName]="'category_id'"
                     [matAutocomplete]="auto"
-                    (keyup)="highlightFirstOption()">
-                  <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
-                    <mat-option *ngFor="let category of filteredCategories | async" [value]="category">
+                    [value]="selectedCategoryName"
+                [value]="selectedCategoryName || ''"
+                    (blur)="resetInput()">
+
+                  <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onSelectCategory($event.option.value)">
+                    <mat-option *ngFor="let category of filteredCategories | async" [value]="category.id">
                       {{ category.name }}
                     </mat-option>
                   </mat-autocomplete>
+
                   <mat-error *ngIf="genreForm.get('category_id')?.hasError('required')">
                     Please select a genre.
                   </mat-error>
                 </mat-form-field>
               </form>
+
+
+
+
             </div>
           </div>
           <div id="upload-lyric">
@@ -101,3 +108,5 @@
     <button mat-flat-button id="upload-button" type="submit" [disabled]="uploadForm.invalid"  (click)="confirmForm()">Upload</button>
   </form>
   </div>
+
+
