@@ -112,7 +112,6 @@ export class SongController {
         musicFile.buffer,
         songId,
       );
-      // const hlsDir = await this.songsService.convertToHls(file.buffer, songId);
       const hlsUrl = await this.songsService.uploadHlsToSupabase(
         'songs',
         songId,

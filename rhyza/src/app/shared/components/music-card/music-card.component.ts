@@ -8,6 +8,9 @@ import {PlayState} from '../../../ngrx/play/play.state';
 import * as PlayActions from '../../../ngrx/play/play.actions';
 import {Observable, Subscription} from 'rxjs';
 import {IdToNamePipe} from '../../pipes/id-to-name.pipe';
+import * as QueueActions from '../../../ngrx/queue/queue.actions';
+import {AuthModel} from '../../../models/auth.model';
+import {AuthState} from '../../../ngrx/auth/auth.state';
 
 
 @Component({
@@ -26,6 +29,8 @@ export class MusicCardComponent implements OnInit {
   subscription: Subscription[] = [];
 
   play$ !: Observable<boolean>;
+  auth$ !: Observable<AuthModel| null>;
+  authData!: AuthModel | null;
 
 
 
@@ -35,12 +40,14 @@ export class MusicCardComponent implements OnInit {
     private songService: SongService,
     private store: Store<{
       play:PlayState
+      auth: AuthState
 
     }>
   )
   {
 
     this.play$ = this.store.select('play','isPlaying');
+    this.auth$ = this.store.select('auth','authData');
   }
 
 
@@ -48,6 +55,13 @@ export class MusicCardComponent implements OnInit {
     this.subscription.push(
       this.play$.subscribe((isPlaying) => {
         this.isPlaying = isPlaying;
+      }),
+
+      this.auth$.subscribe((auth) => {
+        if (auth?.uid) {
+          this.authData = auth;
+
+        }
       })
     )
 
@@ -68,6 +82,31 @@ export class MusicCardComponent implements OnInit {
     }
     this.songService.setCurrentSong(this.song);
 
+  }
+
+
+  addToQueue(songId:string) {
+
+    if(this.authData?.uid && songId && this.authData?.idToken){
+
+      this.store.dispatch(QueueActions.createQueue({
+        uid: this.authData.uid,
+        songId: songId,
+        idToken: this.authData.idToken
+      }))
+    }
+
+
+  }
+
+  deleteSongToQueue(songId: string) {
+    if(this.authData?.uid && songId && this.authData?.idToken){
+      this.store.dispatch(QueueActions.deleteSongInQueue({
+        uid: this.authData.uid,
+        songId: songId,
+        idToken: this.authData.idToken
+      }))
+    }
   }
 
 

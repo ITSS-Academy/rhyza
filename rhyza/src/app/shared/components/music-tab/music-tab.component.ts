@@ -1,7 +1,6 @@
 import {Component, Input} from '@angular/core';
-import {MatCard} from "@angular/material/card";
-import {MatIcon} from "@angular/material/icon";
 import {SongModel} from '../../../models/song.model';
+import {MaterialModule} from '../../material.module';
 
 
 
@@ -9,8 +8,7 @@ import {SongModel} from '../../../models/song.model';
   selector: 'app-music-tab',
   standalone: true,
     imports: [
-        MatCard,
-        MatIcon
+        MaterialModule
     ],
   templateUrl: './music-tab.component.html',
   styleUrl: './music-tab.component.scss'

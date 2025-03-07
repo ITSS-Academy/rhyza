@@ -48,6 +48,21 @@ export class SongService {
     );
   }
 
+  getSongQueue(uid: string, idToken: string) {
+    const headers = {
+      Authorization: idToken,
+    };
+    return this.http.get<SongModel[]>(
+      `http://localhost:3000/queue/get-song-queues-user?uid=${uid}`,
+      { headers },
+    );
+  }
+
+  getSongCategoryId(categoryId: string){
+    return this.http.get<SongModel[]>(`${environment.apiUrl}songs/category-song?id=${categoryId}`);
+
+  }
+
   private currentSongSubject = new BehaviorSubject<SongModel | null>(null);
   currentSong$ = this.currentSongSubject.asObservable();
 

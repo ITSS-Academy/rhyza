@@ -12,4 +12,8 @@ export class CategoryService {
   getCategoryList() {
     return this.http.get<CategoryModel[]>('http://localhost:3000/category/all');
   }
+
+  getCategoryDetail(id: string) {
+    return this.http.get<CategoryModel>(`http://localhost:3000/category?id=${id}`);
+  }
 }
