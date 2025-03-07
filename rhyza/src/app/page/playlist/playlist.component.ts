@@ -1,10 +1,14 @@
-import {Component, inject} from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import {MaterialModule} from '../../shared/material.module';
 import {MatDialog} from '@angular/material/dialog';
 import {CreatePlaylistComponent} from '../../shared/components/create-playlist/create-playlist.component';
 import {PlaylistModel} from '../../models/playlist.model';
 import {PlaylistCardComponent} from '../../shared/components/playlist-card/playlist-card.component';
-
+import {Store} from '@ngrx/store';
+import {Observable, Subscription} from 'rxjs';
+import {AuthModel} from '../../models/auth.model';
+import {AuthState} from '../../ngrx/auth/auth.state';
+import * as PlaylistActions from '../../ngrx/playlist/playlist.actions';
 @Component({
   selector: 'app-playlist',
   standalone: true,
@@ -12,13 +16,43 @@ import {PlaylistCardComponent} from '../../shared/components/playlist-card/playl
   templateUrl: './playlist.component.html',
   styleUrl: './playlist.component.scss'
 })
-export class PlaylistComponent {
+export class PlaylistComponent implements OnInit {
+  subscription: Subscription[] = [];
+  auth$ !: Observable<AuthModel| null>;
+  authData : AuthModel | null = null;
+  constructor(private store: Store<{
+    auth:AuthState
+  }>)
+  {
+    this.auth$ = this.store.select('auth','authData')
+  }
+
+  ngOnInit() {
+    this.subscription.push(
+      this.auth$.subscribe((authData)=>{
+        if(authData?.idToken && authData?.uid){
+          this.authData = authData;
+          this.store.dispatch(PlaylistActions.getPlaylist({
+            uid: authData.uid,
+            idToken: authData.idToken
+          }))
+
+        }
+      })
+    )
+
+
+  }
+
   readonly dialog = inject(MatDialog);
   openDialog() {
 
-    const dialogRef = this.dialog.open(CreatePlaylistComponent);
+    const dialogRef = this.dialog.open(CreatePlaylistComponent,{
+
+    });
 
     dialogRef.afterClosed().subscribe(result => {
+
       console.log(`Dialog result: ${result}`);
     });
   }
