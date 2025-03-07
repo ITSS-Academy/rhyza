@@ -58,6 +58,11 @@
             <input matInput type="text" formControlName="title">
           </mat-form-field>
         </div>
+
+
+
+
+
         <div id="upload-option-3">
           <div class="artist-genre-container">
             <div id="upload-artist-name">
@@ -66,31 +71,35 @@
                 <input matInput type="text" formControlName="performer_ref">
               </mat-form-field>
             </div>
+
+
+
+
+
+
+
+
+
             <div id="upload-select">
-              <form [formGroup]="genreForm">
-                <mat-form-field appearance="outline">
-                  <mat-label>Genre</mat-label>
-                  <input
-                    #genreInput
-                    type="text"
-                    matInput
-                    [matAutocomplete]="auto"
-                    [value]="selectedCategoryName"
-                [value]="selectedCategoryName || ''"
-                    (blur)="resetInput()">
+             <form>
+               <mat-form-field>
+                 <mat-label>Category*</mat-label>
+                 <input
+                   #genreInput
+                   type="text"
+                   matInput
+                   [formControlName]="'category_id'"
+                   [matAutocomplete]="auto"
+                   [ngModel]="genreInput.value"
+                 />
+                 <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn" (optionSelected)="onSelectCategory($event)">
+                   <mat-option *ngFor="let category of filteredCategories | async" [value]="category.id">
+                     {{ category.name }}
+                   </mat-option>
+                 </mat-autocomplete>
+               </mat-form-field>
 
-                  <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onSelectCategory($event.option.value)">
-                    <mat-option *ngFor="let category of filteredCategories | async" [value]="category.id">
-                      {{ category.name }}
-                    </mat-option>
-                  </mat-autocomplete>
-
-                  <mat-error *ngIf="genreForm.get('category_id')?.hasError('required')">
-                    Please select a genre.
-                  </mat-error>
-                </mat-form-field>
-              </form>
-
+             </form>
 
 
 

@@ -230,3 +230,6 @@ form {
 .example-full-width {
   width: 100%;
 }
+mat-option::-webkit-scrollbar {
+  display: none;
+}

@@ -35,9 +35,22 @@
   <div class="extra-controls">
     <button mat-icon-button><mat-icon class="material-symbols-rounded">volume_off</mat-icon></button>
     <input type="range" class="volume-bar" min="0" max="100" [value]="volume" (input)="changeVolume($event)">
-    <button mat-icon-button><mat-icon class="material-symbols-rounded">queue_music</mat-icon></button>
+    <button mat-icon-button (click)="overlaySongList()"><mat-icon class="material-symbols-rounded" >queue_music</mat-icon></button>
   </div>
 </div>
 
 <!-- Hidden Audio Element -->
 <audio #audioPlayer crossorigin="anonymous"></audio>
+
+
+
+
+<div id="next-song-section">
+  <h6>Next Song</h6>
+  <div class="next-song-list">
+    @for (song of this.songListQueue; track song.id) {
+      <app-music-tab [cardmusictab]="song"></app-music-tab>
+
+    }
+  </div>
+</div>

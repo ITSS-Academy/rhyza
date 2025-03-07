@@ -12,7 +12,7 @@ import {CategoryState} from '../../ngrx/category/category.state';
 import {CategoryModel} from '../../models/category.model';
 import {CategoryService} from '../../services/category/category.service';
 import {map} from 'rxjs/operators';
-import {MatAutocompleteTrigger} from '@angular/material/autocomplete';
+import {MatAutocompleteSelectedEvent, MatAutocompleteTrigger} from '@angular/material/autocomplete';
 import {ArtistModel} from '../../models/artist.model';
 import {ArtistState} from '../../ngrx/artist/artist.state';
 @Component({
@@ -39,17 +39,14 @@ uploadForm = new FormGroup({
   views: new FormControl(0),
 });
 
-// getNameOfCategoryList(name: CategoryState){
-//   return this.categoryList$..map((category:CategoryService) => category.name);
-//
-// }
+
 
 auth$ !: Observable<AuthModel| null>;
 categoryList$ !: Observable<CategoryModel[]>;
   authData: AuthModel | null = null;
   subcription: Subscription[] = [];
   categoryList: CategoryModel[] = [];
-  filteredCategories: Observable<{ id: string; name: string; }[]> | undefined;
+  filteredCategories!: Observable<CategoryModel[]>;
   artist$ !: Observable<ArtistModel[]>;
   artistList: ArtistModel[] = [];
   selectedCategoryName: string = '';
@@ -88,14 +85,19 @@ categoryList$ !: Observable<CategoryModel[]>;
         }
       }),
     );
+
+    this.filteredCategories = this.genreForm.get('category_id')!.valueChanges.pipe(
+      startWith(''),
+      map(value => (typeof value === 'string' ? value : '')),
+      map(name => (name ? this._filterCategories(name) : this.categoryList.slice()))
+    );
   }
 
 
-  private _filterCategories(value: string): { id: string, name: string }[] {
+  private _filterCategories(value: string): CategoryModel[] {
     const filterValue = value.toLowerCase();
     return this.categoryList.filter(category => category.name.toLowerCase().includes(filterValue));
   }
-
   genreForm = new FormGroup({
     category_id: new FormControl('', Validators.required),
   });
@@ -105,7 +107,15 @@ categoryList$ !: Observable<CategoryModel[]>;
   }
 
 
-
+  onInput(value: string) {
+    const matchedCategory = this.categoryList.find(cat => cat.name.toLowerCase() === value.toLowerCase());
+    if (matchedCategory) {
+      this.onSelectCategory({ option: { value: matchedCategory } } as MatAutocompleteSelectedEvent);
+    } else {
+      this.genreForm.controls['category_id'].setValue('');
+      this.selectedCategoryName = value;
+    }
+  }
 
 
 
@@ -115,14 +125,27 @@ categoryList$ !: Observable<CategoryModel[]>;
   }
   highlightFirstOption() {
     setTimeout(() => {
-      if (this.autocomplete && this.autocomplete.panelOpen) {
-        const firstOption = document.querySelector('.mat-autocomplete-panel mat-option') as HTMLElement;
-        if (firstOption) {
-          firstOption.classList.add('mat-mdc-option-active');
-        }
+      const firstOption = document.querySelector('.mat-autocomplete-panel mat-option') as HTMLElement;
+      if (firstOption) {
+        firstOption.classList.add('mat-mdc-option-active');
       }
     }, 100);
   }
+
+
+  onSelectCategory(event: MatAutocompleteSelectedEvent) {
+    const category: CategoryModel = event.option.value;
+    this.uploadForm.patchValue({
+      category_id: category.id
+    });
+
+    // Cập nhật lại input để hiển thị đúng tên
+    this.genreInput.nativeElement.value = category.name;
+
+    // Đóng danh sách sau khi chọn
+    this.genreInput.nativeElement.blur();
+  }
+
 
 
 
@@ -312,23 +335,8 @@ categoryList$ !: Observable<CategoryModel[]>;
 
   protected readonly async = async;
 
-  onInput(value: string) {
-    const matchedCategory = this.categoryList.find(cat => cat.name.toLowerCase() === value.toLowerCase());
-    if (matchedCategory) {
-      this.onSelectCategory(matchedCategory.id);
-    } else {
-      this.genreForm.controls['category_id'].setValue('');
-      this.selectedCategoryName = value;
-    }
-  }
 
-  onSelectCategory(categoryId: string) {
-    this.genreForm.controls['category_id'].setValue(categoryId);
-    const selectedCategory = this.categoryList.find(cat => cat.id === categoryId);
-    this.selectedCategoryName = selectedCategory ? selectedCategory.name : '';
-  }
-  resetInput() {
-    const selectedCategory = this.categoryList.find(cat => cat.id === this.genreForm.controls['category_id'].value);
-    this.selectedCategoryName = selectedCategory ? selectedCategory.name : '';
-  }
+
+
+
 }

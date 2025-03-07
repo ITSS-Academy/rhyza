@@ -36,5 +36,31 @@ export  const categoryReducer = createReducer(
       error: error,
       isLoading: false,
     }
-  })
+  }),
+
+  on(CategoryActions.getCategoryById, (state, {type}) => {
+    console.log(type);
+    return{
+      ...state,
+      isLoading: true,
+    }
+  }),
+
+  on(CategoryActions.getCategoryByIdSuccess, (state, {categoryDetail, type}) => {
+    console.log(type);
+    return<CategoryState>{
+      ...state,
+      categoryDetail: categoryDetail,
+      isLoading: false,
+    }
+  }),
+
+  on(CategoryActions.getCategoryByIdFailure, (state, {error, type}) => {
+    console.log(type);
+    return{
+      ...state,
+      error: error,
+      isLoading: false,
+    }
+  }),
 )

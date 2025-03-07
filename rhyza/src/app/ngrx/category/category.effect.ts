@@ -18,3 +18,18 @@ export const getListCategory = createEffect(
   },
   { functional: true },
 );
+
+export const getCategoryById = createEffect(
+  (actions$ = inject(Actions), categoryService = inject(CategoryService)) => {
+    return actions$.pipe(
+      ofType(CategoryActions.getCategoryById),
+      exhaustMap((action) =>
+        categoryService.getCategoryDetail(action.id).pipe(
+          map((categoryDetail) => CategoryActions.getCategoryByIdSuccess({ categoryDetail })),
+          catchError((error) => of(CategoryActions.getCategoryByIdFailure({ error }))),
+        ),
+      ),
+    );
+  },
+  { functional: true },
+);
