@@ -19,7 +19,7 @@ export const routes: Routes = [
     loadChildren: () => import('../app/page/artist/artist.routes').then(m => m.ARTIST_ROUTES),
   },
   {
-    path: 'artist-detail',
+    path: 'artist-detail/:id',
     loadChildren: () => import('../app/page/artist-detail/artist-detail.routes').then(m => m.ARTIST_DETAIL_ROUTES),
   },
   {

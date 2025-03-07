@@ -15,5 +15,7 @@ import {MaterialModule} from '../../material.module';
 })
 export class MusicTabComponent {
   @Input() cardmusictab?: SongModel;
+  constructor() {
+  }
 
 }

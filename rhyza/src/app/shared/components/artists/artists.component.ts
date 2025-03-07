@@ -1,5 +1,6 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {ArtistModel} from '../../../models/artist.model';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-artists',
@@ -8,11 +9,20 @@ import {ArtistModel} from '../../../models/artist.model';
   templateUrl: './artists.component.html',
   styleUrl: './artists.component.scss'
 })
-export class ArtistsComponent {
+export class ArtistsComponent implements OnInit {
   @Input() cardarttist?: ArtistModel;
-
-  constructor() {
-
+  constructor(private router: Router) {
   }
+  ngOnInit() {
+   }
+
+   //navigate to artist detail with param id
+    navigateToArtistDetail(id: string){
+
+    if(id){
+      this.router.navigate(['artist-detail', id]);
+
+    }
+    }
 
 }

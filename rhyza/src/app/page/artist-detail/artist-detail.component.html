@@ -1,13 +1,29 @@
-<div class="container">
-  <div class="music-tab-header">
-    <h3>Artists</h3>
+@if ((isLoadingArtistDetail$ | async)) {
+  <div class="loading">
+    <mat-spinner></mat-spinner>
   </div>
-  <div class="body">
-<!--    @for (cardMusicTab of cardmusictabs; track $index){-->
-<!--      <app-music-tab-->
-<!--        [cardmusictab]="cardMusicTab"-->
-<!--      >-->
-<!--      </app-music-tab>-->
-<!--    }-->
+} @else {
+
+  <div class="container">
+    <div class="left-arrow">
+      <mat-icon class="material-symbols-rounded" (click)="goBack()" style="cursor: pointer;">arrow_back</mat-icon>
+    </div>
+
+    <div class="bolero">
+      <img [src]="artistDetail?.image_url" height="90%" alt="Artist Image">
+      <h1>{{ artistDetail?.name }}</h1>
+    </div>
+    <div class="featured">
+      <span>Songs</span>
+    </div>
+    <div class="music-list">
+      @for (song of songListArtist; track song.id) {
+        <app-music-tab
+          [cardmusictab]="song"
+        ></app-music-tab>
+      }
+    </div>
+
   </div>
-</div>
+
+}
