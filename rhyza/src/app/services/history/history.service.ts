@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {SongModel} from '../../models/song.model';
+import {environment} from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +20,7 @@ export class HistoryService {
       uid: uid
     }
 
-    return this.http.post('http://localhost:3000/history', body, {headers});
+    return this.http.post(`${environment.apiUrl}history`, body, {headers});
   }
 
 
@@ -29,6 +30,6 @@ export class HistoryService {
       Authorization: idToken,
 
     }
-    return this.http.get<SongModel[]>(`http://localhost:3000/history?uid=${uid}`, {headers});
+    return this.http.get<SongModel[]>(`${environment.apiUrl}history?uid=${uid}`, {headers});
   }
 }

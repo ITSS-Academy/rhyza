@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {PlaylistModel} from '../../models/playlist.model';
 import {SongModel} from '../../models/song.model';
+import {environment} from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -53,7 +54,7 @@ export class PlaylistService {
       Authorization: idToken,
     }
 
-    return this.http.get<SongModel[]>(`http://localhost:3000/playlists/playlist-song?id=${playlistId}`, {headers});
+    return this.http.get<SongModel[]>(`${environment.apiUrl}playlists/playlist-song?id=${playlistId}`, {headers});
 
   }
 
@@ -62,7 +63,7 @@ export class PlaylistService {
       Authorization: idToken,
     }
 
-    return this.http.get<PlaylistModel[]>(`http://localhost:3000/playlists/user?uid=${uid}`, {headers});
+    return this.http.get<PlaylistModel[]>(`${environment.apiUrl}playlists/user?uid=${uid}`, {headers});
   }
 
   getPlaylistDetail(id: string, idToken: string){
@@ -70,6 +71,6 @@ export class PlaylistService {
       Authorization: idToken,
     }
 
-    return this.http.get<PlaylistModel>(`http://localhost:3000/playlists/user/playlist?id=${id}`, {headers});
+    return this.http.get<PlaylistModel>(`${environment.apiUrl}playlists/user/playlist?id=${id}`, {headers});
   }
 }

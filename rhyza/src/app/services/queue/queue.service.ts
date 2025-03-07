@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
+import {environment} from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,7 @@ export class QueueService {
     }
 
 
-    return this.http.post('http://localhost:3000/queue/create-song-queues',{
+    return this.http.post(`${environment.apiUrl}queue/create-song-queues`,{
       songId: songId,
       uid: uid
     }, {
