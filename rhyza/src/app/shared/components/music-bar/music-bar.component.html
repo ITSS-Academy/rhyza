@@ -48,11 +48,9 @@
 <div id="next-song-section">
   <h6>Next Song</h6>
   <div class="next-song-list">
-    <app-music-tab></app-music-tab>
-    <app-music-tab></app-music-tab>
-    <app-music-tab></app-music-tab>
-    <app-music-tab></app-music-tab>
-    <app-music-tab></app-music-tab>
-    <app-music-tab></app-music-tab>
+    @for (song of this.songListQueue; track song.id) {
+      <app-music-tab [cardmusictab]="song"></app-music-tab>
+
+    }
   </div>
 </div>

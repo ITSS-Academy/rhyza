@@ -11,6 +11,7 @@ import * as SongActions from '../../../ngrx/song/song.actions';
 import {MusicTabComponent} from '../music-tab/music-tab.component';
 import {AuthState} from '../../../ngrx/auth/auth.state';
 import {AuthModel} from '../../../models/auth.model';
+import {SongState} from '../../../ngrx/song/song.state';
 @Component({
   selector: 'app-music-bar',
   standalone: true,
@@ -28,11 +29,15 @@ export class MusicBarComponent implements OnInit, OnDestroy{
   subscriptions: Subscription[] = [];
   hasUpdatedViews = false;
 
+  songListQueue: SongModel[] = [];
+
+  songQueue$ !: Observable<SongModel[]>;
+
   overlayOpen = false;
   section: HTMLElement | null = null;
 
   auth$ !: Observable<AuthModel | null>;
-  
+  authData !: AuthModel | null;
 
   @ViewChild('audioPlayer', { static: true })
   audioPlayer!: ElementRef<HTMLAudioElement>;
@@ -41,12 +46,14 @@ export class MusicBarComponent implements OnInit, OnDestroy{
     private songService: SongService,
     private store: Store<{
       play:PlayState,
-      auth: AuthState
+      auth: AuthState,
+      song: SongState
     }>,
     private renderer: Renderer2
     ) {
     this.auth$ = this.store.select('auth','authData')
     this.play$ = this.store.select('play','isPlaying')
+    this.songQueue$ = this.store.select('song','songQueue')
 
   }
 
@@ -72,12 +79,32 @@ export class MusicBarComponent implements OnInit, OnDestroy{
        }
      }),
 
+     this.auth$.subscribe((auth) => {
+       if (auth?.uid && auth?.idToken) {
+         this.authData = auth;
+         if(this.authData?.uid && this.authData?.idToken) {
+           this.store.dispatch(SongActions.getSongQueue({uid: this.authData.uid, idToken: this.authData.idToken}))
+         }
+       }
+     }),
+
+     this.songQueue$.subscribe((songQueue)=>{
+
+       if(songQueue.length > 0) {
+         this.songListQueue = songQueue;
+
+       }
+     }),
+
+
 
      this.play$.subscribe((isPlaying) => {
         this.isPlaying = isPlaying;
      })
 
    )
+
+
   }
 
   ngOnDestroy() {
@@ -178,9 +205,9 @@ export class MusicBarComponent implements OnInit, OnDestroy{
       this.overlayOpen = false;
     } else {
       this.overlayOn();
-      this.store.dispatch(SongActions.getSongQueue({
-        uid
-      }))
+     if(this.authData?.uid && this.authData?.idToken) {
+        this.store.dispatch(SongActions.getSongQueue({uid: this.authData.uid, idToken: this.authData.idToken}))
+     }
       this.overlayOpen = true;
     }
   }

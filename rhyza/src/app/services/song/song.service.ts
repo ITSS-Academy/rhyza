@@ -53,7 +53,7 @@ export class SongService {
       Authorization: idToken,
     };
     return this.http.get<SongModel[]>(
-      `http://localhost:3000/songs/get-song-queues-user?uid=${uid}`,
+      `http://localhost:3000/queue/get-song-queues-user?uid=${uid}`,
       { headers },
     );
   }
