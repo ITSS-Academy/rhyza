@@ -1,0 +1,39 @@
+.container{
+  height: 80vh;
+  width: 800px;
+}
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+.top{
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+  height: 20%;
+  display: flex;
+}
+.mid{
+  background-color: wheat;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 30%;
+}
+.music{
+  background-color: #f1f1f1;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+.mid-right{
+  background-color: red;
+  height: 100%;
+  width: 300px;
+  display: flex;
+  margin-left: 10%;
+}
