@@ -68,7 +68,7 @@ export class ArtistDetailComponent implements OnInit, OnDestroy {
       //     console.log('Song list:', songList);
       //   }
       // }),
-      //
+
       this.artistDetail$.subscribe((artistDetail) => {
         if (artistDetail) {
           this.artistDetail = artistDetail;
