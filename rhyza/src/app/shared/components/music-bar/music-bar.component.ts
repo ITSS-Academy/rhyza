@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, OnDestroy, OnInit, Renderer2, ViewChild} from '@angular/core';
 import {SongModel} from '../../../models/song.model';
 import {SongService} from '../../../services/song/song.service';
 import {MaterialModule} from '../../material.module';
@@ -8,10 +8,13 @@ import {Store} from '@ngrx/store';
 import {PlayState} from '../../../ngrx/play/play.state';
 import * as PlayActions from '../../../ngrx/play/play.actions';
 import * as SongActions from '../../../ngrx/song/song.actions';
+import {MusicTabComponent} from '../music-tab/music-tab.component';
+import {AuthState} from '../../../ngrx/auth/auth.state';
+import {AuthModel} from '../../../models/auth.model';
 @Component({
   selector: 'app-music-bar',
   standalone: true,
-  imports: [MaterialModule],
+  imports: [MaterialModule, MusicTabComponent],
   templateUrl: './music-bar.component.html',
   styleUrl: './music-bar.component.scss'
 })
@@ -25,6 +28,11 @@ export class MusicBarComponent implements OnInit, OnDestroy{
   subscriptions: Subscription[] = [];
   hasUpdatedViews = false;
 
+  overlayOpen = false;
+  section: HTMLElement | null = null;
+
+  auth$ !: Observable<AuthModel | null>;
+  
 
   @ViewChild('audioPlayer', { static: true })
   audioPlayer!: ElementRef<HTMLAudioElement>;
@@ -32,9 +40,12 @@ export class MusicBarComponent implements OnInit, OnDestroy{
   constructor(
     private songService: SongService,
     private store: Store<{
-      play:PlayState
-    }>
+      play:PlayState,
+      auth: AuthState
+    }>,
+    private renderer: Renderer2
     ) {
+    this.auth$ = this.store.select('auth','authData')
     this.play$ = this.store.select('play','isPlaying')
 
   }
@@ -43,14 +54,16 @@ export class MusicBarComponent implements OnInit, OnDestroy{
     const savedSong = localStorage.getItem('currentSong');
     if (savedSong) {
       this.currentSong = JSON.parse(savedSong);
-      if(this.currentSong) {
-        this.songService.setCurrentSong(this.currentSong);
-      }
+      // if(this.currentSong) {
+      //   this.songService.setCurrentSong(this.currentSong);
+      // }
       // Optionally, start playing the song if it was playing before reload
 
     }
+    this.section = document.getElementById('next-song-section')
 
-   this.subscriptions.push(
+
+    this.subscriptions.push(
      this.songService.currentSong$.subscribe((song) => {
        this.currentSong = song;
        if (song) {
@@ -157,4 +170,29 @@ export class MusicBarComponent implements OnInit, OnDestroy{
     document.documentElement.style.setProperty('--progress', `${progress}%`);
   }
 
+
+
+  overlaySongList() {
+    if (this.overlayOpen) {
+      this.overlayOff();
+      this.overlayOpen = false;
+    } else {
+      this.overlayOn();
+      this.store.dispatch(SongActions.getSongQueue({
+        uid
+      }))
+      this.overlayOpen = true;
+    }
+  }
+
+  overlayOn() {
+    if (this.section) {
+      this.renderer.setStyle(this.section, 'display', 'block');
+    }
+  }
+  overlayOff() {
+    if (this.section) {
+      this.renderer.setStyle(this.section, 'display', 'none');
+    }
+  }
 }

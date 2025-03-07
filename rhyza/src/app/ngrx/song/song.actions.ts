@@ -81,3 +81,10 @@ export const getSongHistory = createAction('[Song] Get Song History', props<{uid
 export const getSongHistorySuccess = createAction('[Song] Get Song History Success', props<{songHistory: SongModel[]}>());
 
 export const getSongHistoryFailure = createAction('[Song] Get Song History Failure', props<{error: any}>());
+
+
+//get song queue
+
+export const getSongQueue = createAction('[Song] Get Song Queue', props<{uid:string, idToken: string }>());
+export const getSongQueueSuccess = createAction('[Song] Get Song Queue Success', props<{songQueue: SongModel[]}>());
+export const getSongQueueFailure = createAction('[Song] Get Song Queue Failure', props<{error: any}>());

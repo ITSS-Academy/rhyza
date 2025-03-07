@@ -1,17 +1,21 @@
 .music-card {
   display: flex;
   align-items: center;
-  background-color: #181818; // Nền tối
+  background-color: var(--surface); // Nền tối
   padding: 12px 16px; // Tăng padding ngang để làm dài div
   border-radius: 10px;
   width: 100%;
-  max-width: 2000px; // Tăng chiều rộng tối đa để div dài hơn
-  color: #fff;
+  color: var(--onSurface);
+  cursor: pointer;
 
+
+  &:hover {
+    background-color: var(--surfaceContainer); // Tăng độ tương phản khi hover
+  }
   .image {
-    width: 50px;
-    height: 50px;
-    border-radius: 5px;
+    width: 80px;
+    height: 80px;
+    border-radius: 8px;
     overflow: hidden;
     img {
       width: 100%;
@@ -21,26 +25,28 @@
   }
 
   .content {
-    flex: 1;
     margin-left: 12px; // Tăng khoảng cách giữa ảnh và nội dung
     display: flex;
     flex-direction: column;
     justify-content: center;
+    width: 50%;
 
     .text-top {
       font-size: 16px; // Tăng kích thước chữ cho rõ hơn
       font-weight: bold;
-      color: #ffffff;
+      color: var(--onSurface);
     }
 
     .text-bottom {
-      font-size: 13px; // Tăng kích thước chữ mô tả
-      color: #b3b3b3;
+      font-size: 14px; // Tăng kích thước chữ mô tả
+      color: var(--onSurfaceVariant);
     }
   }
 
   .right-side {
+    width: 50%;
     display: flex;
+    justify-content: flex-end;
     align-items: center;
     gap: 12px; // Tăng khoảng cách giữa các icon
     font-size: 14px;
@@ -55,11 +61,14 @@
       display: flex;
       align-items: center;
       cursor: pointer;
-      font-size: 20px; // Làm icon to hơn giống trong hình
-      color: #b3b3b3;
+      color: var(--onSurface);
       &:hover {
         color: #ffffff;
       }
     }
   }
 }
+
+
+
+

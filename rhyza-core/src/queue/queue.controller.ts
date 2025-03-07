@@ -8,6 +8,7 @@ import {
   Delete,
   HttpException,
   HttpStatus,
+  Request,
 } from '@nestjs/common';
 import { QueueService } from './queue.service';
 import { CreateQueueDto } from './dto/create-queue.dto';
@@ -20,6 +21,8 @@ export class QueueController {
   @Post('create-song-queues')
   addSongToQueue(@Body() data: { songId: string; uid: string }) {
     try {
+      console.log('songId', data.songId);
+      console.log('uid', data.uid);
       return this.queueService.addSongToQueue(data.songId, data.uid);
     } catch (e) {
       throw new HttpException(e.message, HttpStatus.BAD_REQUEST);
@@ -45,18 +48,20 @@ export class QueueController {
   }
 
   @Get('get-song-queues-user')
-  getSongQueue(@Body() data: { uid: string }) {
+  getSongQueue(@Request() req: any) {
     try {
-      return this.queueService.getSongQueue(data.uid);
+      const { uid } = req.query;
+      return this.queueService.getSongQueue(uid);
     } catch (e) {
       throw new HttpException(e.message, HttpStatus.BAD_REQUEST);
     }
   }
 
   @Delete('delete-song-queues')
-  removeSongFromQueue(@Body() data: { uid: string; songId: string }) {
+  removeSongFromQueue(@Request() req: any) {
     try {
-      return this.queueService.removeSongFromQueue(data.uid, data.songId);
+      const { uid, songId } = req.query;
+      return this.queueService.removeSongFromQueue(uid, songId);
     } catch (e) {
       throw new HttpException(e.message, HttpStatus.BAD_REQUEST);
     }

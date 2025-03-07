@@ -65,3 +65,19 @@ export const updateSongViews = createEffect(
   },
   { functional: true },
 );
+
+
+export const getSongQueue = createEffect(
+  (actions$ = inject(Actions), songService = inject(SongService)) => {
+    return actions$.pipe(
+      ofType(SongActions.getSongQueue),
+      exhaustMap((action) =>
+        songService.getSongQueue(action.uid, action.idToken).pipe(
+          map((songQueue) => SongActions.getSongQueueSuccess({ songQueue })),
+          catchError((error) => of(SongActions.getSongQueueFailure({ error }))),
+        ),
+      ),
+    );
+  },
+  { functional: true },
+)
