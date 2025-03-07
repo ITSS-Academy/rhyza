@@ -4,5 +4,6 @@ export interface CategoryState{
   categoryDetail: CategoryModel;
   categoryList: CategoryModel[];
   isLoading: boolean;
+  isLoadingDetail: boolean;
   error: any;
 }

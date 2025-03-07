@@ -238,6 +238,14 @@ export const songReducer = createReducer(
     };
   }),
 
+  on(SongActions.clearSongCategory, (state, { type }) => {
+    console.log(type);
+    return {
+      ...state,
+      songCategory: [],
+    };
+  }),
+
   //get song artist
 
   on(SongActions.getSongByArtist, (state, { type }) => {
@@ -265,4 +273,12 @@ export const songReducer = createReducer(
       isLoadingArtist: false,
     };
   }),
+
+  on(SongActions.clearSongByArtist, (state, { type }) => {
+    console.log(type);
+    return {
+      ...state,
+      songArtist: [],
+    };
+  })
 );

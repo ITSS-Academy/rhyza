@@ -85,5 +85,7 @@ export class ArtistDetailComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.subscriptions.forEach(sub => sub.unsubscribe());
+    this.store.dispatch(ArtistActions.clearArtistDetail());
+    this.store.dispatch(SongActions.clearSongByArtist());
   }
 }

@@ -30,3 +30,8 @@ export const getCategoryByIdFailure = createAction(
   '[Category] Get Category Detail Failure',
   props<{ error: any }>(),
 );
+
+//clear category detail
+export const clearCategoryDetail = createAction(
+  '[Category] Clear Category Detail',
+);

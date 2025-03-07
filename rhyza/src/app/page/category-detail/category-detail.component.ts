@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Location} from '@angular/common';
 import {MaterialModule} from '../../shared/material.module';
 import {MusicTabComponent} from '../../shared/components/music-tab/music-tab.component';
@@ -24,7 +24,7 @@ import * as CategoryActions from '../../ngrx/category/category.action';
   templateUrl: './category-detail.component.html',
   styleUrl: './category-detail.component.scss'
 })
-export class CategoryDetailComponent implements OnInit{
+export class CategoryDetailComponent implements OnInit, OnDestroy {
 
   songListCategory: SongModel[] = [];
   songListCategory$ !: Observable<SongModel[]>;
@@ -86,6 +86,11 @@ export class CategoryDetailComponent implements OnInit{
 
   }
 
+  ngOnDestroy() {
+    this.subscriptions.forEach((subscription) => subscription.unsubscribe());
+    this.store.dispatch(SongActions.clearSongCategory());
+    this.store.dispatch(CategoryActions.clearCategoryDetail());
+  }
 
 
 }
