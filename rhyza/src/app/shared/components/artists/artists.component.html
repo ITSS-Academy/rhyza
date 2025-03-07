@@ -1,11 +1,12 @@
 <div class="container">
-  <div class="artist">
+  <div class="artist" (click)="navigateToArtistDetail(cardarttist?.id || '')">
     <div class="image">
       <img src="{{cardarttist?.image_url}}" alt="artist" class="pic">
     </div>
     <div class="content">
       <div class="text-top">
         <span class="tittle">{{cardarttist?.name}}</span>
+<!--        <small>ID: {{ artistId }}</small>-->
       </div>
     </div>
   </div>

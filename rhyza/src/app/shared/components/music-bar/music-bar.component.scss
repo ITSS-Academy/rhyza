@@ -12,21 +12,14 @@
   bottom: 0;
   left: 100px; /* Để không bị che bởi navbar */
   z-index: 1000;
-  //box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.5);
-  //border-radius: 10px 0 0 0; /* Làm tròn góc bên trái */
- border-radius: 16px;
+  border-radius: 16px;
 }
-
-
 
 /* Song Info */
 .song-info {
   display: flex;
   align-items: center;
   width: 20%;
-
-
-
 }
 
 .song-thumbnail {
@@ -46,7 +39,6 @@
   color: #fff;
   font-size: 16px;
   margin: 0;
-
 }
 
 /* Controls + Progress Bar */
@@ -94,11 +86,14 @@ button.mat-icon-button:hover {
 .progress-container {
   display: flex;
   align-items: center;
+  justify-content: center;
   width: 100%;
-  max-width: 600px; /* Tăng chiều dài progress bar */
+  max-width: 600px;
   gap: 8px;
+  position: relative;
 }
 
+/* Thời gian hiển thị hai bên */
 .time {
   font-size: 13px;
   color: gray;
@@ -106,28 +101,40 @@ button.mat-icon-button:hover {
   text-align: center;
 }
 
+/* Thanh tiến trình */
 .progress-bar {
   width: 100%;
-  height: 5px;
+  height: 6px;
   border-radius: 5px;
   background: #444;
   appearance: none;
-  transition: background 0.3s;
+  position: relative;
+  cursor: pointer;
 }
 
+/* Định dạng phần đã chạy */
 .progress-bar::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 6px;
+  border-radius: 5px;
   background: linear-gradient(to right, #1db954 var(--progress), #444 var(--progress));
 }
 
+/* Điều chỉnh nút kéo màu xanh nằm giữa thanh */
 .progress-bar::-webkit-slider-thumb {
-  appearance: none;
+  position: absolute;
+  top: 50%;
+  left: var(--progress, 0%);
+  transform: translate(-50%, -50%);
   width: 14px;
   height: 14px;
+  background: #1db954 !important;
   border-radius: 50%;
-  background: #1db954;
-  cursor: pointer;
-  margin-top: -5px;
+  appearance: none;
+  pointer-events: none; /* Đảm bảo cục tròn không cản trở sự kiện click */
 }
+
+
 
 /* Volume & Playlist */
 .extra-controls {
@@ -138,21 +145,37 @@ button.mat-icon-button:hover {
   gap: 15px;
 }
 
+/* Volume Bar */
 .volume-bar {
   width: 80px;
   height: 5px;
   appearance: none;
   background: #555;
   border-radius: 5px;
+  position: relative;
+  cursor: pointer;
 }
 
+/* Định dạng phần đã chạy của volume bar */
+.volume-bar::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 5px;
+  border-radius: 5px;
+  background: linear-gradient(to right, #1db954 var(--volume-progress, 0%), #555 var(--volume-progress, 0%));
+}
+
+/* Định dạng nút kéo của volume bar */
 .volume-bar::-webkit-slider-thumb {
-  appearance: none;
+  position: absolute;
+  top: 50%;
+  left: var(--volume-progress, 0%);
+  transform: translate(-50%, -50%);
   width: 12px;
   height: 12px;
-  background: #1db954;
+  background: #1db954 !important;
   border-radius: 50%;
-  cursor: pointer;
+  appearance: none;
+  pointer-events: none; /* Đảm bảo nút kéo không cản trở sự kiện click */
 }
 
 /* Responsive (Cho màn hình nhỏ hơn) */
@@ -178,7 +201,7 @@ button.mat-icon-button:hover {
   }
 }
 
-
+/* Next Song Section */
 #next-song-section {
   display: none;
   padding: 30px 30px;
@@ -191,22 +214,25 @@ button.mat-icon-button:hover {
   z-index: 100;
   border-radius: 24px;
   border: 2px var(--surfaceContainer) solid;
-  h6 {
-    color: var(--onSurface);
-    font-weight: 900;
-    height: 10%;
-    margin-bottom: 3%;
-  }
-  .next-song-list {
-    height: 87%;
-    width: 100%;
-    color: var(--onSurface);
-    display: flex;
-    flex-flow: column;
-    gap: 20px;
-    overflow-y: scroll;
-  }
-  .next-song-list::-webkit-scrollbar{
-    display: none
-  }
+}
+
+#next-song-section h6 {
+  color: var(--onSurface);
+  font-weight: 900;
+  height: 10%;
+  margin-bottom: 3%;
+}
+
+.next-song-list {
+  height: 87%;
+  width: 100%;
+  color: var(--onSurface);
+  display: flex;
+  flex-flow: column;
+  gap: 20px;
+  overflow-y: scroll;
+}
+
+.next-song-list::-webkit-scrollbar {
+  display: none;
 }
