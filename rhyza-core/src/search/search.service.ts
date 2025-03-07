@@ -1,26 +1,27 @@
-import { Injectable } from '@nestjs/common';
-import { CreateSearchDto } from './dto/create-search.dto';
-import { UpdateSearchDto } from './dto/update-search.dto';
+import { HttpException, Injectable, HttpStatus } from '@nestjs/common';
+import { SupabaseProvider } from 'src/supabase/supabase';
 
 @Injectable()
 export class SearchService {
-  create(createSearchDto: CreateSearchDto) {
-    return 'This action adds a new search';
-  }
+  constructor(private supabaseProvider: SupabaseProvider) {}
 
-  findAll() {
-    return `This action returns all search`;
-  }
+  async searchAll(query: string) {
+    console.log('query', query);
+    query = query.trim();
+    const { data, error } = await this.supabaseProvider
+      .getClient()
+      .rpc('search_data', {
+        search_text: query,
+      });
 
-  findOne(id: number) {
-    return `This action returns a #${id} search`;
-  }
+    if (error) {
+      return {
+        songs: [],
+        artists: [],
+        categories: [],
+      };
+    }
 
-  update(id: number, updateSearchDto: UpdateSearchDto) {
-    return `This action updates a #${id} search`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} search`;
+    return data;
   }
 }
