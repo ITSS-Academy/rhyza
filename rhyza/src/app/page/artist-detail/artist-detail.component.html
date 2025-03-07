@@ -1,4 +1,4 @@
-@if ((isLoadingArtistDetail$ | async)) {
+@if ((isLoadingArtistDetail$ | async) && (isLoadingSongListArtist$ | async)) {
   <div class="loading">
     <mat-spinner></mat-spinner>
   </div>

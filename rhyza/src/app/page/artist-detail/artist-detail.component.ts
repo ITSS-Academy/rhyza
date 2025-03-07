@@ -64,18 +64,16 @@ export class ArtistDetailComponent implements OnInit, OnDestroy {
             artistId: id
           }));
 
-
-
         }
       }),
 
-      // this.songListArtist$.subscribe((songList) => {
-      //   if (songList.length > 0) {
-      //     this.songListArtist = songList;
-      //     console.log('Song list:', songList);
-      //   }
-      // }),
-      //
+      this.songListArtist$.subscribe((songList) => {
+        if (songList.length > 0) {
+          this.songListArtist = songList;
+          console.log('Song list:', songList);
+        }
+      }),
+
       this.artistDetail$.subscribe((artistDetail) => {
         if (artistDetail) {
           this.artistDetail = artistDetail;
