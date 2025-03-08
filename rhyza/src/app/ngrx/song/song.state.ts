@@ -5,6 +5,10 @@ export interface SongState {
   songHistory: SongModel[];
   songQueue: SongModel[];
   songCategory: SongModel[];
+  songArtist: SongModel[];
   isLoading: boolean;
+  isCreating: boolean;
+  isLoadingArtist: boolean;
+  isLoadingCategory: boolean;
   error: any;
 }

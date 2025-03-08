@@ -9,7 +9,11 @@ export const initialSongState: SongState = {
   songHistory: <SongModel[]>[],
   songQueue: <SongModel[]>[],
   songCategory: <SongModel[]>[],
+  songArtist: <SongModel[]>[],
   isLoading: false,
+  isCreating: false,
+  isLoadingArtist: false,
+  isLoadingCategory: false,
   error: null,
 };
 
@@ -73,7 +77,7 @@ export const songReducer = createReducer(
     console.log(type);
     return {
       ...state,
-      isLoading: true,
+      isCreating: true,
     };
   }),
 
@@ -82,7 +86,7 @@ export const songReducer = createReducer(
     return <SongState>{
       ...state,
       songDetail: song,
-      isLoading: false,
+      isCreating: false,
     };
   }),
 
@@ -93,7 +97,7 @@ export const songReducer = createReducer(
     return {
       ...state,
       error: error,
-      isLoading: false,
+      isCreating: false,
     };
   }),
 
@@ -212,7 +216,7 @@ export const songReducer = createReducer(
     console.log(type);
     return {
       ...state,
-      isLoading: true,
+      isLoadingCategory: true,
     };
   }),
 
@@ -221,7 +225,7 @@ export const songReducer = createReducer(
     return {
       ...state,
       songCategory: songCategory,
-      isLoading: false,
+      isLoadingCategory: false,
     };
   }),
 
@@ -230,7 +234,51 @@ export const songReducer = createReducer(
     return {
       ...state,
       error: error,
-      isLoading: false,
+      isLoadingCategory: false,
     };
   }),
+
+  on(SongActions.clearSongCategory, (state, { type }) => {
+    console.log(type);
+    return {
+      ...state,
+      songCategory: [],
+    };
+  }),
+
+  //get song artist
+
+  on(SongActions.getSongByArtist, (state, { type }) => {
+    console.log(type);
+    return {
+      ...state,
+      isLoadingArtist: true,
+    };
+  }),
+
+  on(SongActions.getSongByArtistSuccess, (state, { songByArtist, type }) => {
+    console.log(type);
+    return {
+      ...state,
+      songArtist: songByArtist,
+      isLoadingArtist: false,
+    };
+  }),
+
+  on(SongActions.getSongByArtistFailure, (state, { error, type }) => {
+    console.log(type);
+    return {
+      ...state,
+      error: error,
+      isLoadingArtist: false,
+    };
+  }),
+
+  on(SongActions.clearSongByArtist, (state, { type }) => {
+    console.log(type);
+    return {
+      ...state,
+      songArtist: [],
+    };
+  })
 );

@@ -71,7 +71,7 @@ export class SongController {
     body: {
       title: string;
       composer: string;
-      performer: string;
+      performer_ref: string;
       category_id: string;
       uuid: string;
     },
@@ -128,7 +128,7 @@ export class SongController {
         id: songId,
         title: body.title,
         composer: body.composer,
-        performer_ref: body.performer,
+        performer_ref: body.performer_ref,
         category_id: body.category_id,
         uuid: body.uuid,
         image_url: imageUrl,
@@ -145,7 +145,7 @@ export class SongController {
         id: songId,
         title: body.title,
         composer: body.composer,
-        performer_ref: body.performer,
+        performer_ref: body.performer_ref,
         category_id: body.category_id,
         uuid: body.uuid,
         image_url: imageUrl,

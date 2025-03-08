@@ -7,6 +7,7 @@ export  const initialState: ArtistState = {
   artistDetail: <ArtistModel>{},
   artistList: <ArtistModel[]> [],
   isLoading: false,
+  isLoadingDetail: false,
   error: null,
 }
 
@@ -22,7 +23,7 @@ export const artistReducer = createReducer(
   }),
 
   on(ArtistActions.getArtistListSuccess, (state, {artistList, type}) => {
-    console.log(artistList, type);
+    console.log( type);
     return <ArtistState>{
       ...state,
       artistList: artistList,
@@ -46,7 +47,7 @@ export const artistReducer = createReducer(
     console.log(type);
     return {
       ...state,
-      isLoading: true,
+      isLoadingDetail: true,
     };
   }),
 
@@ -55,7 +56,7 @@ export const artistReducer = createReducer(
     return <ArtistState>{
       ...state,
       artistDetail: artistDetail,
-      isLoading: false,
+      isLoadingDetail: false,
     };
   }),
 
@@ -65,7 +66,16 @@ export const artistReducer = createReducer(
     return {
       ...state,
       error: error,
-      isLoading: false,
+      isLoadingDetail: false,
+    };
+  }),
+
+  //clear artist detail
+  on(ArtistActions.clearArtistDetail, (state, {type}) => {
+    console.log(type);
+    return {
+      ...state,
+      artistDetail: <ArtistModel>{},
     };
   }),
 )

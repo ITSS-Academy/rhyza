@@ -11,6 +11,9 @@ import {AuthModel} from './models/auth.model';
 import * as AuthActions from './ngrx/auth/auth.actions';
 import * as CategoryActions from './ngrx/category/category.action';
 import * as ArtistActions from './ngrx/artist/artist.actions';
+import {CategoryState} from './ngrx/category/category.state';
+import {ArtistState} from './ngrx/artist/artist.state';
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -22,13 +25,21 @@ import * as ArtistActions from './ngrx/artist/artist.actions';
 export class AppComponent {
   title = 'rhyza';
 
+  loadingCategories$ !: Observable<boolean>
+  loadingArtist$ !: Observable<boolean>
   constructor(
     private auth:Auth,
-    private store: Store<{ auth: AuthState }>
+    private store: Store<{
+      auth: AuthState
+      category: CategoryState
+      artist: ArtistState
+    }>
 
   ) {
-    this.store.dispatch(CategoryActions.getCategories())
+    this.loadingArtist$ = this.store.select('artist', 'isLoading');
+    this.loadingCategories$ = this.store.select('category', 'isLoading');
 
+    this.store.dispatch(CategoryActions.getCategories())
     this.store.dispatch(ArtistActions.getArtistList());
     onAuthStateChanged(this.auth, async (user) => {
       if(user){

@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Location} from '@angular/common';
 import {MaterialModule} from '../../shared/material.module';
 import {MusicTabComponent} from '../../shared/components/music-tab/music-tab.component';
@@ -11,6 +11,7 @@ import * as SongActions from '../../ngrx/song/song.actions';
 import {Observable, Subscription} from 'rxjs';
 import {CategoryModel} from '../../models/category.model';
 import * as CategoryActions from '../../ngrx/category/category.action';
+import {LoadingComponent} from '../../shared/components/loading/loading.component';
 
 
 
@@ -19,12 +20,13 @@ import * as CategoryActions from '../../ngrx/category/category.action';
   standalone: true,
   imports: [
     MaterialModule,
-    MusicTabComponent
+    MusicTabComponent,
+    LoadingComponent
   ],
   templateUrl: './category-detail.component.html',
   styleUrl: './category-detail.component.scss'
 })
-export class CategoryDetailComponent implements OnInit{
+export class CategoryDetailComponent implements OnInit, OnDestroy {
 
   songListCategory: SongModel[] = [];
   songListCategory$ !: Observable<SongModel[]>;
@@ -32,6 +34,7 @@ export class CategoryDetailComponent implements OnInit{
   categoryDetail !: CategoryModel
   subscriptions: Subscription[] = [];
   isLoadingCategoryDetail$!: Observable<boolean>
+  isLoadingSongListCategory$!: Observable<boolean>
 
   constructor(
     private location: Location,
@@ -43,7 +46,9 @@ export class CategoryDetailComponent implements OnInit{
   ) {
     this.songListCategory$ = this.store.select('song', 'songCategory');
     this.categoryDetail$ = this.store.select('category', 'categoryDetail');
-    this.isLoadingCategoryDetail$ = this.store.select('category', 'isLoading');
+    this.isLoadingCategoryDetail$ = this.store.select('category', 'isLoadingDetail');
+    this.isLoadingSongListCategory$ = this.store.select('song', 'isLoadingCategory');
+
   }
 
   goBack() {
@@ -86,6 +91,11 @@ export class CategoryDetailComponent implements OnInit{
 
   }
 
+  ngOnDestroy() {
+    this.subscriptions.forEach((subscription) => subscription.unsubscribe());
+    this.store.dispatch(SongActions.clearSongCategory());
+    this.store.dispatch(CategoryActions.clearCategoryDetail());
+  }
 
 
 }

@@ -4,5 +4,6 @@ export interface ArtistState{
   artistDetail: ArtistModel;
   artistList: ArtistModel[];
   isLoading: boolean;
+  isLoadingDetail: boolean;
   error: any;
 }

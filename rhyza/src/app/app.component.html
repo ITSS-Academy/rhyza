@@ -1,11 +1,17 @@
+@if ((loadingArtist$| async) && (loadingCategories$| async)){
+  <div class="loading">
+    <mat-spinner></mat-spinner>
+  </div>
+} @else {
+  <div class="parent">
+    <div class="section-yellow" >
+      <app-sidebar></app-sidebar>
+    </div>
+    <div class="section-purple">
+      <router-outlet></router-outlet>
+    </div>
+    <app-music-bar></app-music-bar>
+  </div>
+}
 
-<div class="parent">
-  <div class="section-yellow" >
-    <app-sidebar></app-sidebar>
-  </div>
-  <div class="section-purple">
-    <router-outlet></router-outlet>
-  </div>
- <app-music-bar></app-music-bar>
-</div>
 

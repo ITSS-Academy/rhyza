@@ -7,6 +7,7 @@ export const initialState: CategoryState = {
   categoryDetail: <CategoryModel>{},
   categoryList: <CategoryModel[]>[],
   isLoading: false,
+  isLoadingDetail: false,
   error: null,
 }
 
@@ -42,7 +43,7 @@ export  const categoryReducer = createReducer(
     console.log(type);
     return{
       ...state,
-      isLoading: true,
+      isLoadingDetail: true,
     }
   }),
 
@@ -51,7 +52,7 @@ export  const categoryReducer = createReducer(
     return<CategoryState>{
       ...state,
       categoryDetail: categoryDetail,
-      isLoading: false,
+      isLoadingDetail: false,
     }
   }),
 
@@ -60,7 +61,17 @@ export  const categoryReducer = createReducer(
     return{
       ...state,
       error: error,
-      isLoading: false,
+      isLoadingDetail: false,
     }
   }),
+
+  //clear state category detail
+  on(CategoryActions.clearCategoryDetail, (state, {type}) => {
+    console.log(type);
+    return<CategoryState>{
+      ...state,
+      categoryDetail: <CategoryModel>{},
+    }
+  }),
+
 )

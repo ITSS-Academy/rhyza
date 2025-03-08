@@ -101,3 +101,23 @@ export const getSongByCategory = createEffect(
   },
   { functional: true },
 );
+
+
+export const getArtistBySongId = createEffect(
+  (actions$ = inject(Actions), songService = inject(SongService)) => {
+    return actions$.pipe(
+      ofType(SongActions.getSongByArtist),
+      exhaustMap((action) => {
+        return songService.getArtistBySongId(action.artistId).pipe(
+          map((songByArtist) =>
+            SongActions.getSongByArtistSuccess({ songByArtist: songByArtist }),
+          ),
+          catchError((error) =>
+            of(SongActions.getSongByArtistFailure({ error })),
+          ),
+        );
+      }),
+    );
+  },
+  { functional: true },
+);
