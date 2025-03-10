@@ -1,0 +1,19 @@
+<form class="container">
+  <h2 mat-dialog-title>Favourite Playlist</h2>
+
+
+  <div class="outline-input">
+    <mat-form-field class="example-form-field" appearance="outline">
+      <mat-label>What are looking for</mat-label>
+      <input matInput type="text">
+    </mat-form-field>
+  </div>
+
+  <div class="main">
+    @for (item of playlistList; track $index) {
+      <app-playlist-card
+        [item] = "item"
+      ></app-playlist-card>
+    }
+  </div>
+</form>
