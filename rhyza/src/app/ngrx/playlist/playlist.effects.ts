@@ -90,7 +90,7 @@ export const deletePlaylist = createEffect(
       ofType(PlaylistActions.deletePlaylist),
       exhaustMap((action) =>
         playlistService.deletePlaylistById(action.playlistId, action.uid, action.idToken).pipe(
-          map(() => PlaylistActions.deletePlaylistSuccess()),
+          map((isDeleted) => PlaylistActions.deletePlaylistSuccess({isDeleted: isDeleted})),
           catchError((error) => of(PlaylistActions.deletePlaylistFailure({ error }))),
         ),
       ),

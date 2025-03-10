@@ -122,7 +122,7 @@ export class PlaylistsController {
     try {
       const { id, uid } = req.query;
 
-      if (id) {
+      if (!id) {
         throw new HttpException('Id is required', HttpStatus.BAD_REQUEST);
       }
       return await this.playlistsService.deletePlaylist(id, uid);

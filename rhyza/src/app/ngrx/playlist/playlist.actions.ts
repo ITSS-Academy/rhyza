@@ -70,7 +70,7 @@ export const deletePlaylist = createAction(
 );
 
 export const deletePlaylistSuccess = createAction(
-  '[Playlist] Delete Playlist Success'
+  '[Playlist] Delete Playlist Success', props<{isDeleted: boolean }>()
 );
 
 export const deletePlaylistFailure = createAction(

@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import {MaterialModule} from '../../material.module';
 import {NavigationEnd, Router} from '@angular/router';
 import {NgClass, NgForOf} from '@angular/common';
@@ -7,6 +7,8 @@ import * as AuthActions from '../../../ngrx/auth/auth.actions';
 import {Store} from '@ngrx/store';
 import {AuthState} from '../../../ngrx/auth/auth.state';
 import {AuthModel} from '../../../models/auth.model';
+import {MatDialog} from '@angular/material/dialog';
+import {LoginComponent} from '../login/login.component';
 
 @Component({
   selector: 'app-sidebar',
@@ -91,6 +93,8 @@ export class SidebarComponent implements OnInit{
     logOut(){
       this.store.dispatch(AuthActions.clearState());
       this.store.dispatch(AuthActions.logout());
+      this.authData = null;
+      this.router.navigate(['/music']);
 
     }
 
@@ -103,6 +107,9 @@ export class SidebarComponent implements OnInit{
     imgElement.src =
       'https://img.freepik.com/free-psd/3d-illustration-person-with-sunglasses_23-2149436188.jpg';
   }
+
+
+
 
 }
 

@@ -9,6 +9,7 @@ export const initialState: PlaylistState = {
   playlistList: [] as PlaylistModel[],
   isLoading: false,
   isLoadingDetail: false,
+  isDeletedSuccess: false,
   error: null,
 };
 
@@ -73,6 +74,21 @@ export const playlistReducer = createReducer(
     };
   }),
 
+
+  //clear state
+  on(PlaylistActions.clearPlaylistDetail, (state,{type}) => {
+    console.log(type);
+    return {
+      ...state,
+      playlistDetail: {} as PlaylistModel,
+      playlistList: [] as PlaylistModel[],
+      isLoading: false,
+      isLoadingDetail: false,
+      isDetailSuccess: false,
+      error: null,
+    };
+  }),
+
   //delete playlist
 
   on(PlaylistActions.deletePlaylist, (state, { type }) => {
@@ -80,14 +96,17 @@ export const playlistReducer = createReducer(
     return {
       ...state,
       isLoading: true,
+      isDeletedSuccess: false,
     };
   }),
 
-  on(PlaylistActions.deletePlaylistSuccess, (state, { type }) => {
+  on(PlaylistActions.deletePlaylistSuccess, (state, { type, isDeleted }) => {
     console.log(type);
     return <PlaylistState>{
       ...state,
       isLoading: false,
+      isDeletedSuccess: isDeleted
+
     };
   }),
 
@@ -98,6 +117,7 @@ export const playlistReducer = createReducer(
       ...state,
       error: error,
       isLoading: false,
+      isDeletedSuccess: false,
     };
   }),
 

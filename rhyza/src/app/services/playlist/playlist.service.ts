@@ -25,17 +25,13 @@ export class PlaylistService {
     const headers = { Authorization: idToken };
     const formData = new FormData();
 
-    if (playlist.image_url instanceof File) {
-      formData.append('file', playlist.image_url);
-    } else {
-      console.warn('image_url is a string, not a File. Skipping file upload.');
-    }
 
+    console.log(playlist)
     formData.append('uid', playlist.uid);
     formData.append('name', playlist.name);
+    formData.append('file', playlist.image_url);
     formData.append('songs_id', JSON.stringify(playlist.songs_id));
     formData.append('description', playlist.description);
-    formData.append('author_description', playlist.author_description);
 
     return this.http.post<PlaylistModel>(
       `${environment.apiUrl}playlists`,
@@ -76,8 +72,8 @@ export class PlaylistService {
       Authorization: idToken,
     };
 
-    return this.http.delete<PlaylistModel>(
-      `${environment.apiUrl}playlists/user/playlist?id=${id}&uid=${uid}`,
+    return this.http.delete<boolean>(
+      `${environment.apiUrl}playlists?id=${id}&uid=${uid}`,
       { headers }
     );
   }

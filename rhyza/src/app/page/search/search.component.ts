@@ -29,7 +29,6 @@ export class SearchComponent implements OnInit {
         this.setActiveLink();
       })
     this.setActiveLink()
-    
   }
 
   ngOnInit() {
@@ -39,7 +38,6 @@ export class SearchComponent implements OnInit {
       console.log(query);
       this.store.dispatch(SearchActions.searchAll({ query }));
     }),
-
 
   )
 

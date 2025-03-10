@@ -6,5 +6,6 @@ export interface PlaylistState {
   playlistList: PlaylistModel[];
   isLoading: boolean;
   isLoadingDetail: boolean;
+  isDeletedSuccess: boolean;
   error: any;
 }

@@ -10,11 +10,14 @@ import { AuthModel } from '../../models/auth.model';
 import { AuthState } from '../../ngrx/auth/auth.state';
 import * as PlaylistActions from '../../ngrx/playlist/playlist.actions';
 import { PlaylistState } from '../../ngrx/playlist/playlist.state';
+import {LoadingComponent} from '../../shared/components/loading/loading.component';
+import {Router} from '@angular/router';
+import {LoginComponent} from '../../shared/components/login/login.component';
 
 @Component({
   selector: 'app-playlist',
   standalone: true,
-  imports: [MaterialModule, PlaylistCardComponent],
+  imports: [MaterialModule, PlaylistCardComponent, LoadingComponent, LoginComponent],
   templateUrl: './playlist.component.html',
   styleUrl: './playlist.component.scss'
 })
@@ -24,8 +27,10 @@ export class PlaylistComponent implements OnInit {
   authData: AuthModel | null = null;
   playlistList$!: Observable<PlaylistModel[]>;
   playlistList: PlaylistModel[] = [];
+  isLoadingPlaylist$!:Observable<boolean>
 
   constructor(
+    private router: Router,
     private store: Store<{
       auth: AuthState;
       playlist: PlaylistState;
@@ -33,9 +38,12 @@ export class PlaylistComponent implements OnInit {
   ) {
     this.auth$ = this.store.select('auth', 'authData');
     this.playlistList$ = this.store.select('playlist', 'playlistList');
+    this.isLoadingPlaylist$ = this.store.select('playlist','isLoading');
+
   }
 
   ngOnInit() {
+
     this.subscription.push(
       this.auth$.subscribe((authData) => {
         if (authData?.idToken && authData?.uid) {
@@ -48,6 +56,7 @@ export class PlaylistComponent implements OnInit {
       }),
 
       this.playlistList$.subscribe((playlist: PlaylistModel[]) => {
+        console.log(playlist);
         if (playlist.length > 0) {
           this.playlistList = playlist;
           console.log(this.playlistList);
@@ -61,7 +70,7 @@ export class PlaylistComponent implements OnInit {
     const dialogRef = this.dialog.open(CreatePlaylistComponent, {});
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
+      this.router.navigate(['playlist']);
     });
   }
 }

@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, ViewChild, ElementRef } from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewChild, ElementRef, inject} from '@angular/core';
 import { AsyncPipe, Location } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
@@ -11,20 +11,25 @@ import { LoadingComponent } from '../../shared/components/loading/loading.compon
 import { MusicTabComponent } from '../../shared/components/music-tab/music-tab.component';
 import { MatIcon } from '@angular/material/icon';
 import * as SongActions from '../../ngrx/song/song.actions';
-import { PlaylistService } from '../../services/playlist/playlist.service';
 import {AuthState} from '../../ngrx/auth/auth.state'; // Import service để upload ảnh
-import * as AuthActions from '../../ngrx/auth/auth.actions';
 import {AuthModel} from '../../models/auth.model';
 import {SongState} from '../../ngrx/song/song.state';
+import {MaterialModule} from '../../shared/material.module';
+import {MatDialog} from '@angular/material/dialog';
+import {
+  DeletePlaylistDialogComponent
+} from '../../shared/components/delete-playlist-dialog/delete-playlist-dialog.component';
+import {LoginComponent} from '../../shared/components/login/login.component';
 
 @Component({
   selector: 'app-playlist-detail',
   templateUrl: './playlist-detail.component.html',
   standalone: true,
-  imports: [AsyncPipe, LoadingComponent, MusicTabComponent, MatIcon],
+  imports: [AsyncPipe, LoadingComponent, MusicTabComponent, MaterialModule, LoginComponent],
   styleUrls: ['./playlist-detail.component.scss']
 })
 export class PlaylistDetailComponent implements OnInit, OnDestroy {
+  dialog = inject(MatDialog);
   songListPlaylist: SongModel[] = [];
   songListPlaylist$: Observable<SongModel[]>;
   playlistDetail$: Observable<PlaylistModel>;
@@ -47,8 +52,8 @@ export class PlaylistDetailComponent implements OnInit, OnDestroy {
     }>,
   ) {
     this.playlistDetail$ = this.store.select((state) => state.playlist.playlistDetail);
-    this.isLoadingPlaylistDetail$ = this.store.select((state) => state.playlist.isLoadingDetail);
-    this.isLoadingSongListPlaylist$ = this.store.select((state) => state.playlist.isLoading);
+    this.isLoadingPlaylistDetail$ = this.store.select('playlist','isLoadingDetail');
+    this.isLoadingSongListPlaylist$ = this.store.select('song', 'isLoadingPlaylist');
     this.auth$ =  this.store.select('auth','authData')
     this.songListPlaylist$ = this.store.select('song', "songPlaylist")
   }
@@ -82,12 +87,24 @@ export class PlaylistDetailComponent implements OnInit, OnDestroy {
       }),
 
       this.playlistDetail$.subscribe((playlistDetail) => {
-        if (playlistDetail) { // Kiểm tra nếu playlistDetail có dữ liệu
+        if (playlistDetail.id) { // Kiểm tra nếu playlistDetail có dữ liệu
           this.playlistDetail = playlistDetail;
+
           console.log('Playlist Detail:', this.playlistDetail); // Log để kiểm tra dữ liệu
         }
       })
     );
+  }
+
+  openDialog() {
+    const dialogRef =this.dialog.open(DeletePlaylistDialogComponent, {
+      data: {
+        playlistDetail: this.playlistDetail,
+        auth: this.authData
+      },
+    });
+
+
   }
 
   ngOnDestroy() {
