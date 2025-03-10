@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { SongModel } from '../../models/song.model';
-import { BehaviorSubject } from 'rxjs';
+import {BehaviorSubject, Observable} from 'rxjs';
 import {environment} from '../../../environments/environment';
 
 @Injectable({
@@ -66,6 +66,19 @@ export class SongService {
   getArtistBySongId(songId: string){
     return this.http.get<SongModel[]>(`${environment.apiUrl}artist/artist-song?song_id=${songId}`);
   }
+
+  // get song playlist
+  getSongsByPlaylist(playlistId: string, idToken: string): Observable<SongModel[]> {
+    const headers = {
+      Authorization: idToken,
+    };
+    return this.http.get<SongModel[]>(
+      `${environment.apiUrl}playlists/playlist-song?id=${playlistId}`,
+      { headers },
+    );
+  }
+
+
 
   private currentSongSubject = new BehaviorSubject<SongModel | null>(null);
   currentSong$ = this.currentSongSubject.asObservable();

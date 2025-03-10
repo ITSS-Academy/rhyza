@@ -61,6 +61,9 @@ export class MusicBarComponent implements OnInit, OnDestroy {
     const savedSong = localStorage.getItem('currentSong');
     if (savedSong) {
       this.currentSong = JSON.parse(savedSong);
+      // this.songService.setCurrentSong(this.currentSong!);
+
+
     }
     this.section = document.getElementById('next-song-section');
 

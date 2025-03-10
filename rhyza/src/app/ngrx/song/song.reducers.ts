@@ -10,10 +10,12 @@ export const initialSongState: SongState = {
   songQueue: <SongModel[]>[],
   songCategory: <SongModel[]>[],
   songArtist: <SongModel[]>[],
+  songPlaylist: <SongModel[]>[],
   isLoading: false,
   isCreating: false,
   isLoadingArtist: false,
   isLoadingCategory: false,
+  isLoadingPlaylist: false,
   error: null,
 };
 
@@ -280,5 +282,40 @@ export const songReducer = createReducer(
       ...state,
       songArtist: [],
     };
-  })
+  }),
+  // get song by playlist
+  on(SongActions.getSongsByPlaylist, (state, { type }) => {
+    console.log(type);
+    return {
+      ...state,
+      isLoadingPlaylist: true,
+    };
+  }),
+
+  on(SongActions.getSongsByPlaylistSuccess, (state, { songPlaylist, type }) => {
+    console.log(type);
+    return <SongState>{
+      ...state,
+      songPlaylist: songPlaylist,
+      isLoadingPlaylist: false,
+    };
+  }),
+
+  on(SongActions.getSongsByPlaylistFailure, (state, { error, type }) => {
+    console.log(type);
+    return {
+      ...state,
+      error: error,
+      isLoadingPlaylist: false,
+    };
+  }),
+
+  on(SongActions.clearSongPlaylist, (state, { type }) => {
+    console.log(type);
+    return {
+      ...state,
+      songPlaylist: [],
+    };
+  }),
+
 );

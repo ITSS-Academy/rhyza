@@ -1,1 +1,31 @@
-<p>playlist-detail works!</p>
+<!-- playlist-detail.component.html -->
+<script src="playlist-detail.component.ts"></script>@if ((isLoadingPlaylistDetail$ | async) && (isLoadingSongListPlaylist$ | async)) {
+  <app-loading></app-loading>
+} @else {
+  <div class="container">
+    <div class="left-arrow">
+      <mat-icon class="material-symbols-rounded" (click)="goBack()" style="cursor: pointer;">arrow_back</mat-icon>
+    </div>
+    <div class="detail">
+      <div class="bolero">
+        <!-- Thêm sự kiện click vào thẻ img -->
+        <img [src]="playlistDetail.image_url"  alt="Playlist Image"  style="cursor: pointer;">
+
+        <div>
+          <h1>{{ playlistDetail.name }}</h1>
+          <p>{{ playlistDetail.description }}</p>
+          <p>Số lượng bài hát: {{ playlistDetail.total_tracks }}</p>
+          <p>Giới thiệu tác giả: {{ playlistDetail.author_description }}</p>
+        </div>
+      </div>
+      <div class="featured">
+        <span>Songs</span>
+      </div>
+      <div class="music-list">
+        @for (song of songListPlaylist; track song.id) {
+          <app-music-tab [cardmusictab]="song"></app-music-tab>
+        }
+      </div>
+    </div>
+  </div>
+}

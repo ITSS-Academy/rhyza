@@ -28,6 +28,14 @@ export class SidebarComponent implements OnInit{
   }>
   ) {
     this.authData$ = store.select('auth','authData');
+    this.router.events
+      .pipe(filter((event) => event instanceof NavigationEnd))
+      .subscribe(() => {
+        this.setActiveLink();
+        console.log("----",this.router.url);
+
+      });
+    this.setActiveLink();
   }
   menuItems = [
       { label: 'Music', icon: 'graphic_eq', route: '/music' },
@@ -44,16 +52,11 @@ export class SidebarComponent implements OnInit{
     }
 
   ngOnInit(): void {
-       this.router.events
-            .pipe(filter((event) => event instanceof NavigationEnd))
-            .subscribe(() => {
-              this.setActiveLink();
-              console.log("----",this.router.url);
-
-            });
 
 
-       this.subscription.push(
+
+
+    this.subscription.push(
           this.authData$.subscribe((authData) => {
             if (authData?.idToken) {
               this.authData = authData;

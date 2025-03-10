@@ -167,6 +167,7 @@ export class PlaylistsController {
   async getPlaylistById(@Request() req: any) {
     try {
       const { id } = req.query;
+      console.log('id detail playlist', id);
       return await this.playlistsService.getPlaylistById(id);
     } catch (e) {
       throw new HttpException(e.message, HttpStatus.BAD_REQUEST);

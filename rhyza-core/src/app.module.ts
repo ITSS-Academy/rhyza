@@ -42,11 +42,8 @@ export class AppModule {
         { path: 'songs', method: RequestMethod.DELETE },
         { path: 'auth', method: RequestMethod.GET },
         { path: 'auth', method: RequestMethod.POST },
-        { path: 'playlists', method: RequestMethod.POST },
-        { path: 'playlists', method: RequestMethod.DELETE },
-        { path: 'playlists', method: RequestMethod.PUT },
-        { path: 'playlists', method: RequestMethod.GET },
-        { path: 'history', method: RequestMethod.ALL },
+        { path: 'playlists/*', method: RequestMethod.ALL },
+        { path: 'history/*', method: RequestMethod.ALL },
       );
   }
 }
