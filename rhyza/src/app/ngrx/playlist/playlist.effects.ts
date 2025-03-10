@@ -69,20 +69,7 @@ export const addSongToPlaylist = createEffect(
 
 //remove song from playlist
 
-export const removeSongFromPlaylist = createEffect(
-  (actions$ = inject(Actions), playlistService = inject(PlaylistService)) => {
-    return actions$.pipe(
-      ofType(PlaylistActions.removeSongFromPlaylist),
-      exhaustMap((action) =>
-        playlistService.removeSongFromPlaylist(action.playlistId, action.songId, action.uid, action.idToken).pipe(
-          map((playlist) => PlaylistActions.removeSongFromPlaylistSuccess({ playlist })),
-          catchError((error) => of(PlaylistActions.removeSongFromPlaylistFailure({ error }))),
-        ),
-      ),
-    );
-  },
-  { functional: true },
-);
+
 
 export const deletePlaylist = createEffect(
   (actions$ = inject(Actions), playlistService = inject(PlaylistService)) => {

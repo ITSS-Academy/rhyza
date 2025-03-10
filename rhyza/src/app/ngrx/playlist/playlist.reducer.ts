@@ -157,43 +157,6 @@ export const playlistReducer = createReducer(
     };
   }),
 
-  //remove song from playlist
-
-  on(PlaylistActions.removeSongFromPlaylist, (state, { type }) => {
-    console.log(type);
-    return {
-      ...state,
-      isLoading: true,
-    };
-  }),
-
-  on(
-    PlaylistActions.removeSongFromPlaylistSuccess,
-    (state, { playlist, type }) => {
-      console.log(type);
-      console.log(playlist);
-      return <PlaylistState>{
-        ...state,
-        playlistDetail: playlist,
-        isLoading: false,
-      };
-    }
-  ),
-
-  on(
-    PlaylistActions.removeSongFromPlaylistFailure,
-    (state, { error, type }) => {
-      console.log(type);
-      console.log(error);
-      return {
-        ...state,
-        error: error,
-        isLoading: false,
-      };
-    }
-  ),
-
-
   // get song id list all playlist by uid
   on(PlaylistActions.getListSongIdByUid, (state, { type }) => {
     console.log(type);

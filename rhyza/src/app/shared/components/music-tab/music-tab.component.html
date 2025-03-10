@@ -38,10 +38,13 @@
         <mat-icon class="material-symbols-rounded"  >library_music</mat-icon>
       </button>
     }
-    <button mat-icon-button aria-label="Example icon button with a vertical three dot icon">
-      <mat-icon class="material-symbols-rounded">favorite</mat-icon>
 
-    </button>
+    @if (isRecycle){
+      <button mat-icon-button aria-label="Example icon button with a vertical three dot icon" (click)="openDialogDeleteSongFromDialog(cardmusictab)" >
+        <mat-icon class="material-symbols-rounded">delete</mat-icon>
+      </button>
+    }
+
 
   </div>
 </div>

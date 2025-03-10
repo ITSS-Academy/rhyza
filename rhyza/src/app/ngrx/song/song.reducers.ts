@@ -318,4 +318,31 @@ export const songReducer = createReducer(
     };
   }),
 
+  //remove song from playlist
+  on(SongActions.removeSongFromPlaylist, (state, { type }) => {
+    console.log(type);
+    return {
+      ...state,
+      isLoadingPlaylist: true,
+    };
+  }),
+
+  on(SongActions.removeSongFromPlaylistSuccess, (state, { songPlaylist, type }) => {
+    console.log(type);
+    return {
+      ...state,
+      songPlaylist: songPlaylist,
+      isLoadingPlaylist: false,
+    };
+  }),
+
+  on(SongActions.removeSongFromPlaylistFailure, (state, { error, type }) => {
+    console.log(type);
+    return {
+      ...state,
+      error: error,
+      isLoadingPlaylist: false,
+    };
+  }),
+
 );

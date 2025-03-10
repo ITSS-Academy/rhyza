@@ -6,7 +6,6 @@ export class SearchService {
   constructor(private supabaseProvider: SupabaseProvider) {}
 
   async searchAll(query: string) {
-    console.log('query', query);
     query = query.trim();
     const { data, error } = await this.supabaseProvider
       .getClient()

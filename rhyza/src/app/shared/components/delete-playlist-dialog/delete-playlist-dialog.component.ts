@@ -60,9 +60,6 @@ export class DeletePlaylistDialogComponent implements OnInit, OnDestroy{
       }));
 
     }
-
-
-
   }
 
 }

@@ -25,8 +25,6 @@ export class CategoryService {
       throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-    console.log(data);
-
     return data[0] as Category;
   }
 

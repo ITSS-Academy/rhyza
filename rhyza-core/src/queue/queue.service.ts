@@ -39,8 +39,6 @@ export class QueueService {
   async removeSongFromQueue(uid: string, songId: string) {
     // Remove song from queue with RPC
 
-    console.log('uid', uid);
-    console.log('songId', songId);
     const { data, error } = await this.supabaseProvider
       .getClient()
       .rpc('delete_queue_entry', {

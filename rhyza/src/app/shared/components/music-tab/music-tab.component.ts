@@ -11,8 +11,9 @@ import {DurationToTimePipe} from '../../pipes/duration-to-time.pipe';
 import {MatDialog} from '@angular/material/dialog';
 import {PlaylistsAddComponent} from '../playlists-add/playlists-add.component';
 import * as SongActions from '../../../ngrx/song/song.actions';
-
-
+import {Router} from '@angular/router';
+import * as PlaylistActions from '../../../ngrx/playlist/playlist.actions';
+import {DeleteSongPlaylistComponent} from '../delete-song-playlist/delete-song-playlist.component';
 @Component({
   selector: 'app-music-tab',
   standalone: true,
@@ -25,20 +26,27 @@ import * as SongActions from '../../../ngrx/song/song.actions';
   styleUrl: './music-tab.component.scss'
 })
 export class MusicTabComponent implements OnInit {
+  dialogDeleteSongFromPlaylist = inject(MatDialog);
+  readonly dialog = inject(MatDialog);
+
   @Input() cardmusictab!: SongModel;
   @Input() isInPlaylist: boolean = false;
   @Input() insideNextSong: boolean = false; // Thêm dòng này
+  @Input() playlistId: string = ''; // Thêm dòng này
   auth$!: Observable<AuthModel | null>;
   authData!: AuthModel | null;
   subscription: Subscription[] = [];
+  isRecycle: boolean = false;
 
   constructor(
     private songService: SongService,
+    private router: Router,
     private store: Store<{
       auth: AuthState
     }>,
   ) {
     this.auth$ = this.store.select('auth', 'authData');
+    this.getCurrentUrl();
 
 
   }
@@ -89,7 +97,23 @@ export class MusicTabComponent implements OnInit {
     }
   }
 
-  readonly dialog = inject(MatDialog);
+
+
+  openDialogDeleteSongFromDialog(song:SongModel) {
+    if(this.authData?.uid){
+      const dialogRef = this.dialog.open(DeleteSongPlaylistComponent, {
+        data: {
+          playlistId: this.playlistId,
+          song: song,
+          uid: this.authData.uid,
+          idToken: this.authData.idToken,
+        } // Truyền songId vào dialog
+      });
+    }
+
+  }
+
+
 
   openDialog() {
     if(this.authData?.uid){
@@ -102,5 +126,11 @@ export class MusicTabComponent implements OnInit {
     }
 
   }
+
+  getCurrentUrl(){
+    this.isRecycle = this.router.url.includes('playlist-detail');
+  }
+
+
 
 }

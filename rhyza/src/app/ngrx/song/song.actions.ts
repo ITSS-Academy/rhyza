@@ -1,5 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 import { SongModel } from '../../models/song.model';
+import {PlaylistModel} from '../../models/playlist.model';
 
 export const getSongById = createAction(
   '[Song] Get Song Detail',
@@ -121,3 +122,20 @@ export const getSongsByPlaylistFailure = createAction(
 
 export const clearSongPlaylist = createAction('[Song] Clear Song Playlist');
 
+//remove song from playlist
+
+
+export const removeSongFromPlaylist = createAction(
+  '[Playlist] Remove Song From Playlist',
+  props<{ playlistId: string; songId: string; uid: string; idToken: string }>()
+);
+
+export const removeSongFromPlaylistSuccess = createAction(
+  '[Playlist] Remove Song From Playlist Success',
+  props<{ songPlaylist: SongModel[] }>()
+);
+
+export const removeSongFromPlaylistFailure = createAction(
+  '[Playlist] Remove Song From Playlist Failure',
+  props<{ error: any }>()
+);
