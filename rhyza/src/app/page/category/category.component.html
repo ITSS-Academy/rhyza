@@ -6,15 +6,30 @@
   <div class="container">
     <div class="header">
       <h4>Category</h4>
+      <div class="box-search">
+        <input type="text"
+        placeholder="Search"
+               [formControl]="searchControl"/>
+        <mat-icon class="icon-search">search</mat-icon>
+      </div>
     </div>
     <div class="main">
-      @for (item of categoryList; track $index) {
-        <app-category-card
-          [item] = "item"
-        ></app-category-card>
-      }
+      <!-- Hiển thị Progress Spinner khi đang loading -->
+      <div class="loading-category" *ngIf="isLoading">
+        <mat-progress-spinner
+          [mode]="mode"
+          [diameter]="50">
+        </mat-progress-spinner>
+        <p>Loading categories...</p>
+      </div>
+
+      <!-- Hiển thị danh mục khi đã tải xong -->
+      <ng-container *ngIf="!isLoading">
+        @for (item of filteredCategories.length > 0 ? filteredCategories : categoryList; track item.id) {
+          <app-category-card [item]="item"></app-category-card>
+        }
+      </ng-container>
     </div>
+
   </div>
-
-
 }

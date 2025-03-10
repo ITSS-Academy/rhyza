@@ -1,7 +1,10 @@
   <div class="music-player">
     <!-- Song Info -->
     <div class="song-info">
-      <img src="{{ currentSong?.image_url }}" alt="Song Thumbnail" class="song-thumbnail" />
+      <img src="{{ currentSong?.image_url || 'https://thumbs.dreamstime.com/b/croquis-d-une-note-musicale-101566570.jpg' }}"
+           alt="Song Thumbnail"
+           class="song-thumbnail" />
+
       <div class="text">
         <h4 class="song-title">{{ currentSong?.title || 'No Song Playing' }}</h4>
       </div>
