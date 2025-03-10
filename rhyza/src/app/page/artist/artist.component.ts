@@ -30,7 +30,7 @@ export class ArtistComponent implements OnInit {
     this.subscription.push(
       this.artistList$.subscribe((artistList) => {
         if(artistList.length > 0){
-          console.log(artistList);
+
           this.artistList = artistList;
         }
       })

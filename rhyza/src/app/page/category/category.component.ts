@@ -47,7 +47,6 @@ export class CategoryComponent implements OnInit {
 
   getCategoryDetail(id: number) {
     const category = this.categoryList.find((e) => e.id == id.toString());
-    console.log(category)
     return category;
   }
 

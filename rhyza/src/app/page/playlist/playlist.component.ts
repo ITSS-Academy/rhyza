@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import {Component, inject, OnDestroy, OnInit} from '@angular/core';
 import { MaterialModule } from '../../shared/material.module';
 import { MatDialog } from '@angular/material/dialog';
 import { CreatePlaylistComponent } from '../../shared/components/create-playlist/create-playlist.component';
@@ -21,7 +21,7 @@ import {LoginComponent} from '../../shared/components/login/login.component';
   templateUrl: './playlist.component.html',
   styleUrl: './playlist.component.scss'
 })
-export class PlaylistComponent implements OnInit {
+export class PlaylistComponent implements OnInit, OnDestroy {
   subscription: Subscription[] = [];
   auth$!: Observable<AuthModel | null>;
   authData: AuthModel | null = null;
@@ -59,10 +59,13 @@ export class PlaylistComponent implements OnInit {
         console.log(playlist);
         if (playlist.length > 0) {
           this.playlistList = playlist;
-          console.log(this.playlistList);
         }
       })
     );
+  }
+
+  ngOnDestroy() {
+    this.subscription.forEach((sub) => sub.unsubscribe());
   }
 
   readonly dialog = inject(MatDialog);

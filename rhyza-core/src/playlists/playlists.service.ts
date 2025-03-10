@@ -441,4 +441,17 @@ export class PlaylistsService {
       }
     }
   }
+
+  async getListSongsIdAllPlaylists(uid: string) {
+    const { data: listSongId, error: listSongIdError } =
+      await this.supabaseProvider
+        .getClient()
+        .rpc('get_unique_songs_by_user', { p_uid: uid });
+
+    if (listSongIdError) {
+      throw new HttpException(listSongIdError.message, HttpStatus.BAD_REQUEST);
+    }
+
+    return listSongId;
+  }
 }

@@ -90,7 +90,7 @@ export class PlaylistService {
     };
 
     const body = {
-      playlistId: playlistId,
+      id: playlistId,
       songId: songId,
       uid: uid,
     };
@@ -118,5 +118,14 @@ export class PlaylistService {
       `${environment.apiUrl}playlists/song?id=${playlistId}&songId=${songId}&uid=${uid}`,
       { headers }
     );
+  }
+
+  getListSongIdByUid(uid: string, idToken: string) {
+    const headers = {
+      Authorization: idToken,
+    }
+
+    return this.http.get<any>(`${environment.apiUrl}playlists/list-songsid?uid=${uid}`, { headers });
+
   }
 }

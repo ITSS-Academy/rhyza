@@ -99,3 +99,20 @@ export const getPlaylistByIdFailure = createAction(
 export const clearPlaylistDetail = createAction(
   '[Playlist] Clear Playlist Detail'
 );
+
+
+//get list song id in all playlist by uid
+export const getListSongIdByUid = createAction(
+  '[Playlist] Get List Song Id By Uid',
+  props<{ uid: string; idToken: string }>()
+);
+
+export const getListSongIdByUidSuccess = createAction(
+  '[Playlist] Get List Song Id By Uid Success',
+  props<{ listSongsIdAllPlaylist: any }>()
+);
+
+export const getListSongIdByUidFailure = createAction(
+  '[Playlist] Get List Song Id By Uid Failure',
+  props<{ error: any }>()
+);

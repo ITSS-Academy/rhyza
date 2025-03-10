@@ -16,7 +16,6 @@ export class CarouselHomeComponent {
   constructor(private songService: SongService) {
   }
   playSong() {
-    console.log(this.carousel);
 
     this.songService.setCurrentSong(this.carousel);
 

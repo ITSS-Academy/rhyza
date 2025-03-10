@@ -7,9 +7,11 @@ import { SongModel } from '../../models/song.model';
 export const initialState: PlaylistState = {
   playlistDetail: {} as PlaylistModel,
   playlistList: [] as PlaylistModel[],
+  listSongsIdAllPlaylist: [] as string[],
   isLoading: false,
   isLoadingDetail: false,
   isDeletedSuccess: false,
+  isAddSongSuccess: false,
   error: null,
 };
 
@@ -85,6 +87,7 @@ export const playlistReducer = createReducer(
       isLoading: false,
       isLoadingDetail: false,
       isDetailSuccess: false,
+      isAddSongSuccess: false,
       error: null,
     };
   }),
@@ -128,6 +131,7 @@ export const playlistReducer = createReducer(
     return {
       ...state,
       isLoading: true,
+      isAddSongSuccess: false,
     };
   }),
 
@@ -138,6 +142,7 @@ export const playlistReducer = createReducer(
       ...state,
       playlistDetail: playlist,
       isLoading: false,
+      isAddSongSuccess: true,
     };
   }),
 
@@ -148,6 +153,7 @@ export const playlistReducer = createReducer(
       ...state,
       error: error,
       isLoading: false,
+      isAddSongSuccess: false,
     };
   }),
 
@@ -185,7 +191,34 @@ export const playlistReducer = createReducer(
         isLoading: false,
       };
     }
-  )
+  ),
+
+
+  // get song id list all playlist by uid
+  on(PlaylistActions.getListSongIdByUid, (state, { type }) => {
+    console.log(type);
+    return {
+      ...state,
+    };
+  }),
+
+  on(PlaylistActions.getListSongIdByUidSuccess, (state, { listSongsIdAllPlaylist, type }) => {
+    console.log(type);
+    return <PlaylistState>{
+      ...state,
+      listSongsIdAllPlaylist: listSongsIdAllPlaylist.songs_Id,
+    };
+  }),
+
+  on(PlaylistActions.getListSongIdByUidFailure, (state, { error, type }) => {
+    console.log(type);
+    console.log(error);
+    return {
+      ...state,
+      error: error,
+    };
+  })
+
 );
 
 

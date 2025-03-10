@@ -26,7 +26,6 @@ export class SongService {
       Authorization: idToken,
     };
 
-    console.log('song services create song', song);
     const formData = new FormData();
     formData.append('title', song.title);
     formData.append('composer', song.composer);

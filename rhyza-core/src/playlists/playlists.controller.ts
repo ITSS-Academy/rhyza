@@ -173,4 +173,15 @@ export class PlaylistsController {
       throw new HttpException(e.message, HttpStatus.BAD_REQUEST);
     }
   }
+
+  @Get('list-songsid')
+  async getListSongsIdByUid(@Request() req: any) {
+    try {
+      const { uid } = req.query;
+      console.log('uid list', uid);
+      return await this.playlistsService.getListSongsIdAllPlaylists(uid);
+    } catch (e) {
+      throw new HttpException(e.message, HttpStatus.BAD_REQUEST);
+    }
+  }
 }

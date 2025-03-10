@@ -26,6 +26,7 @@ import * as SongActions from '../../../ngrx/song/song.actions';
 })
 export class MusicTabComponent implements OnInit {
   @Input() cardmusictab!: SongModel;
+  @Input() isInPlaylist: boolean = false;
   @Input() insideNextSong: boolean = false; // Thêm dòng này
   auth$!: Observable<AuthModel | null>;
   authData!: AuthModel | null;
@@ -91,13 +92,15 @@ export class MusicTabComponent implements OnInit {
   readonly dialog = inject(MatDialog);
 
   openDialog() {
-    const dialogRef = this.dialog.open(PlaylistsAddComponent, {
-      data: { songId: this.cardmusictab.id } // Truyền songId vào dialog
-    });
+    if(this.authData?.uid){
+      const dialogRef = this.dialog.open(PlaylistsAddComponent, {
+        data: {
+          song: this.cardmusictab,
+          auth: this.authData
+        } // Truyền songId vào dialog
+      });
+    }
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
-    });
   }
 
 }

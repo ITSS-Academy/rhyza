@@ -98,3 +98,21 @@ export const deletePlaylist = createEffect(
   },
   { functional: true },
 );
+
+//get all songs id of all playlist by uid
+export const getAllSongsIdOfAllPlaylistByUid = createEffect(
+  (actions$ = inject(Actions), playlistService = inject(PlaylistService)) => {
+    return actions$.pipe(
+      ofType(PlaylistActions.getListSongIdByUid),
+      exhaustMap((action) =>
+        playlistService.getListSongIdByUid(action.uid, action.idToken).pipe(
+          map((songId) =>{
+            return  PlaylistActions.getListSongIdByUidSuccess({ listSongsIdAllPlaylist: songId })
+            }),
+          catchError((error) => of(PlaylistActions.getListSongIdByUidFailure({ error }))),
+        ),
+      ),
+    );
+  },
+  { functional: true },
+);
