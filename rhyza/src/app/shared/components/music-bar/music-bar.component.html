@@ -55,12 +55,13 @@
 
 
 
-  <div id="next-song-section">
-    <h6>Next Song</h6>
-    <div class="next-song-list">
-      @for (song of this.songListQueue; track song.id) {
-        <app-music-tab [cardmusictab]="song"></app-music-tab>
-
-      }
+    <div id="next-song-section">
+      <h6>Next Song</h6>
+      <div class="next-song-list">
+        @for (song of this.songListQueue; track song.id) {
+          <app-music-tab [cardmusictab]="song" [insideNextSong]="true"></app-music-tab>
+        }
+      </div>
     </div>
+
   </div>
