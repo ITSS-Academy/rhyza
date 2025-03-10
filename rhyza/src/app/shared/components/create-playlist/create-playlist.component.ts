@@ -8,6 +8,7 @@ import { AuthState } from '../../../ngrx/auth/auth.state';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { CommonModule } from '@angular/common';
+import {MatDialogTitle} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-create-playlist',
@@ -17,7 +18,8 @@ import { CommonModule } from '@angular/common';
     ReactiveFormsModule,
     MatFormFieldModule,
     MatInputModule,
-    CommonModule
+    CommonModule,
+    MatDialogTitle
   ],
   styleUrls: ['./create-playlist.component.scss']
 })

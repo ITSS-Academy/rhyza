@@ -9,12 +9,8 @@
     <div class="detail">
       <div class="bolero">
         <!-- Thêm sự kiện click vào thẻ img -->
-        <img [src]="playlistDetail.image_url" height="90%" alt="Playlist Image" (click)="fileInput.click()" style="cursor: pointer;">
+        <img [src]="playlistDetail.image_url" height="90%" alt="Playlist Image" style="cursor: pointer;">
         <!-- Thêm input file ẩn -->
-        <input type="file" #fileInput
-               (change)="onFileSelected($event)"
-               accept="image/*" hidden
-        >
         <div>
           <h1>{{ playlistDetail.name }}</h1>
           <p>{{ playlistDetail.description }}</p>

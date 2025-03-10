@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, inject, Input, OnInit} from '@angular/core';
 import {SongModel} from '../../../models/song.model';
 import {MaterialModule} from '../../material.module';
 import {SongService} from '../../../services/song/song.service';
@@ -9,7 +9,8 @@ import {AuthState} from '../../../ngrx/auth/auth.state';
 import {AuthModel} from '../../../models/auth.model';
 import {Observable, Subscription} from 'rxjs';
 import {DurationToTimePipe} from '../../pipes/duration-to-time.pipe';
-
+import {MatDialog} from '@angular/material/dialog';
+import {PlaylistsAddComponent} from '../playlists-add/playlists-add.component';
 
 
 @Component({
@@ -84,6 +85,18 @@ export class MusicTabComponent implements OnInit {
         idToken: this.authData.idToken
       }))
     }
+  }
+
+  readonly dialog = inject(MatDialog);
+
+  openDialog() {
+    const dialogRef = this.dialog.open(PlaylistsAddComponent, {
+      data: { songId: this.cardmusictab.id } // Truyền songId vào dialog
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
   }
 
 }
