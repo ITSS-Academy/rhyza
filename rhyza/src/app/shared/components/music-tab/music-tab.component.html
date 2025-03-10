@@ -16,13 +16,21 @@
 
 
   <div class="right-side">
-    <div class="time">{{cardmusictab.duration}}</div>
-    <button mat-icon-button aria-label="Example icon button with a vertical three dot icon">
-      <mat-icon class="material-symbols-rounded">playlist_add</mat-icon>
-    </button>
+
+    <div class="time">{{cardmusictab.duration | durationToTime }}</div>
+
+    @if(insideNextSong){
+      <button  (click)="deleteSongToQueue(cardmusictab.id)" mat-icon-button>
+        <mat-icon class="material-symbols-rounded">playlist_add_check</mat-icon>
+      </button>
+    } @else {
+      <button  (click)="addToQueue(cardmusictab.id)" mat-icon-button>
+        <mat-icon class="material-symbols-rounded">playlist_add</mat-icon>
+      </button>
+    }
+
     <button mat-icon-button aria-label="Example icon button with a vertical three dot icon">
       <mat-icon class="material-symbols-rounded">library_music</mat-icon>
-
     </button>
     <button mat-icon-button aria-label="Example icon button with a vertical three dot icon">
       <mat-icon class="material-symbols-rounded">favorite</mat-icon>

@@ -26,3 +26,39 @@ export const getPlaylistFailure = createAction(
   '[Playlist] Get Playlist Failure', props<{ error: any }>()
 )
 
+
+export const addSongToPlaylist =  createAction(
+  '[Playlist] Add Song To Playlist', props<{ playlistId: string, songId: string,uid: string, idToken: string }>()
+)
+
+export const addSongToPlaylistSuccess = createAction(
+  '[Playlist] Add Song To Playlist Success', props<{ playlist: PlaylistModel }>()
+)
+
+export const addSongToPlaylistFailure = createAction(
+  '[Playlist] Add Song To Playlist Failure', props<{ error: any }>()
+)
+
+export const removeSongFromPlaylist = createAction(
+  '[Playlist] Remove Song From Playlist', props<{ playlistId: string, songId: string,uid: string, idToken: string }>()
+)
+
+export const removeSongFromPlaylistSuccess = createAction(
+  '[Playlist] Remove Song From Playlist Success', props<{ playlist: PlaylistModel }>()
+)
+
+export const removeSongFromPlaylistFailure = createAction(
+  '[Playlist] Remove Song From Playlist Failure', props<{ error: any }>()
+)
+
+export const deletePlaylist = createAction(
+  '[Playlist] Delete Playlist', props<{ playlistId: string, uid: string, idToken: string }>()
+)
+
+export const deletePlaylistSuccess = createAction(
+  '[Playlist] Delete Playlist Success'
+)
+
+export const deletePlaylistFailure = createAction(
+  '[Playlist] Delete Playlist Failure', props<{ error: any }>()
+)

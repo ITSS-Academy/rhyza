@@ -10,11 +10,6 @@
         <mat-card-subtitle class="title-artist">{{ song.performer_ref | idToName |async}}</mat-card-subtitle>
       </mat-card-content>
 
-      <mat-card-actions>
-        <button mat-button color="primary" (click)="addToQueue(song.id)">Add to queue</button>
-        <button mat-button color="primary" (click)="deleteSongToQueue(song.id)">Delete</button>
 
-
-      </mat-card-actions>
     </mat-card>
   </div>

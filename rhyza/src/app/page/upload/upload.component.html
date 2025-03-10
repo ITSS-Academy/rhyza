@@ -46,7 +46,7 @@
 
           <input type="file" (change)="onImageSelected($event)" accept="image/*" hidden id="imageInput">
           <label for="imageInput">
-            <ng-container *ngIf="imagePreview; else uploadImagePlaceholder">
+            <ng-container *ngIf="imagePreview; else uploadImagePlaceholder" >
               <img [src]="imagePreview" alt="Uploaded Image">
             </ng-container>
             <ng-template #uploadImagePlaceholder>

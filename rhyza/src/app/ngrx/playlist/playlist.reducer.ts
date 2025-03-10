@@ -46,6 +46,7 @@ export const playlistReducer = createReducer(
   }),
 
 
+
   //get playlist by uid
 
   on(PlaylistActions.getPlaylist, (state,{type}) => {
@@ -75,4 +76,95 @@ export const playlistReducer = createReducer(
       isLoading: false
     }
   }),
+
+  //delete playlist
+
+  on(PlaylistActions.deletePlaylist, (state,{type}) => {
+    console.log(type)
+    return{
+      ...state,
+      isLoading: true
+    }
+  }),
+
+  on(PlaylistActions.deletePlaylistSuccess, (state,{type}) => {
+    console.log(type)
+    return <PlaylistState>{
+      ...state,
+      isLoading: false
+    }
+  }),
+
+  on(PlaylistActions.deletePlaylistFailure, (state,{error, type}) => {
+    console.log(type)
+    console.log(error)
+    return{
+      ...state,
+      error: error,
+      isLoading: false
+    }
+  }),
+
+
+  //add song to playlist
+
+  on(PlaylistActions.addSongToPlaylist, (state,{type}) => {
+    console.log(type)
+    return{
+      ...state,
+      isLoading: true
+    }
+  }),
+
+  on(PlaylistActions.addSongToPlaylistSuccess, (state,{playlist, type}) => {
+    console.log(type)
+    console.log(playlist)
+    return <PlaylistState>{
+      ...state,
+      playlistDetail: playlist,
+      isLoading: false
+    }
+  }),
+
+  on(PlaylistActions.addSongToPlaylistFailure, (state,{error, type}) => {
+    console.log(type)
+    console.log(error)
+    return{
+      ...state,
+      error: error,
+      isLoading: false
+    }
+  }),
+
+  //remove song from playlist
+
+  on(PlaylistActions.removeSongFromPlaylist, (state,{type}) => {
+    console.log(type)
+    return{
+      ...state,
+      isLoading: true
+    }
+  }),
+
+  on(PlaylistActions.removeSongFromPlaylistSuccess, (state,{playlist, type}) => {
+    console.log(type)
+    console.log(playlist)
+    return <PlaylistState>{
+      ...state,
+      playlistDetail: playlist,
+      isLoading: false
+    }
+  }),
+
+  on(PlaylistActions.removeSongFromPlaylistFailure, (state,{error, type}) => {
+    console.log(type)
+    console.log(error)
+    return{
+      ...state,
+      error: error,
+      isLoading: false
+    }
+  }),
+
+
 )

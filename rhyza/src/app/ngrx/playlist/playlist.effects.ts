@@ -34,3 +34,51 @@ export const getPlaylist = createEffect(
   },
   { functional: true },
 );
+
+//add song to playlist
+export const addSongToPlaylist = createEffect(
+  (actions$ = inject(Actions), playlistService = inject(PlaylistService)) => {
+    return actions$.pipe(
+      ofType(PlaylistActions.addSongToPlaylist),
+      exhaustMap((action) =>
+        playlistService.addSongToPlaylist(action.playlistId, action.songId, action.uid, action.idToken).pipe(
+          map((playlist) => PlaylistActions.addSongToPlaylistSuccess({ playlist })),
+          catchError((error) => of(PlaylistActions.addSongToPlaylistFailure({ error }))),
+        ),
+      ),
+    );
+  },
+  { functional: true },
+);
+
+//remove song from playlist
+
+export const removeSongFromPlaylist = createEffect(
+  (actions$ = inject(Actions), playlistService = inject(PlaylistService)) => {
+    return actions$.pipe(
+      ofType(PlaylistActions.removeSongFromPlaylist),
+      exhaustMap((action) =>
+        playlistService.removeSongFromPlaylist(action.playlistId, action.songId, action.uid, action.idToken).pipe(
+          map((playlist) => PlaylistActions.removeSongFromPlaylistSuccess({ playlist })),
+          catchError((error) => of(PlaylistActions.removeSongFromPlaylistFailure({ error }))),
+        ),
+      ),
+    );
+  },
+  { functional: true },
+);
+
+export const deletePlaylist = createEffect(
+  (actions$ = inject(Actions), playlistService = inject(PlaylistService)) => {
+    return actions$.pipe(
+      ofType(PlaylistActions.deletePlaylist),
+      exhaustMap((action) =>
+        playlistService.deletePlaylistById(action.playlistId, action.uid, action.idToken).pipe(
+          map(() => PlaylistActions.deletePlaylistSuccess()),
+          catchError((error) => of(PlaylistActions.deletePlaylistFailure({ error }))),
+        ),
+      ),
+    );
+  },
+  { functional: true },
+);
