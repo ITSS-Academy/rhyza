@@ -43,7 +43,7 @@ export class SongService {
 
   updateSongViews(songId: string) {
     return this.http.put(
-      `http://localhost:3000/songs/update-views?id=${songId}`,
+      `${environment.apiUrl}songs/update-views?id=${songId}`,
       {},
     );
   }
@@ -53,7 +53,7 @@ export class SongService {
       Authorization: idToken,
     };
     return this.http.get<SongModel[]>(
-      `http://localhost:3000/queue/get-song-queues-user?uid=${uid}`,
+      `${environment.apiUrl}queue/get-song-queues-user?uid=${uid}`,
       { headers },
     );
   }
@@ -64,7 +64,7 @@ export class SongService {
   }
 
   getArtistBySongId(songId: string){
-    return this.http.get<SongModel[]>(`http://localhost:3000/artist/artist-song?song_id=${songId}`);
+    return this.http.get<SongModel[]>(`${environment.apiUrl}artist/artist-song?song_id=${songId}`);
   }
 
   private currentSongSubject = new BehaviorSubject<SongModel | null>(null);

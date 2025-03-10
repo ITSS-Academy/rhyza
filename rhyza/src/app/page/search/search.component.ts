@@ -2,7 +2,9 @@
 import {Component, OnInit} from '@angular/core';
 import {NavigationEnd, Router, RouterOutlet} from '@angular/router';
 import {MaterialModule} from '../../shared/material.module';
-import {filter} from 'rxjs';
+import {debounceTime, filter, Subject, Subscription} from 'rxjs';
+import * as SearchActions from '../../ngrx/search/search.actions';
+import {Store} from '@ngrx/store';
 
 @Component({
   selector: 'app-search',
@@ -15,18 +17,33 @@ import {filter} from 'rxjs';
   styleUrl: './search.component.scss'
 })
 export class SearchComponent implements OnInit {
+  subscription: Subscription[] = [];
+  searchSubject = new Subject<string>();
 
   activeLink: string = '';
-  constructor(private router: Router) {
+  constructor(private router: Router, private store: Store) {
   }
 
   ngOnInit() {
+
+  this.subscription.push(
+    this.searchSubject.pipe(debounceTime(3000)).subscribe((query) => {
+      console.log(query);
+      this.store.dispatch(SearchActions.searchAll({ query }));
+    }),
+
+
     this.router.events
       .pipe(filter((event) => event instanceof NavigationEnd))
       .subscribe(() => {
         this.setActiveLink();
-      });
-    this.setActiveLink();
+      }),
+  )
+
+    this.setActiveLink()
+
+
+
   }
 
   search = [
@@ -68,5 +85,22 @@ export class SearchComponent implements OnInit {
       event.source.selected = true;
     }
     this.navigate(route);
+  }
+
+  onValueChange(event: Event) {
+    const inputElement = event.target as HTMLInputElement;
+    const query = inputElement.value;
+    this.searchSubject.next(query);
+    console.log('Search query:', query);
+  }
+
+  onEnter(event: Event) {
+    const keyboardEvent = event as KeyboardEvent;
+    const inputElement = event.target as HTMLInputElement;
+    const query = inputElement.value;
+    if (keyboardEvent.key === 'Enter') {
+      console.log('Enter');
+      this.store.dispatch(SearchActions.searchAll({ query }));
+    }
   }
 }

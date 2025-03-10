@@ -1,1 +1,20 @@
-<p>search-songs works!</p>
+@if(isLoading$ |async){
+  <app-loading></app-loading>
+
+} @else {
+<div class="container">
+
+
+  @if (searchAll?.artists?.length ?? 0 > 0){
+    <div class="songs">
+      <h2>Songs</h2>
+      <div class="songs-list">
+        @for(song of searchAll?.songs; track song.id){
+          <app-music-tab [cardmusictab]="song"></app-music-tab>
+        }
+      </div>
+    </div>
+  }
+
+</div>
+}

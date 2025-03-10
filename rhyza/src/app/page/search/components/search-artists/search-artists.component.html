@@ -1,1 +1,21 @@
-<p>search-artists works!</p>
+@if(isLoading$ |async){
+  <app-loading></app-loading>
+
+
+} @else {
+<div class="container">
+
+  @if (searchAll?.artists?.length ?? 0 > 0){
+    <div class="artists">
+      <h2>Artists</h2>
+      <div class="artist-list">
+        @for(artist of searchAll?.artists; track artist.id){
+          <app-artists [cardarttist]="artist"></app-artists>
+        }
+      </div>
+    </div>
+  }
+
+</div>
+}
+

@@ -12,6 +12,7 @@ import {ArtistModel} from '../../models/artist.model';
 import {ArtistState} from '../../ngrx/artist/artist.state';
 import * as ArtistActions from '../../ngrx/artist/artist.actions';
 import * as SongActions from '../../ngrx/song/song.actions';
+import {LoadingComponent} from '../../shared/components/loading/loading.component';
 
 @Component({
   selector: 'app-artist-detail',
@@ -20,7 +21,8 @@ import * as SongActions from '../../ngrx/song/song.actions';
     MusicTabComponent,
     MatIcon,
     AsyncPipe,
-    MatProgressSpinner
+    MatProgressSpinner,
+    LoadingComponent
   ],
   templateUrl: './artist-detail.component.html',
   styleUrl: './artist-detail.component.scss'
@@ -43,7 +45,7 @@ export class ArtistDetailComponent implements OnInit, OnDestroy {
     }>
   ) {
     this.artistDetail$ = this.store.select('artist', 'artistDetail');
-    this.isLoadingArtistDetail$ = this.store.select('artist', 'isLoading');
+    this.isLoadingArtistDetail$ = this.store.select('artist', 'isLoadingDetail');
     this.songListArtist$ = this.store.select('song', 'songArtist');
     this.isLoadingSongListArtist$ = this.store.select('song', 'isLoadingArtist');
   }
