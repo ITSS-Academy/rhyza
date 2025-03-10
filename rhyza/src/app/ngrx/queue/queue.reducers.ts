@@ -148,4 +148,16 @@ export const queueReducer = createReducer(
     }
   }),
 
+
+  on(queueActions.clearQueue,(state,{type}) =>{
+    console.log(type)
+    return {
+      ...state,
+      isCreating: false,
+      isCreateSuccess: false,
+      error: null
+    }
+}),
 )
+
+

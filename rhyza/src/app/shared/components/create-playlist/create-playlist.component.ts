@@ -8,7 +8,7 @@ import { AuthState } from '../../../ngrx/auth/auth.state';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { CommonModule } from '@angular/common';
-import {MatDialogTitle} from '@angular/material/dialog';
+import {MaterialModule} from '../../material.module';
 
 @Component({
   selector: 'app-create-playlist',
@@ -19,7 +19,7 @@ import {MatDialogTitle} from '@angular/material/dialog';
     MatFormFieldModule,
     MatInputModule,
     CommonModule,
-    MatDialogTitle
+    MaterialModule,
   ],
   styleUrls: ['./create-playlist.component.scss']
 })
@@ -68,7 +68,7 @@ export class CreatePlaylistComponent implements OnInit {
       reader.onload = () => {
         this.imageUrl = reader.result;
         this.playlistForm.patchValue({
-          image_url: reader.result
+          image_url: file
         });
       };
       reader.readAsDataURL(file);

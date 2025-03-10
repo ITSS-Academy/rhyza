@@ -4,8 +4,8 @@ import { SongModel } from '../../models/song.model';
 export interface PlaylistState {
   playlistDetail: PlaylistModel;
   playlistList: PlaylistModel[];
-  songList: SongModel[];
   isLoading: boolean;
   isLoadingDetail: boolean;
+  isDeletedSuccess: boolean;
   error: any;
 }

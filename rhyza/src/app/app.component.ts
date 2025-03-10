@@ -38,9 +38,6 @@ export class AppComponent {
   ) {
     this.loadingArtist$ = this.store.select('artist', 'isLoading');
     this.loadingCategories$ = this.store.select('category', 'isLoading');
-
-    this.store.dispatch(CategoryActions.getCategories())
-    this.store.dispatch(ArtistActions.getArtistList());
     onAuthStateChanged(this.auth, async (user) => {
       if(user){
         const token = await user?.getIdToken();
@@ -56,7 +53,11 @@ export class AppComponent {
         }
         this.store.dispatch(AuthActions.storeAuth({authData: authData}));
       }
+
     });
+
+    this.store.dispatch(CategoryActions.getCategories())
+    this.store.dispatch(ArtistActions.getArtistList());
 
   }
 

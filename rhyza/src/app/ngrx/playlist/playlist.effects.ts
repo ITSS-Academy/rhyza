@@ -49,17 +49,52 @@ export const getPlaylistById$ = createEffect(
   { functional: true }
 );
 
-export const getSongByPlaylist$ = createEffect(
+
+
+//add song to playlist
+export const addSongToPlaylist = createEffect(
   (actions$ = inject(Actions), playlistService = inject(PlaylistService)) => {
     return actions$.pipe(
-      ofType(PlaylistActions.getSongByPlaylist),
+      ofType(PlaylistActions.addSongToPlaylist),
       exhaustMap((action) =>
-        playlistService.getSongByPlaylistId(action.playlistId, action.idToken).pipe(
-          map((songList) => PlaylistActions.getSongByPlaylistSuccess({ songList })),
-          catchError((error) => of(PlaylistActions.getSongByPlaylistFailure({ error })))
-        )
-      )
+        playlistService.addSongToPlaylist(action.playlistId, action.songId, action.uid, action.idToken).pipe(
+          map((playlist) => PlaylistActions.addSongToPlaylistSuccess({ playlist })),
+          catchError((error) => of(PlaylistActions.addSongToPlaylistFailure({ error }))),
+        ),
+      ),
     );
   },
-  { functional: true }
+  { functional: true },
+);
+
+//remove song from playlist
+
+export const removeSongFromPlaylist = createEffect(
+  (actions$ = inject(Actions), playlistService = inject(PlaylistService)) => {
+    return actions$.pipe(
+      ofType(PlaylistActions.removeSongFromPlaylist),
+      exhaustMap((action) =>
+        playlistService.removeSongFromPlaylist(action.playlistId, action.songId, action.uid, action.idToken).pipe(
+          map((playlist) => PlaylistActions.removeSongFromPlaylistSuccess({ playlist })),
+          catchError((error) => of(PlaylistActions.removeSongFromPlaylistFailure({ error }))),
+        ),
+      ),
+    );
+  },
+  { functional: true },
+);
+
+export const deletePlaylist = createEffect(
+  (actions$ = inject(Actions), playlistService = inject(PlaylistService)) => {
+    return actions$.pipe(
+      ofType(PlaylistActions.deletePlaylist),
+      exhaustMap((action) =>
+        playlistService.deletePlaylistById(action.playlistId, action.uid, action.idToken).pipe(
+          map((isDeleted) => PlaylistActions.deletePlaylistSuccess({isDeleted: isDeleted})),
+          catchError((error) => of(PlaylistActions.deletePlaylistFailure({ error }))),
+        ),
+      ),
+    );
+  },
+  { functional: true },
 );

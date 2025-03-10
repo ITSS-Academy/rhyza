@@ -129,7 +129,7 @@ export const getSongsByPlaylist = createEffect(
       ofType(SongActions.getSongsByPlaylist),
       exhaustMap((action) =>
         songService.getSongsByPlaylist(action.playlistId, action.idToken).pipe(
-          map((songs) => SongActions.getSongsByPlaylistSuccess({ songs })),
+          map((songs) => SongActions.getSongsByPlaylistSuccess({ songPlaylist: songs })),
           catchError((error) => of(SongActions.getSongsByPlaylistFailure({ error }))),
         ),
       ),

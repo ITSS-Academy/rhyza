@@ -73,7 +73,7 @@ export class SongService {
       Authorization: idToken,
     };
     return this.http.get<SongModel[]>(
-      `${environment.apiUrl}playlists/${playlistId}/songs`,
+      `${environment.apiUrl}playlists/playlist-song?id=${playlistId}`,
       { headers },
     );
   }

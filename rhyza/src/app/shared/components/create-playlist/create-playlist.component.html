@@ -6,7 +6,6 @@
         <input type="file" #fileInput
                (change)="onFileSelected($event)"
                accept="image/*" hidden
-               formControlName="image_url"
         >
         <p *ngIf="!imageUrl">Click to upload an image (max 2MB)</p>
         <img *ngIf="imageUrl" [src]="imageUrl" alt="Uploaded Image" class="uploaded-image">
@@ -24,5 +23,5 @@
       </mat-form-field>
     </div>
   </div>
-  <button mat-flat-button (click)="confirm()">Confirm</button>
+  <button mat-flat-button mat-dialog-close (click)="confirm()">Confirm</button>
 </form>

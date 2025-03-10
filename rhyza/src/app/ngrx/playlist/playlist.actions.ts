@@ -34,6 +34,49 @@ export const getPlaylistFailure = createAction(
   props<{ error: any }>()
 );
 
+export const addSongToPlaylist = createAction(
+  '[Playlist] Add Song To Playlist',
+  props<{ playlistId: string; songId: string; uid: string; idToken: string }>()
+);
+
+export const addSongToPlaylistSuccess = createAction(
+  '[Playlist] Add Song To Playlist Success',
+  props<{ playlist: PlaylistModel }>()
+);
+
+export const addSongToPlaylistFailure = createAction(
+  '[Playlist] Add Song To Playlist Failure',
+  props<{ error: any }>()
+);
+
+export const removeSongFromPlaylist = createAction(
+  '[Playlist] Remove Song From Playlist',
+  props<{ playlistId: string; songId: string; uid: string; idToken: string }>()
+);
+
+export const removeSongFromPlaylistSuccess = createAction(
+  '[Playlist] Remove Song From Playlist Success',
+  props<{ playlist: PlaylistModel }>()
+);
+
+export const removeSongFromPlaylistFailure = createAction(
+  '[Playlist] Remove Song From Playlist Failure',
+  props<{ error: any }>()
+);
+
+export const deletePlaylist = createAction(
+  '[Playlist] Delete Playlist',
+  props<{ playlistId: string; uid: string; idToken: string }>()
+);
+
+export const deletePlaylistSuccess = createAction(
+  '[Playlist] Delete Playlist Success', props<{isDeleted: boolean }>()
+);
+
+export const deletePlaylistFailure = createAction(
+  '[Playlist] Delete Playlist Failure',
+  props<{ error: any }>()
+);
 // Action để lấy thông tin chi tiết playlist bằng ID
 export const getPlaylistById = createAction(
   '[Playlist] Get Playlist By Id',
@@ -51,20 +94,8 @@ export const getPlaylistByIdFailure = createAction(
 );
 
 // Action để lấy danh sách bài hát theo playlist ID
-export const getSongByPlaylist = createAction(
-  '[Song] Get Song By Playlist',
-  props<{ playlistId: string; idToken: string }>()
-);
-
-export const getSongByPlaylistSuccess = createAction(
-  '[Song] Get Song By Playlist Success',
-  props<{ songList: SongModel[] }>()
-);
-
-export const getSongByPlaylistFailure = createAction(
-  '[Song] Get Song By Playlist Failure',
-  props<{ error: any }>()
-);
 
 // Action để xóa thông tin chi tiết playlist
-export const clearPlaylistDetail = createAction('[Playlist] Clear Playlist Detail');
+export const clearPlaylistDetail = createAction(
+  '[Playlist] Clear Playlist Detail'
+);

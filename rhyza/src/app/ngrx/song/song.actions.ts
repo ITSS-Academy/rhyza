@@ -111,11 +111,13 @@ export const getSongsByPlaylist = createAction(
 
 export const getSongsByPlaylistSuccess = createAction(
   '[Song] Get Songs By Playlist Success',
-  props<{ songs: SongModel[] }>(),
+  props<{ songPlaylist: SongModel[] }>(),
 );
 
 export const getSongsByPlaylistFailure = createAction(
   '[Song] Get Songs By Playlist Failure',
   props<{ error: any }>(),
 );
+
+export const clearSongPlaylist = createAction('[Song] Clear Song Playlist');
 

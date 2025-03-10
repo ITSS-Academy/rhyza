@@ -22,6 +22,13 @@ export class SearchComponent implements OnInit {
 
   activeLink: string = '';
   constructor(private router: Router, private store: Store) {
+
+    this.router.events
+      .pipe(filter((event) => event instanceof NavigationEnd))
+      .subscribe(() => {
+        this.setActiveLink();
+      })
+    this.setActiveLink()
   }
 
   ngOnInit() {
@@ -32,15 +39,7 @@ export class SearchComponent implements OnInit {
       this.store.dispatch(SearchActions.searchAll({ query }));
     }),
 
-
-    this.router.events
-      .pipe(filter((event) => event instanceof NavigationEnd))
-      .subscribe(() => {
-        this.setActiveLink();
-      }),
   )
-
-    this.setActiveLink()
 
 
 

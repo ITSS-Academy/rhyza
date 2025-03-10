@@ -7,10 +7,10 @@ import { SongModel } from '../../models/song.model';
 export const initialState: PlaylistState = {
   playlistDetail: {} as PlaylistModel,
   playlistList: [] as PlaylistModel[],
-  songList: [] as SongModel[],
   isLoading: false,
   isLoadingDetail: false,
-  error: null
+  isDeletedSuccess: false,
+  error: null,
 };
 
 export const playlistReducer = createReducer(
@@ -60,41 +60,132 @@ export const playlistReducer = createReducer(
 
   on(PlaylistActions.getPlaylistByIdSuccess, (state, { playlistDetail }) => ({
     ...state,
-    playlistDetail,
+    playlistDetail: playlistDetail,
     isLoadingDetail: false,
   })),
 
-  on(PlaylistActions.getPlaylistByIdFailure, (state, { error }) => ({
-    ...state,
-    error,
-    isLoadingDetail: false,
-  })),
+  on(PlaylistActions.getPlaylistFailure, (state, { error, type }) => {
+    console.log(type);
+    console.log(error);
+    return {
+      ...state,
+      error: error,
+      isLoading: false,
+    };
+  }),
 
-  // Xử lý action getSongByPlaylist
-  on(PlaylistActions.getSongByPlaylist, (state) => ({
-    ...state,
-    isLoading: true,
-  })),
 
-  on(PlaylistActions.getSongByPlaylistSuccess, (state, { songList }) => ({
-    ...state,
-    songList,
-    isLoading: false,
-  })),
+  //clear state
+  on(PlaylistActions.clearPlaylistDetail, (state,{type}) => {
+    console.log(type);
+    return {
+      ...state,
+      playlistDetail: {} as PlaylistModel,
+      playlistList: [] as PlaylistModel[],
+      isLoading: false,
+      isLoadingDetail: false,
+      isDetailSuccess: false,
+      error: null,
+    };
+  }),
 
-  on(PlaylistActions.getSongByPlaylistFailure, (state, { error }) => ({
-    ...state,
-    error,
-    isLoading: false,
-  })),
+  //delete playlist
 
-  // Xử lý action clearPlaylistDetail
-  on(PlaylistActions.clearPlaylistDetail, (state) => ({
-    ...state,
-    playlistDetail: {} as PlaylistModel,
-    songList: [] as SongModel[],
-  }))
+  on(PlaylistActions.deletePlaylist, (state, { type }) => {
+    console.log(type);
+    return {
+      ...state,
+      isLoading: true,
+      isDeletedSuccess: false,
+    };
+  }),
 
+  on(PlaylistActions.deletePlaylistSuccess, (state, { type, isDeleted }) => {
+    console.log(type);
+    return <PlaylistState>{
+      ...state,
+      isLoading: false,
+      isDeletedSuccess: isDeleted
+
+    };
+  }),
+
+  on(PlaylistActions.deletePlaylistFailure, (state, { error, type }) => {
+    console.log(type);
+    console.log(error);
+    return {
+      ...state,
+      error: error,
+      isLoading: false,
+      isDeletedSuccess: false,
+    };
+  }),
+
+  //add song to playlist
+
+  on(PlaylistActions.addSongToPlaylist, (state, { type }) => {
+    console.log(type);
+    return {
+      ...state,
+      isLoading: true,
+    };
+  }),
+
+  on(PlaylistActions.addSongToPlaylistSuccess, (state, { playlist, type }) => {
+    console.log(type);
+    console.log(playlist);
+    return <PlaylistState>{
+      ...state,
+      playlistDetail: playlist,
+      isLoading: false,
+    };
+  }),
+
+  on(PlaylistActions.addSongToPlaylistFailure, (state, { error, type }) => {
+    console.log(type);
+    console.log(error);
+    return {
+      ...state,
+      error: error,
+      isLoading: false,
+    };
+  }),
+
+  //remove song from playlist
+
+  on(PlaylistActions.removeSongFromPlaylist, (state, { type }) => {
+    console.log(type);
+    return {
+      ...state,
+      isLoading: true,
+    };
+  }),
+
+  on(
+    PlaylistActions.removeSongFromPlaylistSuccess,
+    (state, { playlist, type }) => {
+      console.log(type);
+      console.log(playlist);
+      return <PlaylistState>{
+        ...state,
+        playlistDetail: playlist,
+        isLoading: false,
+      };
+    }
+  ),
+
+  on(
+    PlaylistActions.removeSongFromPlaylistFailure,
+    (state, { error, type }) => {
+      console.log(type);
+      console.log(error);
+      return {
+        ...state,
+        error: error,
+        isLoading: false,
+      };
+    }
+  )
 );
 
 
