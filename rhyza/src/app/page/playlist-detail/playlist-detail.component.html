@@ -43,10 +43,18 @@
 
         <div class="music-list">
           @for (song of songListPlaylist; track song.id) {
-            <app-music-tab
-              [cardmusictab]="song"
-              [playlistId]="this.playlistDetail.id"
-            ></app-music-tab>
+
+            @if (this.listSongIdPlaylist.includes(song.id)) {
+              <app-music-tab
+                [cardmusictab]="song"
+                [isInPlaylist]=true
+              ></app-music-tab>
+            } @else {
+              <app-music-tab
+                [cardmusictab]="song"
+                [isInPlaylist]=false
+              ></app-music-tab>
+            }
           }
         </div>
       </div>

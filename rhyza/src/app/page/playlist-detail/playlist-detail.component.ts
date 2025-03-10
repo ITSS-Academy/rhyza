@@ -43,7 +43,8 @@ export class PlaylistDetailComponent implements OnInit, OnDestroy {
   auth$ !: Observable<AuthModel | null>; // Thêm auth$ để lấy thông tin auth
   authData !: AuthModel
   play$!: Observable<boolean>;
-
+  listSongsIdPlaylist$!: Observable<string[]>;
+  listSongIdPlaylist: string[] = [];
   @ViewChild('fileInput') fileInput!: ElementRef; // Thêm ViewChild để truy cập file input
 
   constructor(
@@ -63,6 +64,8 @@ export class PlaylistDetailComponent implements OnInit, OnDestroy {
     this.auth$ =  this.store.select('auth','authData')
     this.songListPlaylist$ = this.store.select('song', "songPlaylist")
     this.play$ = this.store.select('play', 'isPlaying');
+    this.listSongsIdPlaylist$ = this.store.select('playlist', 'listSongsIdAllPlaylist');
+
   }
 
   goBack() {
@@ -84,6 +87,14 @@ export class PlaylistDetailComponent implements OnInit, OnDestroy {
           });
         }
       }),
+      this.listSongsIdPlaylist$.subscribe(songIdList => {
+        if (songIdList.length > 0 && this.listSongIdPlaylist.length != songIdList.length) {
+          this.listSongIdPlaylist = songIdList;
+          console.log('List song id:', songIdList);
+
+        }
+      }),
+
 
 
       this.songListPlaylist$.subscribe((songList) => {
