@@ -85,29 +85,7 @@ export class MusicCardComponent implements OnInit {
   }
 
 
-  addToQueue(songId:string) {
 
-    if(this.authData?.uid && songId && this.authData?.idToken){
-
-      this.store.dispatch(QueueActions.createQueue({
-        uid: this.authData.uid,
-        songId: songId,
-        idToken: this.authData.idToken
-      }))
-    }
-
-
-  }
-
-  deleteSongToQueue(songId: string) {
-    if(this.authData?.uid && songId && this.authData?.idToken){
-      this.store.dispatch(QueueActions.deleteSongInQueue({
-        uid: this.authData.uid,
-        songId: songId,
-        idToken: this.authData.idToken
-      }))
-    }
-  }
 
 
 

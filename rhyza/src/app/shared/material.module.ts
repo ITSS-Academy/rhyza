@@ -41,6 +41,7 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatSnackBarContainer} from '@angular/material/snack-bar';
 import {MatStepperModule} from '@angular/material/stepper';
 import { ReactiveFormsModule} from '@angular/forms';
+import { IdToNamePipe} from './pipes/id-to-name.pipe';
 
 
 
@@ -89,7 +90,8 @@ const materialModules = [
   MatSnackBarContainer,
   MatStepperModule,
   ReactiveFormsModule,
-  CommonModule
+  CommonModule,
+  IdToNamePipe
 
 
 
