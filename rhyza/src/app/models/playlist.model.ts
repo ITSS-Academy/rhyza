@@ -1,10 +1,12 @@
-export interface PlaylistModel{
+export interface PlaylistModel {
   id: string;
   name: string;
-  songs_id: string[];
-  uid: string;
-  created_at: string;
-  image_url: string |File |null
-  is_pined: boolean;
   description: string;
+  image_url: string | File;
+  total_tracks: number;
+  author_description: string;
+  uid: string;
+  songs_id: string[];
+  is_pined: boolean;
+  created_at: string;
 }

@@ -1,78 +1,97 @@
-import {PlaylistState} from './playlist.state';
-import {PlaylistModel} from '../../models/playlist.model';
-import {createReducer, on} from '@ngrx/store';
+import { PlaylistState } from './playlist.state';
+import { PlaylistModel } from '../../models/playlist.model';
+import { createReducer, on } from '@ngrx/store';
 import * as PlaylistActions from './playlist.actions';
+import { SongModel } from '../../models/song.model';
 
 export const initialState: PlaylistState = {
-    playlistDetail: <PlaylistModel>{},
-    playlistList: <PlaylistModel[]>[],
-    isLoading: false,
-    error: null
-
-}
-
+  playlistDetail: {} as PlaylistModel,
+  playlistList: [] as PlaylistModel[],
+  songList: [] as SongModel[],
+  isLoading: false,
+  isLoadingDetail: false,
+  error: null
+};
 
 export const playlistReducer = createReducer(
   initialState,
 
-  //create playlist
-  on(PlaylistActions.createPlaylist, (state,{type}) => {
-    console.log(type)
-    return{
-      ...state,
-      isLoading: true
-    }
-  }),
+  // Xử lý action createPlaylist
+  on(PlaylistActions.createPlaylist, (state) => ({
+    ...state,
+    isLoading: true,
+  })),
 
-  on(PlaylistActions.createPlaylistSuccess, (state,{playlist, type}) => {
-    console.log(type)
-    console.log(playlist)
-    return <PlaylistState>{
-      ...state,
-      playlistList: [...state.playlistList, playlist],
-      isLoading: false
-    }
-  }),
+  on(PlaylistActions.createPlaylistSuccess, (state, { playlist }) => ({
+    ...state,
+    playlistList: [...state.playlistList, playlist],
+    isLoading: false,
+  })),
 
+  on(PlaylistActions.createPlaylistFailure, (state, { error }) => ({
+    ...state,
+    error,
+    isLoading: false,
+  })),
 
-  on(PlaylistActions.createPlaylistFailure, (state,{error, type}) => {
-    console.log(type)
-    console.log(error)
-    return{
-      ...state,
-      error: error,
-      isLoading: false
-    }
-  }),
+  // Xử lý action getPlaylist
+  on(PlaylistActions.getPlaylist, (state) => ({
+    ...state,
+    isLoading: true,
+  })),
 
+  on(PlaylistActions.getPlaylistSuccess, (state, { playlistList }) => ({
+    ...state,
+    playlistList,
+    isLoading: false,
+  })),
 
-  //get playlist by uid
+  on(PlaylistActions.getPlaylistFailure, (state, { error }) => ({
+    ...state,
+    error,
+    isLoading: false,
+  })),
 
-  on(PlaylistActions.getPlaylist, (state,{type}) => {
-    console.log(type)
-    return{
-      ...state,
-      isLoading: true
-    }
-  }),
+  // Xử lý action getPlaylistById
+  on(PlaylistActions.getPlaylistById, (state) => ({
+    ...state,
+    isLoadingDetail: true,
+  })),
 
-  on(PlaylistActions.getPlaylistSuccess, (state,{playlistList, type}) => {
-    console.log(type)
-    console.log(playlistList)
-    return <PlaylistState>{
-      ...state,
-      playlistList: playlistList,
-      isLoading: false
-    }
-  }),
+  on(PlaylistActions.getPlaylistByIdSuccess, (state, { playlistDetail }) => ({
+    ...state,
+    playlistDetail,
+    isLoadingDetail: false,
+  })),
 
-  on(PlaylistActions.getPlaylistFailure, (state,{error, type}) => {
-    console.log(type)
-    console.log(error)
-    return{
-      ...state,
-      error: error,
-      isLoading: false
-    }
-  }),
-)
+  on(PlaylistActions.getPlaylistByIdFailure, (state, { error }) => ({
+    ...state,
+    error,
+    isLoadingDetail: false,
+  })),
+
+  // Xử lý action getSongByPlaylist
+  on(PlaylistActions.getSongByPlaylist, (state) => ({
+    ...state,
+    isLoading: true,
+  })),
+
+  on(PlaylistActions.getSongByPlaylistSuccess, (state, { songList }) => ({
+    ...state,
+    songList,
+    isLoading: false,
+  })),
+
+  on(PlaylistActions.getSongByPlaylistFailure, (state, { error }) => ({
+    ...state,
+    error,
+    isLoading: false,
+  })),
+
+  // Xử lý action clearPlaylistDetail
+  on(PlaylistActions.clearPlaylistDetail, (state) => ({
+    ...state,
+    playlistDetail: {} as PlaylistModel,
+    songList: [] as SongModel[],
+  }))
+);

@@ -280,5 +280,32 @@ export const songReducer = createReducer(
       ...state,
       songArtist: [],
     };
-  })
+  }),
+  // get song by playlist
+  on(SongActions.getSongsByPlaylist, (state, { type }) => {
+    console.log(type);
+    return {
+      ...state,
+      isLoading: true,
+    };
+  }),
+
+  on(SongActions.getSongsByPlaylistSuccess, (state, { songs, type }) => {
+    console.log(type);
+    return <SongState>{
+      ...state,
+      songList: songs,
+      isLoading: false,
+    };
+  }),
+
+  on(SongActions.getSongsByPlaylistFailure, (state, { error, type }) => {
+    console.log(type);
+    return {
+      ...state,
+      error: error,
+      isLoading: false,
+    };
+  }),
+
 );

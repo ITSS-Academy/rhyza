@@ -2,34 +2,27 @@
   <h2 mat-dialog-title>Playlist</h2>
   <div class="main">
     <div class="outlined-upload-file">
-      <div class="upload-container" (click)="fileInput.click()" [class.image-uploaded]="imageUrl" >
+      <div class="upload-container" (click)="fileInput.click()" [class.image-uploaded]="imageUrl">
         <input type="file" #fileInput
                (change)="onFileSelected($event)"
                accept="image/*" hidden
                formControlName="image_url"
-
         >
         <p *ngIf="!imageUrl">Click to upload an image (max 2MB)</p>
         <img *ngIf="imageUrl" [src]="imageUrl" alt="Uploaded Image" class="uploaded-image">
       </div>
     </div>
 
-
-
     <div class="outlined-input">
       <mat-form-field class="example-form-field" appearance="outline">
         <mat-label>Name</mat-label>
-        <input matInput type="text" formControlName="name" >
-
+        <input matInput type="text" formControlName="name">
       </mat-form-field>
       <mat-form-field class="example-form-field" appearance="outline">
         <mat-label>Description</mat-label>
-        <input matInput type="text" formControlName="description" >
-
+        <input matInput type="text" formControlName="description">
       </mat-form-field>
     </div>
-
-
   </div>
-  <button mat-flat-button (click)="confirm()">conform</button>
+  <button mat-flat-button (click)="confirm()">Confirm</button>
 </form>

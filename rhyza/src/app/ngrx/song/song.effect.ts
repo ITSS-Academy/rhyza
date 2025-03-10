@@ -121,3 +121,19 @@ export const getArtistBySongId = createEffect(
   },
   { functional: true },
 );
+
+// song playlist
+export const getSongsByPlaylist = createEffect(
+  (actions$ = inject(Actions), songService = inject(SongService)) => {
+    return actions$.pipe(
+      ofType(SongActions.getSongsByPlaylist),
+      exhaustMap((action) =>
+        songService.getSongsByPlaylist(action.playlistId, action.idToken).pipe(
+          map((songs) => SongActions.getSongsByPlaylistSuccess({ songs })),
+          catchError((error) => of(SongActions.getSongsByPlaylistFailure({ error }))),
+        ),
+      ),
+    );
+  },
+  { functional: true },
+);
