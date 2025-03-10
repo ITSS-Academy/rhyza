@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnDestroy, OnInit, Renderer2, ViewChild} from '@angular/core';
+import {Component, ElementRef, Input, OnDestroy, OnInit, Renderer2, ViewChild} from '@angular/core';
 import {SongModel} from '../../../models/song.model';
 import {SongService} from '../../../services/song/song.service';
 import {MaterialModule} from '../../material.module';
@@ -29,6 +29,8 @@ export class MusicBarComponent implements OnInit, OnDestroy {
   previousVolume: number = 0.5; // Lưu lại volume trước khi tắt
   subscriptions: Subscription[] = [];
   hasUpdatedViews = false;
+
+
 
   songListQueue: SongModel[] = [];
   songQueue$!: Observable<SongModel[]>;
