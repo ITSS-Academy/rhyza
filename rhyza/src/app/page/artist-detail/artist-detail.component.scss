@@ -12,7 +12,6 @@
   padding: 0;
 }
 .bolero{
-  width: 100%;
   align-content: center;
   display: flex;
   gap: 20px;
@@ -23,7 +22,9 @@
   color: var(--onBackground);
 }
 .bolero img{
+  width: 200px;
   border-radius: 30px;
+  object-fit: cover;
 }
 .featured{
   width: 100%;

@@ -81,14 +81,14 @@ export class MusicComponent implements OnInit{
   }
 
   scrollCategoryLeft(): void {
-    if (this.artistCarousel) {
-      this.artistCarousel.nativeElement.scrollBy({ left: -500, behavior: 'smooth' });
+    if (this.categoryCarousel) {
+      this.categoryCarousel.nativeElement.scrollBy({ left: -500, behavior: 'smooth' });
     }
   }
 
   scrollCategoryRight(): void {
-    if (this.artistCarousel) {
-      this.artistCarousel.nativeElement.scrollBy({ left: 500, behavior: 'smooth' });
+    if (this.categoryCarousel) {
+      this.categoryCarousel.nativeElement.scrollBy({ left: 500, behavior: 'smooth' });
     }
   }
 

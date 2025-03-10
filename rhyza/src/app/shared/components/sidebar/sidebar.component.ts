@@ -48,7 +48,7 @@ export class SidebarComponent implements OnInit{
             .pipe(filter((event) => event instanceof NavigationEnd))
             .subscribe(() => {
               this.setActiveLink();
-              console.log(this.router.url);
+              console.log("----",this.router.url);
 
             });
 
@@ -63,9 +63,9 @@ export class SidebarComponent implements OnInit{
   }
 
    setActiveLink(): void {
-     if (this.router.url.includes('/home')) {
+     if (this.router.url.includes('/music')) {
         this.activeLink = this.menuItems[0].route;
-        console.log(this.activeLink);
+        console.log('------------------',this.activeLink);
       } else if (this.router.url.includes('/category')) {
        this.activeLink = this.menuItems[1].route;
      }else if (this.router.url.includes('/artist')) {
