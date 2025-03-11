@@ -1,12 +1,114 @@
-import { Component } from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewChild, ElementRef, inject} from '@angular/core';
+import { AsyncPipe, Location } from '@angular/common';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { Observable, Subscription } from 'rxjs';
+import { PlaylistModel } from '../../models/playlist.model';
+import { SongModel } from '../../models/song.model';
+import { PlaylistState } from '../../ngrx/playlist/playlist.state';
+import * as PlaylistActions from '../../ngrx/playlist/playlist.actions';
+import { LoadingComponent } from '../../shared/components/loading/loading.component';
+import { MusicTabComponent } from '../../shared/components/music-tab/music-tab.component';
+import { MatIcon } from '@angular/material/icon';
+import * as SongActions from '../../ngrx/song/song.actions';
+import {AuthState} from '../../ngrx/auth/auth.state'; // Import service để upload ảnh
+import {AuthModel} from '../../models/auth.model';
+import {SongState} from '../../ngrx/song/song.state';
+import {MaterialModule} from '../../shared/material.module';
+import {MatDialog} from '@angular/material/dialog';
+import {
+  DeletePlaylistDialogComponent
+} from '../../shared/components/delete-playlist-dialog/delete-playlist-dialog.component';
+import {LoginComponent} from '../../shared/components/login/login.component';
 
 @Component({
   selector: 'app-playlist-detail',
-  standalone: true,
-  imports: [],
   templateUrl: './playlist-detail.component.html',
-  styleUrl: './playlist-detail.component.scss'
+  standalone: true,
+  imports: [AsyncPipe, LoadingComponent, MusicTabComponent, MaterialModule, LoginComponent],
+  styleUrls: ['./playlist-detail.component.scss']
 })
-export class PlaylistDetailComponent {
+export class PlaylistDetailComponent implements OnInit, OnDestroy {
+  dialog = inject(MatDialog);
+  songListPlaylist: SongModel[] = [];
+  songListPlaylist$: Observable<SongModel[]>;
+  playlistDetail$: Observable<PlaylistModel>;
+  playlistDetail!: PlaylistModel;
+  subscriptions: Subscription[] = [];
+  isLoadingPlaylistDetail$: Observable<boolean>;
+  isLoadingSongListPlaylist$: Observable<boolean>;
+  auth$ !: Observable<AuthModel | null>; // Thêm auth$ để lấy thông tin auth
+  authData !: AuthModel
 
+  @ViewChild('fileInput') fileInput!: ElementRef; // Thêm ViewChild để truy cập file input
+
+  constructor(
+    private location: Location,
+    private activatedRoute: ActivatedRoute,
+    private store: Store<{
+      playlist: PlaylistState,
+      auth: AuthState,
+      song: SongState
+    }>,
+  ) {
+    this.playlistDetail$ = this.store.select((state) => state.playlist.playlistDetail);
+    this.isLoadingPlaylistDetail$ = this.store.select('playlist','isLoadingDetail');
+    this.isLoadingSongListPlaylist$ = this.store.select('song', 'isLoadingPlaylist');
+    this.auth$ =  this.store.select('auth','authData')
+    this.songListPlaylist$ = this.store.select('song', "songPlaylist")
+  }
+
+  goBack() {
+    this.location.back();
+  }
+
+
+  ngOnInit() {
+    this.subscriptions.push(
+      this.auth$.subscribe(auth => {
+        if (auth?.idToken) {
+          this.authData = auth;
+          this.activatedRoute.params.subscribe((params) => {
+            const id = params['id'];
+            if (id && this.authData.idToken) {
+                this.store.dispatch(PlaylistActions.getPlaylistById({ id: id, idToken: this.authData.idToken }));
+              this.store.dispatch(SongActions.getSongsByPlaylist({ playlistId: id, idToken: this.authData.idToken }));
+            }
+          });
+        }
+      }),
+
+
+      this.songListPlaylist$.subscribe((songList) => {
+        if (songList.length > 0) { // Kiểm tra nếu songList có dữ liệu
+          this.songListPlaylist = songList;
+          console.log('Song List Playlist:', this.songListPlaylist); // Log để kiểm tra dữ liệu
+        }
+      }),
+
+      this.playlistDetail$.subscribe((playlistDetail) => {
+        if (playlistDetail.id) { // Kiểm tra nếu playlistDetail có dữ liệu
+          this.playlistDetail = playlistDetail;
+
+          console.log('Playlist Detail:', this.playlistDetail); // Log để kiểm tra dữ liệu
+        }
+      })
+    );
+  }
+
+  openDialog() {
+    const dialogRef =this.dialog.open(DeletePlaylistDialogComponent, {
+      data: {
+        playlistDetail: this.playlistDetail,
+        auth: this.authData
+      },
+    });
+
+
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.forEach((sub) => sub.unsubscribe());
+    this.store.dispatch(PlaylistActions.clearPlaylistDetail());
+  }
 }

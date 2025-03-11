@@ -16,13 +16,15 @@ import {MatAutocompleteSelectedEvent, MatAutocompleteTrigger} from '@angular/mat
 import {ArtistModel} from '../../models/artist.model';
 import {ArtistState} from '../../ngrx/artist/artist.state';
 import {SongState} from '../../ngrx/song/song.state';
+import {LoginComponent} from '../../shared/components/login/login.component';
 @Component({
   selector: 'app-upload',
   templateUrl: './upload.component.html',
   standalone: true,
   imports: [
     MaterialModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    LoginComponent
   ],
   styleUrls: ['./upload.component.scss']
 })

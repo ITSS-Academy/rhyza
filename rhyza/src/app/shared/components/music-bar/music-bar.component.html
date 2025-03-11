@@ -23,7 +23,18 @@
        <button mat-icon-button (click)="forward()">
          <mat-icon class="material-symbols-rounded">skip_next</mat-icon>
        </button>
-       <button mat-icon-button><mat-icon class="material-symbols-rounded">repeat</mat-icon></button>
+
+       @if(this.isLoop){
+
+         <button mat-icon-button class="button-repeat-true" (click)="loopClick()">
+           <mat-icon class="material-symbols-rounded">repeat_one</mat-icon>
+         </button>
+       } @else {
+         <button mat-icon-button class="button-repeat-false" (click)="loopClick()">
+           <mat-icon class="material-symbols-rounded">repeat</mat-icon>
+         </button>
+       }
+
      </div>
 
      <!-- Progress Bar -->

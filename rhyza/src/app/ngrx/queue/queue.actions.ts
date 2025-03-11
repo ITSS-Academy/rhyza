@@ -44,3 +44,7 @@ export const deleteSongInQueueSuccess = createAction(
 
 export const deleteSongInQueueFailure = createAction(
   '[Queue] Delete Song In Queue Failure',props<{error: any}>());
+
+export const clearQueue = createAction(
+  '[Queue] Clear Queue',);
+

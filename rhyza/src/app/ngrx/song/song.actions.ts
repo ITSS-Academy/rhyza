@@ -101,3 +101,23 @@ export const getSongByArtist = createAction('[Song] Get Song By Artist', props<{
 export const getSongByArtistSuccess = createAction('[Song] Get Song By Artist Success', props<{songByArtist: SongModel[]}>());
 export const getSongByArtistFailure = createAction('[Song] Get Song By Artist Failure', props<{error: any}>());
 export const clearSongByArtist = createAction('[Song] Clear Song By Artist');
+
+//get song by playlist
+// song.actions.ts
+export const getSongsByPlaylist = createAction(
+  '[Song] Get Songs By Playlist',
+  props<{ playlistId: string, idToken: string }>(),
+);
+
+export const getSongsByPlaylistSuccess = createAction(
+  '[Song] Get Songs By Playlist Success',
+  props<{ songPlaylist: SongModel[] }>(),
+);
+
+export const getSongsByPlaylistFailure = createAction(
+  '[Song] Get Songs By Playlist Failure',
+  props<{ error: any }>(),
+);
+
+export const clearSongPlaylist = createAction('[Song] Clear Song Playlist');
+

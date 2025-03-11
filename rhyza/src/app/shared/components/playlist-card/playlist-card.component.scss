@@ -15,7 +15,6 @@
   }
 }
 .picture{
-  object-fit: cover;
   height: 150px;
   width: 150px;
 }
@@ -23,7 +22,9 @@
   height: 100%;
   width: 100%;
   border-radius: 16px;
+  object-fit: cover;
 }
+
 
 .name{
   font-size: 14px;

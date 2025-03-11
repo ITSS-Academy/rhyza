@@ -1,1 +1,48 @@
-<p>playlist-detail works!</p>
+@if ((isLoadingPlaylistDetail$ | async) && (isLoadingSongListPlaylist$ | async)) {
+  <app-loading></app-loading>
+} @else if(this.playlistDetail?.id) {
+  @if (authData.uid){
+    <div class="container">
+      <div class="left-arrow">
+        <mat-icon class="material-symbols-rounded" (click)="goBack()" style="cursor: pointer;">arrow_back</mat-icon>
+      </div>
+      <div class="detail">
+        <div class="bolero">
+          <!-- Thêm sự kiện click vào thẻ img -->
+          <img [src]="playlistDetail.image_url"  alt="Playlist Image"  style="cursor: pointer;">
+
+          <div>
+            <h1>Name: {{ playlistDetail.name }}</h1>
+            <p>Description {{ playlistDetail.description }}</p>
+            <p>Tracks: {{ playlistDetail.songs_id.length }}</p>
+          </div>
+        </div>
+        <div class="action-for-playlist">
+          <button mat-icon-button aria-label="Example icon button with a vertical three dot icon" class="button-playlist-all">
+            <mat-icon>play_arrow</mat-icon>
+          </button>
+          <button mat-icon-button aria-label="Example icon button with a vertical three dot icon" class="delete-playlist" (click)="openDialog()">
+            <mat-icon>delete</mat-icon>
+          </button>
+          <button mat-icon-button aria-label="Example icon button with a vertical three dot icon" class="delete-playlist">
+            <mat-icon>edit_square</mat-icon>
+          </button>
+
+        </div>
+        <div class="featured">
+          <span>Songs</span>
+        </div>
+
+
+        <div class="music-list">
+          @for (song of songListPlaylist; track song.id) {
+            <app-music-tab [cardmusictab]="song"></app-music-tab>
+          }
+        </div>
+      </div>
+    </div>
+
+  } @else {
+    <app-login></app-login>
+  }
+}

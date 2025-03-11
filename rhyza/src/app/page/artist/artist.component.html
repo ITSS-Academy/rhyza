@@ -1,13 +1,15 @@
 <div class="container">
 <div class="artist-header">
   <h3>Artists</h3>
+  <mat-form-field appearance="outline" class="box-search">
+    <mat-label>Search</mat-label>
+    <input matInput
+           [formControl]="searchControl">
+  </mat-form-field>
 </div>
   <div class="body">
-        @for (cardArttist of artistList; track $index){
-          <app-artists
-            [cardarttist]="cardArttist"
-          >
-          </app-artists>
+        @for (cardArttist of filteredArtist.length > 0 ? filteredArtist : artistList; track cardArttist.id){
+          <app-artists [cardarttist]="cardArttist"></app-artists>
         }
   </div>
 </div>

@@ -6,12 +6,17 @@
   <div class="container">
     <div class="header">
       <h4>Category</h4>
-      <div class="box-search">
-        <input type="text"
-        placeholder="Search"
-               [formControl]="searchControl"/>
-        <mat-icon class="icon-search">search</mat-icon>
-      </div>
+<!--      <div class="box-search">-->
+<!--        <input type="text"-->
+<!--        placeholder="Search"-->
+<!--               [formControl]="searchControl"/>-->
+<!--        <mat-icon class="icon-search">search</mat-icon>-->
+<!--      </div>-->
+      <mat-form-field appearance="outline" class="box-search">
+        <mat-label>Search</mat-label>
+        <input matInput
+               [formControl]="searchControl">
+      </mat-form-field>
     </div>
     <div class="main">
       <!-- Hiển thị Progress Spinner khi đang loading -->

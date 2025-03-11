@@ -12,6 +12,7 @@ import {MusicTabComponent} from '../music-tab/music-tab.component';
 import {AuthState} from '../../../ngrx/auth/auth.state';
 import {AuthModel} from '../../../models/auth.model';
 import {SongState} from '../../../ngrx/song/song.state';
+import * as QueueActions from '../../../ngrx/queue/queue.actions';
 @Component({
   selector: 'app-music-bar',
   standalone: true,
@@ -29,6 +30,7 @@ export class MusicBarComponent implements OnInit, OnDestroy {
   previousVolume: number = 0.5; // Lưu lại volume trước khi tắt
   subscriptions: Subscription[] = [];
   hasUpdatedViews = false;
+  isLoop = false;
 
 
 
@@ -59,6 +61,9 @@ export class MusicBarComponent implements OnInit, OnDestroy {
     const savedSong = localStorage.getItem('currentSong');
     if (savedSong) {
       this.currentSong = JSON.parse(savedSong);
+      // this.songService.setCurrentSong(this.currentSong!);
+
+
     }
     this.section = document.getElementById('next-song-section');
 
@@ -122,10 +127,29 @@ export class MusicBarComponent implements OnInit, OnDestroy {
         this.hasUpdatedViews = true;
         this.updateViews();
       }
+
+
+      if (this.currentTime >= this.duration) {
+        if (this.songListQueue.length > 0 && !this.isLoop) {
+          this.playNextSong()
+
+        }
+      }
     };
 
     audio.onplay = () => this.store.dispatch(PlayActions.play());
     audio.onpause = () => this.store.dispatch(PlayActions.pause());
+  }
+
+  playNextSong() {
+    const currentIndex = this.songListQueue.findIndex(
+      (song) => song.id === this.currentSong?.id,
+    );
+    const nextIndex = (currentIndex + 1) % this.songListQueue.length;
+    const nextSong = this.songListQueue[nextIndex];
+    if (nextSong) {
+      this.songService.setCurrentSong(nextSong);
+    }
   }
 
   updateViews() {
@@ -233,7 +257,35 @@ export class MusicBarComponent implements OnInit, OnDestroy {
   overlayOff() {
     if (this.section) {
       this.renderer.setStyle(this.section, 'display', 'none');
+      this.store.dispatch(QueueActions.clearQueue());
     }
   }
+
+
+  loopClick() {
+    this.isLoop = !this.isLoop;
+    if (this.isLoop) {
+      console.log('Looping song');
+      this.loopSong();
+    } else {
+      console.log('No Looping song');
+      this.noLoopSong();
+    }
+  }
+
+  noLoopSong() {
+    if (this.audioPlayer.nativeElement.loop) {
+      this.audioPlayer.nativeElement.loop = false;
+    }
+  }
+
+  loopSong() {
+    if (!this.audioPlayer.nativeElement.loop) {
+      this.audioPlayer.nativeElement.loop = true;
+    }
+  }
+
+
+
 }
 

@@ -20,4 +20,10 @@
   color: var(--onSurface);
   font-size: 24px;
   margin-left: 18px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.box-search{
+  width: 45%;
 }

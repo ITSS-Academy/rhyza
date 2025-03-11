@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import {MaterialModule} from '../../material.module';
 import {NavigationEnd, Router} from '@angular/router';
 import {NgClass, NgForOf} from '@angular/common';
@@ -7,6 +7,8 @@ import * as AuthActions from '../../../ngrx/auth/auth.actions';
 import {Store} from '@ngrx/store';
 import {AuthState} from '../../../ngrx/auth/auth.state';
 import {AuthModel} from '../../../models/auth.model';
+import {MatDialog} from '@angular/material/dialog';
+import {LoginComponent} from '../login/login.component';
 
 @Component({
   selector: 'app-sidebar',
@@ -28,6 +30,14 @@ export class SidebarComponent implements OnInit{
   }>
   ) {
     this.authData$ = store.select('auth','authData');
+    this.router.events
+      .pipe(filter((event) => event instanceof NavigationEnd))
+      .subscribe(() => {
+        this.setActiveLink();
+        console.log("----",this.router.url);
+
+      });
+    this.setActiveLink();
   }
   menuItems = [
       { label: 'Music', icon: 'graphic_eq', route: '/music' },
@@ -44,16 +54,11 @@ export class SidebarComponent implements OnInit{
     }
 
   ngOnInit(): void {
-       this.router.events
-            .pipe(filter((event) => event instanceof NavigationEnd))
-            .subscribe(() => {
-              this.setActiveLink();
-              console.log(this.router.url);
-
-            });
 
 
-       this.subscription.push(
+
+
+    this.subscription.push(
           this.authData$.subscribe((authData) => {
             if (authData?.idToken) {
               this.authData = authData;
@@ -63,9 +68,9 @@ export class SidebarComponent implements OnInit{
   }
 
    setActiveLink(): void {
-     if (this.router.url.includes('/home')) {
+     if (this.router.url.includes('/music')) {
         this.activeLink = this.menuItems[0].route;
-        console.log(this.activeLink);
+        console.log('------------------',this.activeLink);
       } else if (this.router.url.includes('/category')) {
        this.activeLink = this.menuItems[1].route;
      }else if (this.router.url.includes('/artist')) {
@@ -88,6 +93,8 @@ export class SidebarComponent implements OnInit{
     logOut(){
       this.store.dispatch(AuthActions.clearState());
       this.store.dispatch(AuthActions.logout());
+      this.authData = null;
+      this.router.navigate(['/music']);
 
     }
 
@@ -100,6 +107,9 @@ export class SidebarComponent implements OnInit{
     imgElement.src =
       'https://img.freepik.com/free-psd/3d-illustration-person-with-sunglasses_23-2149436188.jpg';
   }
+
+
+
 
 }
 
