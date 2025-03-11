@@ -29,13 +29,22 @@
       </button>
     }
 
-    <button mat-icon-button aria-label="Example icon button with a vertical three dot icon">
-      <mat-icon class="material-symbols-rounded">library_music</mat-icon>
-    </button>
-    <button mat-icon-button aria-label="Example icon button with a vertical three dot icon">
-      <mat-icon class="material-symbols-rounded">favorite</mat-icon>
+    @if(isInPlaylist){
+      <button mat-icon-button aria-label="Example icon button with a vertical three dot icon" >
+        <mat-icon class="material-symbols-rounded"  >library_add_check</mat-icon>
+      </button>
+    } @else {
+      <button mat-icon-button aria-label="Example icon button with a vertical three dot icon" (click)="openDialog()">
+        <mat-icon class="material-symbols-rounded"  >library_music</mat-icon>
+      </button>
+    }
 
-    </button>
+    @if (isRecycle){
+      <button mat-icon-button aria-label="Example icon button with a vertical three dot icon" (click)="openDialogDeleteSongFromDialog(cardmusictab)" >
+        <mat-icon class="material-symbols-rounded">delete</mat-icon>
+      </button>
+    }
+
 
   </div>
 </div>

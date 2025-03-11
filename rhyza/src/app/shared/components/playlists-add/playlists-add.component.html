@@ -1,0 +1,16 @@
+<div class="container">
+  <h2 mat-dialog-title>Your Playlist</h2>
+  <div class="main">
+    @for (item of playlistList; track item.id) {
+      <div class="container-playlist-card"  (click)="addSongToPlaylist(item.id)">
+        <div class="image-playlist">
+          <img src="{{ item.image_url }}" alt="playlist" />
+        </div>
+        <div class="name-playList">
+          <p class="name">{{ item.name }}</p>
+          <p class="track-item">{{item.songs_id.length}} track</p>
+        </div>
+      </div>
+    }
+  </div>
+</div>

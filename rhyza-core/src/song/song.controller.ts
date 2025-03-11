@@ -35,8 +35,6 @@ export class SongController {
     @Query('pageSize') pageSize: string,
   ): Promise<Song[]> {
     try {
-      console.log('pageNumber', page);
-      console.log('pageSizeNumber', pageSize);
       const pageNumber = Number(page);
       const pageSizeNumber = Number(pageSize);
 
@@ -86,8 +84,7 @@ export class SongController {
     }
 
     const [musicFile, imageFile] = files;
-    console.log('music', musicFile);
-    console.log('image', imageFile);
+
     if (!musicFile.mimetype.includes('audio')) {
       throw new HttpException(
         'Invalid music file type',

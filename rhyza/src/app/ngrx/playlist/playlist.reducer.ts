@@ -7,9 +7,11 @@ import { SongModel } from '../../models/song.model';
 export const initialState: PlaylistState = {
   playlistDetail: {} as PlaylistModel,
   playlistList: [] as PlaylistModel[],
+  listSongsIdAllPlaylist: [] as string[],
   isLoading: false,
   isLoadingDetail: false,
   isDeletedSuccess: false,
+  isAddSongSuccess: false,
   error: null,
 };
 
@@ -85,6 +87,7 @@ export const playlistReducer = createReducer(
       isLoading: false,
       isLoadingDetail: false,
       isDetailSuccess: false,
+      isAddSongSuccess: false,
       error: null,
     };
   }),
@@ -128,6 +131,7 @@ export const playlistReducer = createReducer(
     return {
       ...state,
       isLoading: true,
+      isAddSongSuccess: false,
     };
   }),
 
@@ -138,6 +142,7 @@ export const playlistReducer = createReducer(
       ...state,
       playlistDetail: playlist,
       isLoading: false,
+      isAddSongSuccess: true,
     };
   }),
 
@@ -148,42 +153,42 @@ export const playlistReducer = createReducer(
       ...state,
       error: error,
       isLoading: false,
+      isAddSongSuccess: false,
     };
   }),
 
-  //remove song from playlist
-
-  on(PlaylistActions.removeSongFromPlaylist, (state, { type }) => {
+  // get song id list all playlist by uid
+  on(PlaylistActions.getListSongIdByUid, (state, { type }) => {
     console.log(type);
     return {
       ...state,
-      isLoading: true,
     };
   }),
 
-  on(
-    PlaylistActions.removeSongFromPlaylistSuccess,
-    (state, { playlist, type }) => {
-      console.log(type);
-      console.log(playlist);
-      return <PlaylistState>{
-        ...state,
-        playlistDetail: playlist,
-        isLoading: false,
-      };
-    }
-  ),
+  on(PlaylistActions.getListSongIdByUidSuccess, (state, { listSongsIdAllPlaylist, type }) => {
+    console.log(type);
+    return <PlaylistState>{
+      ...state,
+      listSongsIdAllPlaylist: listSongsIdAllPlaylist.songs_Id,
+    };
+  }),
 
-  on(
-    PlaylistActions.removeSongFromPlaylistFailure,
-    (state, { error, type }) => {
-      console.log(type);
-      console.log(error);
-      return {
-        ...state,
-        error: error,
-        isLoading: false,
-      };
-    }
-  )
+  on(PlaylistActions.getListSongIdByUidFailure, (state, { error, type }) => {
+    console.log(type);
+    console.log(error);
+    return {
+      ...state,
+      error: error,
+    };
+  })
+
 );
+
+
+
+
+
+
+
+
+

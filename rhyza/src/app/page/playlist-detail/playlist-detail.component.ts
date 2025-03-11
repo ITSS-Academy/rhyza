@@ -9,7 +9,6 @@ import { PlaylistState } from '../../ngrx/playlist/playlist.state';
 import * as PlaylistActions from '../../ngrx/playlist/playlist.actions';
 import { LoadingComponent } from '../../shared/components/loading/loading.component';
 import { MusicTabComponent } from '../../shared/components/music-tab/music-tab.component';
-import { MatIcon } from '@angular/material/icon';
 import * as SongActions from '../../ngrx/song/song.actions';
 import {AuthState} from '../../ngrx/auth/auth.state'; // Import service để upload ảnh
 import {AuthModel} from '../../models/auth.model';
@@ -20,6 +19,10 @@ import {
   DeletePlaylistDialogComponent
 } from '../../shared/components/delete-playlist-dialog/delete-playlist-dialog.component';
 import {LoginComponent} from '../../shared/components/login/login.component';
+import * as QueueActions from '../../ngrx/queue/queue.actions';
+import {SongService} from '../../services/song/song.service';
+import * as PlayActions from '../../ngrx/play/play.actions';
+import {PlayState} from '../../ngrx/play/play.state';
 
 @Component({
   selector: 'app-playlist-detail',
@@ -39,16 +42,20 @@ export class PlaylistDetailComponent implements OnInit, OnDestroy {
   isLoadingSongListPlaylist$: Observable<boolean>;
   auth$ !: Observable<AuthModel | null>; // Thêm auth$ để lấy thông tin auth
   authData !: AuthModel
-
+  play$!: Observable<boolean>;
+  listSongsIdPlaylist$!: Observable<string[]>;
+  listSongIdPlaylist: string[] = [];
   @ViewChild('fileInput') fileInput!: ElementRef; // Thêm ViewChild để truy cập file input
 
   constructor(
     private location: Location,
     private activatedRoute: ActivatedRoute,
+    private songService: SongService,
     private store: Store<{
       playlist: PlaylistState,
       auth: AuthState,
       song: SongState
+      play: PlayState
     }>,
   ) {
     this.playlistDetail$ = this.store.select((state) => state.playlist.playlistDetail);
@@ -56,6 +63,9 @@ export class PlaylistDetailComponent implements OnInit, OnDestroy {
     this.isLoadingSongListPlaylist$ = this.store.select('song', 'isLoadingPlaylist');
     this.auth$ =  this.store.select('auth','authData')
     this.songListPlaylist$ = this.store.select('song', "songPlaylist")
+    this.play$ = this.store.select('play', 'isPlaying');
+    this.listSongsIdPlaylist$ = this.store.select('playlist', 'listSongsIdAllPlaylist');
+
   }
 
   goBack() {
@@ -77,6 +87,14 @@ export class PlaylistDetailComponent implements OnInit, OnDestroy {
           });
         }
       }),
+      this.listSongsIdPlaylist$.subscribe(songIdList => {
+        if (songIdList.length > 0 && this.listSongIdPlaylist.length != songIdList.length) {
+          this.listSongIdPlaylist = songIdList;
+          console.log('List song id:', songIdList);
+
+        }
+      }),
+
 
 
       this.songListPlaylist$.subscribe((songList) => {
@@ -106,6 +124,23 @@ export class PlaylistDetailComponent implements OnInit, OnDestroy {
 
 
   }
+
+  playListSong(){
+
+    if(this.authData.idToken){
+      this.store.dispatch(QueueActions.createQueueWithPlaylist({
+        playlistId: this.playlistDetail.id,
+        idToken: this.authData.idToken,
+      }))
+
+      this.songService.setCurrentSong(
+        this.songListPlaylist[0]
+      );
+
+      this.store.dispatch(PlayActions.play())
+    }
+  }
+
 
   ngOnDestroy() {
     this.subscriptions.forEach((sub) => sub.unsubscribe());

@@ -49,20 +49,7 @@ export const addSongToPlaylistFailure = createAction(
   props<{ error: any }>()
 );
 
-export const removeSongFromPlaylist = createAction(
-  '[Playlist] Remove Song From Playlist',
-  props<{ playlistId: string; songId: string; uid: string; idToken: string }>()
-);
 
-export const removeSongFromPlaylistSuccess = createAction(
-  '[Playlist] Remove Song From Playlist Success',
-  props<{ playlist: PlaylistModel }>()
-);
-
-export const removeSongFromPlaylistFailure = createAction(
-  '[Playlist] Remove Song From Playlist Failure',
-  props<{ error: any }>()
-);
 
 export const deletePlaylist = createAction(
   '[Playlist] Delete Playlist',
@@ -98,4 +85,21 @@ export const getPlaylistByIdFailure = createAction(
 // Action để xóa thông tin chi tiết playlist
 export const clearPlaylistDetail = createAction(
   '[Playlist] Clear Playlist Detail'
+);
+
+
+//get list song id in all playlist by uid
+export const getListSongIdByUid = createAction(
+  '[Playlist] Get List Song Id By Uid',
+  props<{ uid: string; idToken: string }>()
+);
+
+export const getListSongIdByUidSuccess = createAction(
+  '[Playlist] Get List Song Id By Uid Success',
+  props<{ listSongsIdAllPlaylist: any }>()
+);
+
+export const getListSongIdByUidFailure = createAction(
+  '[Playlist] Get List Song Id By Uid Failure',
+  props<{ error: any }>()
 );

@@ -90,7 +90,7 @@ export class PlaylistService {
     };
 
     const body = {
-      playlistId: playlistId,
+      id: playlistId,
       songId: songId,
       uid: uid,
     };
@@ -110,13 +110,26 @@ export class PlaylistService {
     uid: string,
     idToken: string
   ) {
+    console.log('playlistId',playlistId);
+    console.log('songId',songId);
+    console.log('uid',uid);
+    console.log('idToken',idToken);
     const headers = {
       Authorization: idToken,
     };
 
-    return this.http.post<PlaylistModel>(
+    return this.http.delete<SongModel[]>(
       `${environment.apiUrl}playlists/song?id=${playlistId}&songId=${songId}&uid=${uid}`,
       { headers }
     );
+  }
+
+  getListSongIdByUid(uid: string, idToken: string) {
+    const headers = {
+      Authorization: idToken,
+    }
+
+    return this.http.get<any>(`${environment.apiUrl}playlists/list-songsid?uid=${uid}`, { headers });
+
   }
 }

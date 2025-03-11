@@ -30,8 +30,11 @@ export class QueueService {
     const headers = {
       Authorization: idToken,
     }
+    const body = {
+      playlistId: playlistId
+    }
 
-    return this.http.post('http://localhost:3000/queue/playlist-queues', {
+    return this.http.post('http://localhost:3000/queue/playlist-queues', body,{
       headers
     })
 

@@ -75,7 +75,6 @@ categoryList$ !: Observable<CategoryModel[]>;
       this.auth$.subscribe((authData) => {
         if(authData?.idToken){
           this.authData = authData;
-          console.log('authData', this.authData);
         }
       }),
       this.categoryList$.subscribe((categoryList) => {

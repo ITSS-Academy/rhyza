@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import {MaterialModule} from './shared/material.module';
 import {SidebarComponent} from './shared/components/sidebar/sidebar.component';
 import {RouterOutlet} from '@angular/router';
-import {CategoryComponent} from './page/category/category.component';
 import {MusicBarComponent} from './shared/components/music-bar/music-bar.component';
 import {Auth, onAuthStateChanged} from '@angular/fire/auth';
 import {Store} from '@ngrx/store';
@@ -14,6 +13,7 @@ import * as ArtistActions from './ngrx/artist/artist.actions';
 import {CategoryState} from './ngrx/category/category.state';
 import {ArtistState} from './ngrx/artist/artist.state';
 import {Observable} from 'rxjs';
+import * as PlaylistActions from './ngrx/playlist/playlist.actions';
 
 @Component({
   selector: 'app-root',
@@ -52,12 +52,22 @@ export class AppComponent {
           photoURL: user.photoURL,
         }
         this.store.dispatch(AuthActions.storeAuth({authData: authData}));
+        this.store.dispatch(PlaylistActions.getPlaylist({
+          idToken: token,
+          uid: user.uid
+        }))
+
+        this.store.dispatch(PlaylistActions.getListSongIdByUid({
+          idToken: token,
+          uid: user.uid
+        }))
       }
 
     });
 
     this.store.dispatch(CategoryActions.getCategories())
     this.store.dispatch(ArtistActions.getArtistList());
+
 
   }
 

@@ -5,6 +5,7 @@ import { SupabaseProvider } from 'src/supabase/supabase';
 import { Playlist } from './entities/playlist.entity';
 import { v4 as uuidv4 } from 'uuid';
 import { Song } from 'src/song/entities/song.entity';
+import { get } from 'http';
 
 @Injectable()
 export class PlaylistsService {
@@ -29,7 +30,6 @@ export class PlaylistsService {
       );
     }
 
-    console.log('playlistsData', playlistsData);
     return playlistsData;
   }
 
@@ -208,11 +208,9 @@ export class PlaylistsService {
       );
     }
 
-    console.log('playlist id', id);
     //remove folder with playlist id in storage
     if (playlist.image_url) {
       const filePath = playlist.image_url.split('/').slice(8).join('/');
-      console.log('filePath', filePath);
       const { data: deleteData, error: deleteError } =
         await this.supabaseProvider
           .getClient()
@@ -317,7 +315,6 @@ export class PlaylistsService {
 
     if (playlist.image_url) {
       const filePath = playlist.image_url.split('/').slice(8).join('/');
-      console.log('filePath', filePath);
       const { data: deleteData, error: deleteError } =
         await this.supabaseProvider
           .getClient()
@@ -353,8 +350,6 @@ export class PlaylistsService {
       throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
     }
 
-    console.log('data', data);
-
     return data;
   }
 
@@ -372,7 +367,6 @@ export class PlaylistsService {
       );
     }
 
-    console.log('playlist', playlist);
     let isPined = !playlist.is_pined;
 
     const { data: playlistData, error: playlistError } =
@@ -431,8 +425,8 @@ export class PlaylistsService {
           );
         }
 
-        let playlist = await this.getPlaylistById(playlistId);
-        return playlist;
+        let songPlaylist = this.getSongByPlaylistId(playlistId);
+        return songPlaylist;
       } else {
         throw new HttpException(
           'Song does not exist in playlist',
@@ -440,5 +434,18 @@ export class PlaylistsService {
         );
       }
     }
+  }
+
+  async getListSongsIdAllPlaylists(uid: string) {
+    const { data: listSongId, error: listSongIdError } =
+      await this.supabaseProvider
+        .getClient()
+        .rpc('get_unique_songs_by_user', { p_uid: uid });
+
+    if (listSongIdError) {
+      throw new HttpException(listSongIdError.message, HttpStatus.BAD_REQUEST);
+    }
+
+    return listSongId;
   }
 }

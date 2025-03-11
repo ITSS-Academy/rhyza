@@ -17,10 +17,17 @@
             <p>Tracks: {{ playlistDetail.songs_id.length }}</p>
           </div>
         </div>
-        <div class="action-for-playlist">
-          <button mat-icon-button aria-label="Example icon button with a vertical three dot icon" class="button-playlist-all">
-            <mat-icon>play_arrow</mat-icon>
-          </button>
+        <div class="action-for-playlist" >
+          @if (play$|async){
+            <button mat-icon-button aria-label="Example icon button with a vertical three dot icon" >
+              <mat-icon>pause</mat-icon>
+            </button>
+          } @else {
+
+            <button mat-icon-button aria-label="Example icon button with a vertical three dot icon" (click)="playListSong()">
+              <mat-icon>play_arrow</mat-icon>
+            </button>
+          }
           <button mat-icon-button aria-label="Example icon button with a vertical three dot icon" class="delete-playlist" (click)="openDialog()">
             <mat-icon>delete</mat-icon>
           </button>
@@ -36,7 +43,18 @@
 
         <div class="music-list">
           @for (song of songListPlaylist; track song.id) {
-            <app-music-tab [cardmusictab]="song"></app-music-tab>
+
+            @if (this.listSongIdPlaylist.includes(song.id)) {
+              <app-music-tab
+                [cardmusictab]="song"
+                [isInPlaylist]=true
+              ></app-music-tab>
+            } @else {
+              <app-music-tab
+                [cardmusictab]="song"
+                [isInPlaylist]=false
+              ></app-music-tab>
+            }
           }
         </div>
       </div>

@@ -3,6 +3,8 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { SongService } from '../../services/song/song.service';
 import * as SongActions from './song.actions';
 import { catchError, exhaustMap, map, of } from 'rxjs';
+import {PlaylistService} from '../../services/playlist/playlist.service';
+import * as PlaylistActions from '../playlist/playlist.actions';
 
 export const getDetailSong = createEffect(
   (actions$ = inject(Actions), songService = inject(SongService)) => {
@@ -131,6 +133,24 @@ export const getSongsByPlaylist = createEffect(
         songService.getSongsByPlaylist(action.playlistId, action.idToken).pipe(
           map((songs) => SongActions.getSongsByPlaylistSuccess({ songPlaylist: songs })),
           catchError((error) => of(SongActions.getSongsByPlaylistFailure({ error }))),
+        ),
+      ),
+    );
+  },
+  { functional: true },
+);
+
+
+
+//reomove song from playlist
+export const removeSongFromPlaylist = createEffect(
+  (actions$ = inject(Actions), playlistService = inject(PlaylistService)) => {
+    return actions$.pipe(
+      ofType(SongActions.removeSongFromPlaylist),
+      exhaustMap((action) =>
+        playlistService.removeSongFromPlaylist(action.playlistId, action.songId, action.uid, action.idToken).pipe(
+          map((songPlaylist) => SongActions.removeSongFromPlaylistSuccess({ songPlaylist: songPlaylist })),
+          catchError((error) => of(SongActions.removeSongFromPlaylistFailure({ error }))),
         ),
       ),
     );

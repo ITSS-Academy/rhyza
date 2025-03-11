@@ -2,7 +2,6 @@ import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { MusicTabComponent } from '../../shared/components/music-tab/music-tab.component';
 import { MatIcon } from '@angular/material/icon';
 import { AsyncPipe, Location } from '@angular/common';
-import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { SongModel } from '../../models/song.model';
 import { Observable, Subscription } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
@@ -13,6 +12,7 @@ import { ArtistState } from '../../ngrx/artist/artist.state';
 import * as ArtistActions from '../../ngrx/artist/artist.actions';
 import * as SongActions from '../../ngrx/song/song.actions';
 import { LoadingComponent } from '../../shared/components/loading/loading.component';
+import {PlaylistState} from '../../ngrx/playlist/playlist.state';
 
 @Component({
   selector: 'app-artist-detail',
@@ -21,7 +21,6 @@ import { LoadingComponent } from '../../shared/components/loading/loading.compon
     MusicTabComponent,
     MatIcon,
     AsyncPipe,
-    MatProgressSpinner,
     LoadingComponent,
   ],
   templateUrl: './artist-detail.component.html',
@@ -35,6 +34,8 @@ export class ArtistDetailComponent implements OnInit, OnDestroy {
   subscriptions: Subscription[] = [];
   isLoadingArtistDetail$!: Observable<boolean>;
   isLoadingSongListArtist$!: Observable<boolean>;
+  listSongsIdPlaylist$!: Observable<string[]>;
+  listSongIdPlaylist: string[] = [];
 
   constructor(
     private location: Location,
@@ -42,6 +43,7 @@ export class ArtistDetailComponent implements OnInit, OnDestroy {
     private store: Store<{
       song: SongState;
       artist: ArtistState;
+      playlist: PlaylistState
     }>
   ) {
     this.artistDetail$ = this.store.select('artist', 'artistDetail');
@@ -54,6 +56,7 @@ export class ArtistDetailComponent implements OnInit, OnDestroy {
       'song',
       'isLoadingArtist'
     );
+    this.listSongsIdPlaylist$ = this.store.select('playlist', 'listSongsIdAllPlaylist');
   }
 
   goBack() {
@@ -76,6 +79,15 @@ export class ArtistDetailComponent implements OnInit, OnDestroy {
         }
       }),
 
+
+      this.listSongsIdPlaylist$.subscribe(songIdList => {
+        if (songIdList.length > 0 && this.listSongIdPlaylist.length != songIdList.length) {
+          this.listSongIdPlaylist = songIdList;
+          console.log('List song id:', songIdList);
+
+        }
+      }),
+
       this.songListArtist$.subscribe((songList) => {
         if (songList.length > 0) {
           this.songListArtist = songList;
@@ -88,7 +100,9 @@ export class ArtistDetailComponent implements OnInit, OnDestroy {
           this.artistDetail = artistDetail;
           console.log('Artist Detail:', artistDetail);
         }
-      })
+      }),
+
+
     );
   }
 

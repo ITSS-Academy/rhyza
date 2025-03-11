@@ -12,6 +12,7 @@ import {Observable, Subscription} from 'rxjs';
 import {CategoryModel} from '../../models/category.model';
 import * as CategoryActions from '../../ngrx/category/category.action';
 import {LoadingComponent} from '../../shared/components/loading/loading.component';
+import {PlaylistState} from '../../ngrx/playlist/playlist.state';
 
 
 
@@ -35,6 +36,8 @@ export class CategoryDetailComponent implements OnInit, OnDestroy {
   subscriptions: Subscription[] = [];
   isLoadingCategoryDetail$!: Observable<boolean>
   isLoadingSongListCategory$!: Observable<boolean>
+  listSongsIdPlaylist$!: Observable<string[]>;
+  listSongIdPlaylist: string[] = [];
 
   constructor(
     private location: Location,
@@ -42,12 +45,16 @@ export class CategoryDetailComponent implements OnInit, OnDestroy {
     private store: Store<{
       song: SongState;
       category: CategoryState;
+      playlist: PlaylistState
+
     }>
   ) {
     this.songListCategory$ = this.store.select('song', 'songCategory');
     this.categoryDetail$ = this.store.select('category', 'categoryDetail');
     this.isLoadingCategoryDetail$ = this.store.select('category', 'isLoadingDetail');
     this.isLoadingSongListCategory$ = this.store.select('song', 'isLoadingCategory');
+    this.listSongsIdPlaylist$ = this.store.select('playlist', 'listSongsIdAllPlaylist');
+
 
   }
 
@@ -69,6 +76,14 @@ export class CategoryDetailComponent implements OnInit, OnDestroy {
           this.store.dispatch(CategoryActions.getCategoryById({
             id: id
           }))
+
+        }
+      }),
+
+      this.listSongsIdPlaylist$.subscribe(songIdList => {
+        if (songIdList.length > 0 && this.listSongIdPlaylist.length != songIdList.length) {
+          this.listSongIdPlaylist = songIdList;
+          console.log('List song id:', songIdList);
 
         }
       }),

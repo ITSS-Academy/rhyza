@@ -21,8 +21,6 @@ export class QueueController {
   @Post('create-song-queues')
   addSongToQueue(@Body() data: { songId: string; uid: string }) {
     try {
-      console.log('songId', data.songId);
-      console.log('uid', data.uid);
       return this.queueService.addSongToQueue(data.songId, data.uid);
     } catch (e) {
       throw new HttpException(e.message, HttpStatus.BAD_REQUEST);

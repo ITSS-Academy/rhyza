@@ -14,8 +14,6 @@ import {LoadingComponent} from '../../../../shared/components/loading/loading.co
   standalone: true,
   imports: [
     ArtistsComponent,
-    MusicTabComponent,
-    MatProgressSpinner,
     AsyncPipe,
     LoadingComponent
   ],

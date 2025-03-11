@@ -53,7 +53,6 @@ export class MusicComponent implements OnInit,OnDestroy{
   ){
     this.songList$ = this.store.select('song', 'songList');
     this.store.dispatch(SongActions.getSongList());
-    console.log(this.song);
 
     this.aristList$ = this.store.select('artist', 'artistList');
     this.categoryList$ = this.store.select('category', 'categoryList');
@@ -64,7 +63,6 @@ export class MusicComponent implements OnInit,OnDestroy{
   ngOnInit() {
     this.subscriptions.push(
       this.songList$.subscribe((songList) => {
-        console.log('songList:', songList);
         if (songList.length > 0) {
           this.song = songList;
           this.songTrending = this.song.filter(song => song.views >= 10);

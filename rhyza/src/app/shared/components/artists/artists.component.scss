@@ -21,11 +21,17 @@
 }
 
 /* Hover: Phóng to nhẹ và thay đổi màu nền */
-.artist:hover {
-  transform: scale(1.1); /* Phóng to 10% */
-  background-color: rgba(255, 255, 255, 0.1); /* Màu nền nhạt khi hover */
-  border-radius: 15px;
-}
+
+//.artists-container:hover{
+
+  .artist:hover {
+    transform: scale(1.1); /* Phóng to 10% */
+    border-radius: 15px;
+    background-color: rgba(255, 255, 255, 0.1); /* Màu nền nhạt khi hover */
+
+  }
+//}
+
 
 /* Định dạng cho phần tử chứa ảnh */
 .image {
