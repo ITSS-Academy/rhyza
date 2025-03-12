@@ -50,4 +50,17 @@ h2 {
   height: 24px;
 }
 
+.logo-rhyza{
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 10px;
+
+  p {
+    //font-weight: bold;
+    //color: var(--secondaryFixed);
+    font-size: 30px;
+    margin: 0;
+  }
+}
 
