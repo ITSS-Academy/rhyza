@@ -48,11 +48,14 @@
               <app-music-tab
                 [cardmusictab]="song"
                 [isInPlaylist]=true
+                [playlistId]="this.playlistDetail.id"
               ></app-music-tab>
             } @else {
               <app-music-tab
                 [cardmusictab]="song"
                 [isInPlaylist]=false
+                [playlistId]="this.playlistDetail.id"
+
               ></app-music-tab>
             }
           }

@@ -43,7 +43,6 @@ export class AppComponent {
         const token = await user?.getIdToken();
         this.store.dispatch(AuthActions.getAuth({ idToken: token }));
 
-        console.log(token);
         const authData:AuthModel = {
           uid: user.uid,
           idToken: token,

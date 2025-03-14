@@ -35,7 +35,7 @@ export class SongService {
     formData.append('uuid', song.uuid);
     formData.append('views', song.views.toString());
     formData.append('category_id', song.category_id);
-    return this.http.post<SongModel>('http://localhost:3000/songs', formData, {
+    return this.http.post<SongModel>(`${environment.apiUrl}songs`, formData, {
       headers,
     });
   }

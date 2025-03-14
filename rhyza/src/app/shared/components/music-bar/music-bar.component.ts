@@ -154,7 +154,6 @@ export class MusicBarComponent implements OnInit, OnDestroy {
 
   updateViews() {
     if (this.currentSong) {
-      console.log('Updating views for song:', this.currentSong.id);
       this.store.dispatch(SongActions.updateSongViews({ id: this.currentSong.id }));
     }
   }
@@ -190,7 +189,7 @@ export class MusicBarComponent implements OnInit, OnDestroy {
 
     if (audio.volume > 0) {
       this.previousVolume = audio.volume; // Lưu lại volume trước khi tắt
-      audio.volume = 0;
+      audio.volume = 100;
       this.volume = 0;
 
       // Cập nhật giá trị của thanh volume bar về 0
@@ -265,10 +264,8 @@ export class MusicBarComponent implements OnInit, OnDestroy {
   loopClick() {
     this.isLoop = !this.isLoop;
     if (this.isLoop) {
-      console.log('Looping song');
       this.loopSong();
     } else {
-      console.log('No Looping song');
       this.noLoopSong();
     }
   }

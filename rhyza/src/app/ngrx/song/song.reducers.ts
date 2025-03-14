@@ -213,6 +213,14 @@ export const songReducer = createReducer(
     };
   }),
 
+  on(SongActions.clearSongQueue, (state, { type }) => {
+    console.log(type);
+    return {
+      ...state,
+      songQueue: [],
+    };
+  }),
+
   //get song category
   on(SongActions.getSongCategory, (state, { type }) => {
     console.log(type);

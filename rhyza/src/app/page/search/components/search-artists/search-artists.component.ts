@@ -39,7 +39,6 @@ export class SearchArtistsComponent implements OnInit {
       this.searchAll$.subscribe((search) => {
         if (search.artists.length > 0) {
           this.searchAll = search;
-          console.log(this.searchAll);
         }
       })
     )

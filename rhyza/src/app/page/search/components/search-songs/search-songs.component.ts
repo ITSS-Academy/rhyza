@@ -40,7 +40,6 @@ export class SearchSongsComponent implements OnInit  {
       this.searchAll$.subscribe((search) => {
         if (search.songs.length > 0) {
           this.searchAll = search;
-          console.log(this.searchAll);
         }
       })
     )

@@ -41,12 +41,9 @@ export class SearchAllComponent implements OnInit {
       this.searchAll$.subscribe((search) => {
         if (search.artists || search.categories || search.songs) {
           this.searchAll = search;
-          console.log(this.searchAll);
         }
       }),
-      this.isLoading$.subscribe((isLoading) => {
-        console.log(isLoading);
-      })
+
     )
   }
 }

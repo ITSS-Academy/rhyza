@@ -11,6 +11,7 @@ import {MaterialModule} from '../../material.module';
 import * as PlaylistActions from '../../../ngrx/playlist/playlist.actions';
 import {Store} from '@ngrx/store';
 import * as SongActions from '../../../ngrx/song/song.actions';
+import {SnackbarService} from '../../../services/snackbar/snackbar.service';
 
 @Component({
   selector: 'app-delete-song-playlist',
@@ -25,11 +26,12 @@ export class DeleteSongPlaylistComponent {
   data = inject(MAT_DIALOG_DATA);
   dialogRef = inject(MatDialogRef<DeleteSongPlaylistComponent>);
 
-  constructor(private store: Store<{}>) {
-    console.log(this.data)
+  constructor(private store: Store<{}>, private snackBarService: SnackbarService) {
   }
 
   deleteSongFromPlaylist() {
+    console.log('deleteSongFromPlaylist', this.data);
+    console.log('auth', this.data.uid);
     if (this.data.uid && this.data.song.id && this.data.idToken && this.data.playlistId) {
       this.store.dispatch(SongActions.removeSongFromPlaylist({
         playlistId: this.data.playlistId,
@@ -37,6 +39,9 @@ export class DeleteSongPlaylistComponent {
         uid: this.data.uid,
         idToken: this.data.idToken,
       }))
+    }else {
+      this.snackBarService.showAlert('Something went wrong', 'Close');
+
     }
   }
 }

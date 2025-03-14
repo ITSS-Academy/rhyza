@@ -29,7 +29,6 @@ export class CategoryComponent implements OnInit {
   filteredCategories = [...this.categoryList];
   searchControl = new FormControl('');
   isSearching = false;
-  isLoading = true; // Trạng thái loading
   mode: 'determinate' | 'indeterminate' = 'indeterminate';
 
   filterCategories(searchTerm: string | null) {
@@ -55,9 +54,7 @@ export class CategoryComponent implements OnInit {
       this.isSearching = value!.trim().length > 0;
       this.filterCategories(value);
     });
-    setTimeout(() => {
-      this.isLoading = false; // Giả lập tải xong
-    }, 1000);
+
   }
 
   ngOnInit() {

@@ -14,6 +14,7 @@ import * as SongActions from '../../../ngrx/song/song.actions';
 import {Router} from '@angular/router';
 import * as PlaylistActions from '../../../ngrx/playlist/playlist.actions';
 import {DeleteSongPlaylistComponent} from '../delete-song-playlist/delete-song-playlist.component';
+import {SnackbarService} from '../../../services/snackbar/snackbar.service';
 @Component({
   selector: 'app-music-tab',
   standalone: true,
@@ -40,6 +41,7 @@ export class MusicTabComponent implements OnInit {
 
   constructor(
     private songService: SongService,
+    private snackBarService: SnackbarService,
     private router: Router,
     private store: Store<{
       auth: AuthState
@@ -84,6 +86,11 @@ export class MusicTabComponent implements OnInit {
       this.store.dispatch(SongActions.getSongQueue({
         uid: this.authData.uid, idToken: this.authData.idToken
       }))
+    }else {
+      this.snackBarService.showAlert(
+        'Please login to add this song to queue',
+        'Close'
+      )
     }
   }
 
@@ -94,12 +101,15 @@ export class MusicTabComponent implements OnInit {
         songId: songId,
         idToken: this.authData.idToken
       }))
+    }else {
+      this.snackBarService.showAlert('Please login to delete this song from queue', 'Close')
     }
   }
 
 
 
   openDialogDeleteSongFromDialog(song:SongModel) {
+    console.log(this.playlistId)
     if(this.authData?.uid){
       const dialogRef = this.dialog.open(DeleteSongPlaylistComponent, {
         data: {
@@ -109,6 +119,8 @@ export class MusicTabComponent implements OnInit {
           idToken: this.authData.idToken,
         } // Truyền songId vào dialog
       });
+    }else{
+      this.snackBarService.showAlert('Please login to delete this song from playlist', 'Close')
     }
 
   }
@@ -123,6 +135,8 @@ export class MusicTabComponent implements OnInit {
           auth: this.authData
         } // Truyền songId vào dialog
       });
+    }else {
+      this.snackBarService.showAlert('Please login to add this song to playlist', 'Close')
     }
 
   }

@@ -60,7 +60,6 @@ export class PlaylistsAddComponent implements OnInit, OnDestroy {
       this.playlistList$.subscribe((playlist: PlaylistModel[]) => {
         if (playlist.length > 0) {
           this.playlistList = playlist;
-          console.log(this.playlistList);
         }
       }),
 

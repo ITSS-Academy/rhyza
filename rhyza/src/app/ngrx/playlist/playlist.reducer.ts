@@ -24,11 +24,15 @@ export const playlistReducer = createReducer(
     isLoading: true,
   })),
 
-  on(PlaylistActions.createPlaylistSuccess, (state, { playlist }) => ({
-    ...state,
-    playlistList: [...state.playlistList, playlist],
-    isLoading: false,
-  })),
+  on(PlaylistActions.createPlaylistSuccess, (state, { playlist, type }) => {
+    console.log(type);
+    return {
+      ...state,
+      playlistList: [...state.playlistList, playlist],
+      isLoading: false,
+    };
+  }
+  ),
 
   on(PlaylistActions.createPlaylistFailure, (state, { error }) => ({
     ...state,
@@ -126,36 +130,36 @@ export const playlistReducer = createReducer(
 
   //add song to playlist
 
-  on(PlaylistActions.addSongToPlaylist, (state, { type }) => {
-    console.log(type);
-    return {
-      ...state,
-      isLoading: true,
-      isAddSongSuccess: false,
-    };
-  }),
+    on(PlaylistActions.addSongToPlaylist, (state, { type }) => {
+      console.log(type);
+      return {
+        ...state,
+        isLoading: true,
+        isAddSongSuccess: false,
+      };
+    }),
 
-  on(PlaylistActions.addSongToPlaylistSuccess, (state, { playlist, type }) => {
-    console.log(type);
-    console.log(playlist);
-    return <PlaylistState>{
-      ...state,
-      playlistDetail: playlist,
-      isLoading: false,
-      isAddSongSuccess: true,
-    };
-  }),
+    on(PlaylistActions.addSongToPlaylistSuccess, (state, { playlist, type }) => {
+      console.log(type);
+      console.log(playlist);
+      return <PlaylistState>{
+        ...state,
+        playlistDetail: playlist,
+        isLoading: false,
+        isAddSongSuccess: true,
+      };
+    }),
 
-  on(PlaylistActions.addSongToPlaylistFailure, (state, { error, type }) => {
-    console.log(type);
-    console.log(error);
-    return {
-      ...state,
-      error: error,
-      isLoading: false,
-      isAddSongSuccess: false,
-    };
-  }),
+    on(PlaylistActions.addSongToPlaylistFailure, (state, { error, type }) => {
+      console.log(type);
+      console.log(error);
+      return {
+        ...state,
+        error: error,
+        isLoading: false,
+        isAddSongSuccess: false,
+      };
+    }),
 
   // get song id list all playlist by uid
   on(PlaylistActions.getListSongIdByUid, (state, { type }) => {
@@ -180,7 +184,16 @@ export const playlistReducer = createReducer(
       ...state,
       error: error,
     };
-  })
+  }),
+
+  //clear state playlist list song id
+  on(PlaylistActions.clearListSongIdAllPlaylist, (state, { type }) => {
+    console.log(type);
+    return <PlaylistState>{
+      ...state,
+      listSongsIdAllPlaylist: [],
+    };
+  }),
 
 );
 

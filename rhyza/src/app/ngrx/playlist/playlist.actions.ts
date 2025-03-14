@@ -103,3 +103,8 @@ export const getListSongIdByUidFailure = createAction(
   '[Playlist] Get List Song Id By Uid Failure',
   props<{ error: any }>()
 );
+
+// clear list song id in all playlist
+export const clearListSongIdAllPlaylist = createAction(
+  '[Playlist] Clear List Song Id All Playlist'
+);

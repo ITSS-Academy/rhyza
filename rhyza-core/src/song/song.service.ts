@@ -100,7 +100,6 @@ export class SongService {
             parseInt(match[1]) * 3600 +
             parseInt(match[2]) * 60 +
             parseFloat(match[3]);
-          console.log(`🕒 Thời lượng: ${duration} giây`);
           resolve(duration);
         } else {
           reject(new Error('Không thể đọc duration từ FFmpeg output'));
@@ -115,17 +114,12 @@ export class SongService {
     const outputDir = path.join(tempDir, 'hls');
     const outputPlaylist = path.join(outputDir, 'output.m3u8');
 
-    console.log('Starting HLS conversion...');
-    console.log('Input buffer size:', inputFile?.length);
-    console.log('Temporary directory:', tempDir);
-
     if (!fs.existsSync(outputDir)) {
       fs.mkdirSync(outputDir, { recursive: true });
     }
 
     try {
       fs.writeFileSync(tempInputPath, inputFile);
-      console.log('Temp input file created at:', tempInputPath);
 
       return await new Promise((resolve, reject) => {
         ffmpeg(tempInputPath)
@@ -168,7 +162,6 @@ export class SongService {
     } finally {
       if (fs.existsSync(tempInputPath)) {
         fs.unlinkSync(tempInputPath);
-        console.log('Temp input file deleted.');
       }
     }
   }
@@ -227,7 +220,6 @@ export class SongService {
       }
     });
 
-    console.log('All files processed successfully');
     return `upload/${id}/output.m3u8`;
   }
 
@@ -261,7 +253,6 @@ export class SongService {
     let timeStamp = new Date().getTime().toString();
     //put try catch
     try {
-      console.log('Uploading image...');
       return new Promise((resolve, reject) => {
         const file_path = `upload/${id}/${timeStamp}`;
         this.supabaseProvider
@@ -282,7 +273,6 @@ export class SongService {
               );
             } else {
               let iamgeUrl = this.getPublicHlsUrl('songs', file_path);
-              console.log('Image uploaded successfully.');
               resolve(iamgeUrl);
             }
           });
@@ -328,10 +318,6 @@ export class SongService {
     );
     const offset = randomOffset + (page - 1) * pageSize;
 
-    console.log(
-      `Fetching random playlist: offset=${offset}, limit=${pageSize}`,
-    );
-
     // Truy vấn dữ liệu với OFFSET và LIMIT
     const { data: songs, error } = await this.supabaseProvider
       .getClient()
@@ -350,22 +336,6 @@ export class SongService {
     return songs;
   }
 
-  // async getSongByPlaylistId(id: string): Promise<Song[]> {
-  //   log('getSongByPlaylistId', id);
-  //   //call rpc
-  //   const { data, error } = await this.supabaseProvider
-  //     .getClient()
-  //     .rpc('get_songs_with_playlist', { playlist_id: id });
-
-  //   if (error) {
-  //     throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
-  //   }
-
-  //   console.log('data', data);
-
-  //   return data;
-  // }
-
   async getSongByCategoryId(id: string): Promise<Song[]> {
     const { data, error } = await this.supabaseProvider
       .getClient()
@@ -376,8 +346,6 @@ export class SongService {
     if (error) {
       throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
     }
-
-    console.log('data', data);
 
     return data;
   }
@@ -396,7 +364,5 @@ export class SongService {
     if (error) {
       throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
     }
-
-    console.log('data', data);
   }
 }

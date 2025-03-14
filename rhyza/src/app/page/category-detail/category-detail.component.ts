@@ -68,7 +68,6 @@ export class CategoryDetailComponent implements OnInit, OnDestroy {
       this.activatedRoute.params.subscribe((params) => {
         const id = params['id'];
         if (id) {
-          console.log('id:', id);
           this.store.dispatch(SongActions.getSongCategory({
             categoryId: id,
           }));
@@ -83,7 +82,6 @@ export class CategoryDetailComponent implements OnInit, OnDestroy {
       this.listSongsIdPlaylist$.subscribe(songIdList => {
         if (songIdList.length > 0 && this.listSongIdPlaylist.length != songIdList.length) {
           this.listSongIdPlaylist = songIdList;
-          console.log('List song id:', songIdList);
 
         }
       }),
@@ -91,14 +89,12 @@ export class CategoryDetailComponent implements OnInit, OnDestroy {
       this.songListCategory$.subscribe((songList) => {
         if (songList.length > 0) {
           this.songListCategory = songList;
-          console.log(songList);
         }
       }),
 
       this.categoryDetail$.subscribe((categoryDetail) => {
         if (categoryDetail) {
           this.categoryDetail = categoryDetail;
-          console.log(categoryDetail);
         }
       })
 

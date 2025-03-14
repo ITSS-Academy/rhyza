@@ -34,7 +34,7 @@ export class QueueService {
       playlistId: playlistId
     }
 
-    return this.http.post('http://localhost:3000/queue/playlist-queues', body,{
+    return this.http.post(`${environment.apiUrl}queue/playlist-queues`, body,{
       headers
     })
 
@@ -45,7 +45,7 @@ export class QueueService {
       Authorization: idToken,
     }
 
-    return this.http.post('http://localhost:3000/queue/playlist-queues-random', {
+    return this.http.post(`${environment.apiUrl}queue/playlist-queues-random`, {
       headers
   })
   }
@@ -55,7 +55,7 @@ export class QueueService {
       Authorization: idToken,
     }
     //delete with uid and songId body
-   return this.http.delete(`http://localhost:3000/queue/delete-song-queues?uid=${uid}&songId=${songId}`, {
+   return this.http.delete(`${environment.apiUrl}queue/delete-song-queues?uid=${uid}&songId=${songId}`, {
      headers
    })
   }

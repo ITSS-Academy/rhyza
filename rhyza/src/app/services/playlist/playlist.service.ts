@@ -26,7 +26,6 @@ export class PlaylistService {
     const formData = new FormData();
 
 
-    console.log(playlist)
     formData.append('uid', playlist.uid);
     formData.append('name', playlist.name);
     formData.append('file', playlist.image_url);
@@ -43,7 +42,6 @@ export class PlaylistService {
 
 
   getPlaylistDetail(id: string, idToken: string): Observable<PlaylistModel> {
-    console.log(idToken)
     const headers = { Authorization: idToken };
     return this.http.get<PlaylistModel>(
       `${environment.apiUrl}playlists/user/playlist?id=${id}`,
@@ -110,10 +108,7 @@ export class PlaylistService {
     uid: string,
     idToken: string
   ) {
-    console.log('playlistId',playlistId);
-    console.log('songId',songId);
-    console.log('uid',uid);
-    console.log('idToken',idToken);
+
     const headers = {
       Authorization: idToken,
     };

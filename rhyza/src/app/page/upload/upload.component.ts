@@ -66,7 +66,7 @@ categoryList$ !: Observable<CategoryModel[]>;
     this.auth$ = this.store.select('auth', 'authData');
     this.categoryList$ = this.store.select('category', 'categoryList');
     this.artist$ = this.store.select('artist', 'artistList');
-    this.isLoading$ = this.store.select('song','isLoading')
+    this.isLoading$ = this.store.select('song','isCreating')
   }
   @ViewChild('genreInput') genreInput!: ElementRef<HTMLInputElement>;
 
@@ -196,7 +196,6 @@ categoryList$ !: Observable<CategoryModel[]>;
     this.store.dispatch(SongActions.createSong({song: this.formData, idToken: this.authData?.idToken ?? ''}));
 
     this.uploadForm.reset()
-    console.log(this.formData);
   }
 
 

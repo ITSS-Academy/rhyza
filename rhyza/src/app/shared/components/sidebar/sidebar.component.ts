@@ -7,9 +7,7 @@ import * as AuthActions from '../../../ngrx/auth/auth.actions';
 import {Store} from '@ngrx/store';
 import {AuthState} from '../../../ngrx/auth/auth.state';
 import {AuthModel} from '../../../models/auth.model';
-import {MatDialog} from '@angular/material/dialog';
-import {LoginComponent} from '../login/login.component';
-
+import * as SongActions from '../../../ngrx/song/song.actions';
 @Component({
   selector: 'app-sidebar',
   standalone: true,
@@ -92,6 +90,7 @@ export class SidebarComponent implements OnInit{
       this.store.dispatch(AuthActions.clearState());
       this.store.dispatch(AuthActions.logout());
       this.authData = null;
+      this.store.dispatch(SongActions.clearSongQueue());
       this.router.navigate(['/music']);
 
     }

@@ -90,7 +90,6 @@ export class PlaylistDetailComponent implements OnInit, OnDestroy {
       this.listSongsIdPlaylist$.subscribe(songIdList => {
         if (songIdList.length > 0 && this.listSongIdPlaylist.length != songIdList.length) {
           this.listSongIdPlaylist = songIdList;
-          console.log('List song id:', songIdList);
 
         }
       }),
@@ -100,7 +99,6 @@ export class PlaylistDetailComponent implements OnInit, OnDestroy {
       this.songListPlaylist$.subscribe((songList) => {
         if (songList.length > 0) { // Kiểm tra nếu songList có dữ liệu
           this.songListPlaylist = songList;
-          console.log('Song List Playlist:', this.songListPlaylist); // Log để kiểm tra dữ liệu
         }
       }),
 
@@ -108,7 +106,6 @@ export class PlaylistDetailComponent implements OnInit, OnDestroy {
         if (playlistDetail.id) { // Kiểm tra nếu playlistDetail có dữ liệu
           this.playlistDetail = playlistDetail;
 
-          console.log('Playlist Detail:', this.playlistDetail); // Log để kiểm tra dữ liệu
         }
       })
     );

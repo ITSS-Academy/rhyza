@@ -89,7 +89,7 @@ export const getSongHistoryFailure = createAction('[Song] Get Song History Failu
 export const getSongQueue = createAction('[Song] Get Song Queue', props<{uid:string, idToken: string }>());
 export const getSongQueueSuccess = createAction('[Song] Get Song Queue Success', props<{songQueue: SongModel[]}>());
 export const getSongQueueFailure = createAction('[Song] Get Song Queue Failure', props<{error: any}>());
-
+export const clearSongQueue = createAction('[Song] Clear Song Queue');
 
 // get song category
 export const getSongCategory = createAction('[Song] Get Song Category', props<{categoryId: string}>());
@@ -139,3 +139,4 @@ export const removeSongFromPlaylistFailure = createAction(
   '[Playlist] Remove Song From Playlist Failure',
   props<{ error: any }>()
 );
+

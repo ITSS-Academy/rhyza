@@ -35,7 +35,6 @@ export class SearchComponent implements OnInit {
 
   this.subscription.push(
     this.searchSubject.pipe(debounceTime(3000)).subscribe((query) => {
-      console.log(query);
       this.store.dispatch(SearchActions.searchAll({ query }));
     }),
 
@@ -63,7 +62,6 @@ export class SearchComponent implements OnInit {
   setActiveLink(): void {
     if (this.router.url.includes('/search-all')) {
       this.activeLink = this.search[0].route;
-      console.log(this.activeLink);
     } else if (this.router.url.includes('/search-song')) {
       this.activeLink = this.search[1].route;
     } else if (this.router.url.includes('/search-artists')) {
@@ -90,7 +88,6 @@ export class SearchComponent implements OnInit {
     const inputElement = event.target as HTMLInputElement;
     const query = inputElement.value;
     this.searchSubject.next(query);
-    console.log('Search query:', query);
   }
 
   onEnter(event: Event) {
@@ -98,7 +95,6 @@ export class SearchComponent implements OnInit {
     const inputElement = event.target as HTMLInputElement;
     const query = inputElement.value;
     if (keyboardEvent.key === 'Enter') {
-      console.log('Enter');
       this.store.dispatch(SearchActions.searchAll({ query }));
     }
   }

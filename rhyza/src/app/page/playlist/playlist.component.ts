@@ -43,9 +43,9 @@ export class PlaylistComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-
     this.subscription.push(
       this.auth$.subscribe((authData) => {
+        console.log(authData)
         if (authData?.idToken && authData?.uid) {
           this.authData = authData;
           this.store.dispatch(PlaylistActions.getPlaylist({
@@ -56,7 +56,6 @@ export class PlaylistComponent implements OnInit, OnDestroy {
       }),
 
       this.playlistList$.subscribe((playlist: PlaylistModel[]) => {
-        console.log(playlist);
         if (playlist.length > 0) {
           this.playlistList = playlist;
         }

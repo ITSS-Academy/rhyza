@@ -52,7 +52,7 @@ export const artistReducer = createReducer(
   }),
 
   on(ArtistActions.getArtistByIdSuccess, (state, {artistDetail, type}) => {
-    console.log(artistDetail, type);
+    console.log( type);
     return <ArtistState>{
       ...state,
       artistDetail: artistDetail,

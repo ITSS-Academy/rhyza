@@ -68,7 +68,6 @@ export class ArtistDetailComponent implements OnInit, OnDestroy {
       this.activatedRoute.params.subscribe((params) => {
         const id = params['id'];
         if (id) {
-          console.log('Artist ID:', id);
 
           this.store.dispatch(ArtistActions.getArtistById({ id: id }));
           this.store.dispatch(
@@ -83,7 +82,6 @@ export class ArtistDetailComponent implements OnInit, OnDestroy {
       this.listSongsIdPlaylist$.subscribe(songIdList => {
         if (songIdList.length > 0 && this.listSongIdPlaylist.length != songIdList.length) {
           this.listSongIdPlaylist = songIdList;
-          console.log('List song id:', songIdList);
 
         }
       }),
@@ -91,14 +89,12 @@ export class ArtistDetailComponent implements OnInit, OnDestroy {
       this.songListArtist$.subscribe((songList) => {
         if (songList.length > 0) {
           this.songListArtist = songList;
-          console.log('Song list:', songList);
         }
       }),
 
       this.artistDetail$.subscribe((artistDetail) => {
         if (artistDetail) {
           this.artistDetail = artistDetail;
-          console.log('Artist Detail:', artistDetail);
         }
       }),
 

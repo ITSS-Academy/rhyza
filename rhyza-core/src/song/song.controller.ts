@@ -74,8 +74,6 @@ export class SongController {
       uuid: string;
     },
   ) {
-    // console.log("file",file);
-
     if (!files || files.length !== 2) {
       throw new HttpException(
         'Both music and image files are required!',
@@ -119,7 +117,6 @@ export class SongController {
         songId,
         imageFile,
       );
-      console.log('hlsUrl', imageUrl);
 
       const songData: Partial<Song> = {
         id: songId,
@@ -137,7 +134,6 @@ export class SongController {
       const newSong = await this.songsService.createSong(songData);
       this.songsService.cleanTempDirectory(hlsDir);
 
-      console.log('newSong', newSong);
       return <typeof songData>{
         id: songId,
         title: body.title,
@@ -155,18 +151,6 @@ export class SongController {
     }
   }
 
-  // @Get('playlist-song')
-  // async getPlaylistSong(@Request() req: any) {
-  //   try {
-  //     const { id } = req.query;
-  //     console.log('req', id);
-
-  //     return await this.songsService.getSongByPlaylistId(id);
-  //   } catch (e) {
-  //     throw new HttpException(e.message, HttpStatus.BAD_REQUEST);
-  //   }
-  // }
-
   @Put('update-views')
   async updateViews(@Request() req: any) {
     try {
@@ -181,7 +165,6 @@ export class SongController {
   async getCategorySong(@Request() req: any) {
     try {
       const { id } = req.query;
-      console.log('req', id);
 
       return await this.songsService.getSongByCategoryId(id);
     } catch (e) {
