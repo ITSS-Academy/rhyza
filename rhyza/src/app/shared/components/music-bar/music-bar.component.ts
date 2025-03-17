@@ -32,8 +32,6 @@ export class MusicBarComponent implements OnInit, OnDestroy {
   hasUpdatedViews = false;
   isLoop = false;
 
-
-
   songListQueue: SongModel[] = [];
   songQueue$!: Observable<SongModel[]>;
 
@@ -189,7 +187,7 @@ export class MusicBarComponent implements OnInit, OnDestroy {
 
     if (audio.volume > 0) {
       this.previousVolume = audio.volume; // Lưu lại volume trước khi tắt
-      audio.volume = 100;
+      audio.volume = 0;
       this.volume = 0;
 
       // Cập nhật giá trị của thanh volume bar về 0
